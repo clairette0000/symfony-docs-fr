@@ -1,10 +1,10 @@
-Symfony2 Documentation
+Documentation de Symfony2
 ======================
 
-Quick Tour
+Formation éclair
 ----------
 
-Get started fast with the Symfony2 :doc:`Quick Tour <quick_tour/index>`:
+Soyez rapidement opérationnel avec Symfony2 :doc:`Formation éclair <quick_tour/index>`:
 
 .. toctree::
     :hidden:
@@ -16,10 +16,10 @@ Get started fast with the Symfony2 :doc:`Quick Tour <quick_tour/index>`:
 * :doc:`quick_tour/the_controller` >
 * :doc:`quick_tour/the_architecture`
 
-Book
+Manuel
 ----
 
-Dive into Symfony2 with the topical guides:
+Plongez dans Symfony2 parmi les guides thématiques:
 
 .. toctree::
     :hidden:
@@ -28,7 +28,7 @@ Dive into Symfony2 with the topical guides:
 
 .. include:: book/map.rst.inc
 
-Cookbook
+Vadémécum
 --------
 
 .. toctree::
@@ -36,12 +36,12 @@ Cookbook
 
     cookbook/index
 
-Read the :doc:`Cookbook </cookbook/index>`.
+Explorez nos :doc:`fiches </cookbook/index>`.
 
-Reference Documents
+Documents de référence
 -------------------
 
-Get answers quickly with reference documents:
+Obtenez rapidement des réponses grâce à nos documents de référence:
 
 .. toctree::
     :hidden:
@@ -50,10 +50,10 @@ Get answers quickly with reference documents:
 
 .. include:: reference/map.rst.inc
 
-Contributing
+Contribution
 ------------
 
-Contribute to Symfony2:
+Contribuez à Symfony2:
 
 .. toctree::
     :hidden:
