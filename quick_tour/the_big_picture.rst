@@ -82,7 +82,7 @@ Que ce passe-t-il ici? Disséquons cette URL:
 
 .. index:: Front Controller
 
-* ``app_dev.php``: Il s'agit du "front controller". C'est le point d'entrée
+* ``app_dev.php``: Il s'agit du contrôleur frontal. C'est le point d'entrée
 unique de l'application et il répond à toutes les demandes des utilisateurs;
 
 * ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel
@@ -243,39 +243,42 @@ prépare des réponses (souvent en HTML).
         }
     }
 
-The code is pretty straightforward but let's explain it line by line:
+Le code est assez simple à comprendre mais nous allons quand même l'expliquer
+ligne par ligne:
 
-* *line 3*: Symfony2 takes advantage of new PHP 5.3 namespacing features,
-  and all controllers should be properly namespaced (though this is not
-  required). In this example, the controller lives in the bundle named ``HelloBundle``,
-  which forms the first part of the ``_controller`` routing value.
-
-* *line 7*: The controller name is the combination of the second part of the
-  ``_controller`` routing value  (``Hello``) and the word ``Controller``. It
-  extends the built-in ``Controller`` class, which provides useful shortcuts
-  (as we will see later in this tutorial).
-
-* *line 9*: Each controller is made of several actions. As per the routing
-  configuration, the hello page is handled by the ``index`` action (the third
-  part of the ``_controller`` routing value). This method receives the
-  placeholder values as arguments (``$name`` in our case).
-
-* *line 11*: The ``render()`` method loads and renders a template file
-  (``HelloBundle:Hello:index.html.twig``) with the variables passed as a
+* *ligne 3*: Symfony2 tire profit de la nouvelle fonctionnalité de PHP 5.3
+  (*namespace*) et tous les contrôleurs devraient être proprement "namespacées"
+  (si ce n'est pas obligatoire). Dans cet exemple, le contrôleur se situe dans
+  le Bundle intitulé HelloBundle, qui forme la première partie de la valeur du
+  routage ``_controller``.
+  
+* *ligne 7*: Le nom du contôleur est une combinaison de la seconde partie de la
+  valeur ``_controller`` du routage (``Hello``) et du mot ``Controller``. Elle
+  étend le classe intégrée ``Controller``, qui offre des racourcis utiles (comme
+  nous le verrons un peu plus tard dans ce tutorial).
+  
+* *ligne 9*: Chaque contrôleur est constitué de plusieurs actions. Selon la
+  configuration du routage, la page hello est gérée par l'action ``index`` (la
+  troisième partie de la valeur du routage ``_controller``). Cette méthode
+  reçoit les valeurs indiquées en tant qu'arguments (``$name`` dans notre cas).
+  
+* *ligne 11*: La méthode ``render()`` charge et génère un fichier template
+  (``HelloBundle:Hello:index.html.twig``) avec les variables passées comme
   second argument.
-
-But what is a :term:`bundle`? All the code you write in a Symfony2 project is
-organized in bundles. In Symfony2 speak, a bundle is a structured set of files
-(PHP files, stylesheets, JavaScripts, images, ...) that implements a single
-feature (a blog, a forum, ...) and which can be easily shared with other
-developers. In our example, we only have one bundle, ``HelloBundle``.
+  
+Mais qu'est-ce qu'un :term:`Bundle` ? Tout le code que vous écrivez dans un
+projet Symfony2 est organisée en Bundles. Dans le jargon Symfony2, un Bundle est
+un ensemble structuré de fichiers (scripts PHP, feuilles de style CSS,
+javascripts, images,...) qui implémente une fonction unique (un blog, un forum,
+...) et qui peuvent être facilement partagés avec d'autres les développeurs.
+Dans notre exemple, nous n'avons qu'un seul Bundle, ``HelloBundle``.
 
 Templates
 ~~~~~~~~~
 
-The controller renders the ``HelloBundle:Hello:index.html.twig`` template. By 
-default, the sandbox uses Twig as its template engine but you can also use
-traditional PHP templates if you choose.
+Le contrôleur diffuse le template ``HelloBundle:Hello:index.html.twig``. Par
+défaut, le sandbox utilise Twig comme moteur de template, mais vous pouvez
+également utiliser un template PHP traditionnel si vous voulez.
 
 .. code-block:: jinja
 
@@ -286,52 +289,55 @@ traditional PHP templates if you choose.
         Hello {{ name }}!
     {% endblock %}
 
-Congratulations! You've had your first taste of Symfony2 code and created
-your first page. That wasn't so hard, was it? There's a lot more to explore,
-but you should already see how Symfony2 makes it really easy to implement
-web sites better and faster.
+Félicitations! Vous avez eu votre première découverte du code de Symfony2 et
+créé votre première page. Ce n'était pas si éreintant, n'est-ce pas? Il y a
+beaucoup plus à explorer, mais vous devriez déjà voir comment Symfony2 permet
+vraiment facilement la mise en œuvre des sites meilleurs et plus rapidement.
 
 .. index::
    single: Environment
    single: Configuration; Environment
 
-Working with Environments
--------------------------
+Différenciation des environnements
+----------------------------------
 
-Now that you have a better understanding of how Symfony2 works, have a closer
-look at the bottom of the page; you will notice a small bar with the Symfony2
-and PHP logos. This is called the "Web Debug Toolbar" and it is the developer's
-best friend. Of course, such a tool must not be displayed when you deploy your
-application to production. That's why you will find another front controller in
-the ``web/`` directory (``app.php``), optimized for the production environment:
+Maintenant que vous avez une meilleure compréhension de la façon dont Symfony2
+fonctionne, intéressons nous de plus près au bas de la page, vous remarquerez
+une petite barre avec les logos de Symfony2 et PHP. C'est ce qu'on appelle la
+"barre de débug Symfony" et c'est le meilleur ami du développeur. Bien entendu,
+un tel outil ne doit pas être affiché lorsque vous déployez votre application en
+production. C'est pourquoi vous trouverez un autre contrôleur frontal dans le
+répertoire ``web/`` (``app.php``), optimisé pour l'environnement de production:
 
     http://localhost/sandbox/web/app.php/hello/Fabien
 
-And if you use Apache with ``mod_rewrite`` enabled, you can even omit the
-``app.php`` part of the URL:
+Et si vous utilisez Apache avec ``mod_rewrite`` activé, vous pouvez même le
+``app.php`` de votre URL:
 
     http://localhost/sandbox/web/hello/Fabien
 
-Last but not least, on the production servers, you should point your web root
-directory to the ``web/`` directory to secure your installation and have an even
-better looking URL:
+Dernière chose et pas des moindres, sur les serveurs de production, vous devez
+pointer votre répertoire racine web sur le répertoire ``web/`` pour garantir
+votre installation et avoir une meilleure apparence d'URL:
 
     http://localhost/hello/Fabien
 
-To make the production environment as fast as possible, Symfony2 maintains a
-cache under the ``app/cache/`` directory. When you make changes to the code or
-configuration, you need to manually remove the cached files. When developing
-your application, you should use the development front controller (``app_dev.php``),
-which does not use the cache. When using the development front controller,
-your changes will appear immediately.
+Pour rendre l'environnement de production aussi véloce que possible, Symfony2
+maintient un cache dans le répertoire ``app/cache/``. Lorsque vous apportez des
+modifications au code ou à la configuration, vous devrez supprimer manuellement
+les fichiers mis en cache. Lorsque vous développez votre application, vous devez
+utiliser le contrôleur frontal de développement (``app_dev.php``), qui n'utilise
+pas le cache. Lorsque vous utilisez le contrôleur frontal de développement, vos
+modifications apparaissent immédiatement.
 
-Final Thoughts
---------------
+Réflexions finales
+------------------
 
-Thanks for trying out Symfony2! By now, you should be able to create your own 
-simple routes, controllers and templates. As an exercise, try to build 
-something more useful than the Hello application! If you are eager to 
-learn more about Symfony2, dive into the next section: "The View".
+Merci d'essayer Symfony2! A l'heure actuelle, vous devriez être en mesure de
+vous exercer sur vos propres routages, contrôleurs et templates. Comme exercice,
+essayez de construire quelque chose de plus utile que l'application Hello! Si
+vous êtes désireux d'en apprendre plus sur Symfony2, plongez dans la section
+suivante: "La Vue".
 
 .. _sandbox: http://symfony-reloaded.org/code#sandbox
 .. _YAML:    http://www.yaml.org/

@@ -21,10 +21,10 @@ Glossaire
         unique (un blog, un forum,...) et qui peuvent être aisément partagés
         avec d'autres développeurs.
         
-   Front Controller
-        Un *Front Controller* est un fichier PHP laconique qui se situe dans le
+   Contrôleur Frontal
+        Un Contrôleur Frontal est un fichier PHP laconique qui se situe dans le
         répertoire web de votre projet. En règle générale, *toutes* les requêtes
-        sont traitées par l'exécution du même Front Controller, dont la mission
+        sont traitées par l'exécution du même Contrôleur Frontal, dont la mission
         est d'amorcer votre application Symfony.
 
    Service
