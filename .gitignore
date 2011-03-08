@@ -1,6 +1,5 @@
 # Ignoring all temporary backup files
 *~
 
-# Sphinx
-_build/doctrees/*
-_build/html/*
+# Buils Sphinx
+_build/
