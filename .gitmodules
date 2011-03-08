@@ -1,0 +1,3 @@
+[submodule "symfony-docs"]
+  path = symfony-docs
+  url = git://github.com/symfony/symfony-docs.git
