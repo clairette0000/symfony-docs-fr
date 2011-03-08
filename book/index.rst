@@ -1,4 +1,4 @@
-Book
+Manuel
 ====
 
 .. toctree::

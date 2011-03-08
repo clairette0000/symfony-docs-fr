@@ -1,4 +1,4 @@
-Quick Tour
+Formation éclair
 ==========
 
 .. toctree::
