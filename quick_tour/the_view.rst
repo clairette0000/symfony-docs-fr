@@ -92,7 +92,7 @@ Les templates d'un projet partagent des éléments communs plus souvent qu'on le
 croit, comme le traditionnel binôme header/footer. Dans Symfony2, nous aimons
 considérer ce problème différemment: un template peut être enrobé par un autre.
 De la même manière que des classes PHP: l'héritage de template vous permet de
-construire un "layout" de base qui contient tous les éléments commune de votre
+construire un "layout" de base qui contient tous les éléments communs de votre
 site et définit les "blocs" que les templates enfants peuvent surcharger.
 
 Le template ``index.html.twig`` hérite de ``layout.html.twig``, grâce au tag ``extends``:
@@ -121,8 +121,8 @@ Maintenant, jetons un coup d'œil au fichier ``layout.html.twig``:
     {% endblock %}
 
 Le tag ``{% block %}`` definit deux blocs (``body`` et ``content``) que le
-template enfant peut remplir. Tous les tags block ne font que dire qu'annoncer
-qu'un template enfant peut l'emporter sur ces portions de template. Le template
+template enfant peut remplir. Tous les tags block ne font qu'annoncer qu'un
+template enfant peut l'emporter sur ces portions de template. Le template
 ``index.html.twig`` surcharge le bloc ``content``. L'autre est définit dans le
 layout de base comme le layout étant lui-même enrobé par un autre. Quand la
 partie Bundle du template est vide (``::base.html.twig``), les vues sont à
@@ -218,12 +218,12 @@ la configuration:
 
 .. code-block:: jinja
 
-    <a href="{{ path('hello', { 'name': 'Thomas' }) }}">Salutations Thomas!</a>
+    <a href="{{ path('hello', { 'name': 'Thomas' }) }}">Saluons Thomas!</a>
 
 La fonction ``path`` prend le nom de la route et un tableau de paramètres comme
 arguments. Le nom de la route est la clé principale en vertu de laquelle les
 routes sont référencées et les paramètres sont les valeurs définies dans le
-gabarit de routage:
+pattern de routage:
 
 .. code-block:: yaml
 
@@ -265,7 +265,7 @@ Réflexions finales
 ------------------
 
 Twig est simple mais puissant. Grâce à la mise en page, aux blocs, aux modèles
-et les inclusions d'action, il est très facile d'organiser vos modèles de
+et aux inclusions d'action, il est très facile d'organiser vos modèles de
 manière logique et extensible.
 
 Vous avez seulement travaillé avec Symfony2 pendant environ 20 minutes, et vous
