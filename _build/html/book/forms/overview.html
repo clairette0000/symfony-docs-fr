@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Working with Forms &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Forms" href="index.html" />
+    <link rel="next" title="Form Fields" href="fields.html" />
+    <link rel="prev" title="Symfony2 Forms" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fields.html" title="Form Fields"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Symfony2 Forms"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Forms</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="working-with-forms">
+<span id="index-0"></span><h1>Working with Forms<a class="headerlink" href="#working-with-forms" title="Permalink to this headline">¶</a></h1>
+<p>Symfony2 comes with a built-in form component. It deals with displaying,
+rendering and submitting HTML forms.</p>
+<p>While it is possible to process form submissions with Symfony2&#8217;s
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Request</span></tt> class alone, the form
+component takes care of a number of common form-related tasks, such as:</p>
+<ol class="arabic simple">
+<li>Displaying an HTML form with automatically generated form fields</li>
+<li>Converting the submitted data to PHP data types</li>
+<li>Reading from and writing data into POPOs (plain old PHP objects)</li>
+<li>Validating submitted form data with Symfony2&#8217;s <tt class="docutils literal"><span class="pre">Validator</span></tt></li>
+<li>Protecting form submissions against CSRF attacks</li>
+</ol>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The component deals with these concepts:</p>
+<dl class="docutils">
+<dt><em>Field</em></dt>
+<dd>A class that converts submitted data to normalized values.</dd>
+<dt><em>Form</em></dt>
+<dd>A collection of fields that knows how to validate itself.</dd>
+<dt><em>Template</em></dt>
+<dd>A file that renders a form or a field in HTML.</dd>
+<dt><em>Domain objects</em></dt>
+<dd>An object a form uses to populate default values and where submitted
+data is written.</dd>
+</dl>
+<p>The form component only relies on the HttpFoundation and Validator
+components to work. If you want to use the internationalization features,
+PHP&#8217;s intl extension is required as well.</p>
+</div>
+<div class="section" id="form-objects">
+<h2>Form Objects<a class="headerlink" href="#form-objects" title="Permalink to this headline">¶</a></h2>
+<p>A Form object encapsulates a collection of fields that convert submitted
+data to the format used in your application. Form classes are created as
+subclasses of <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\Form</span></tt>. You should implement the
+method <tt class="docutils literal"><span class="pre">configure()</span></tt> to initialize the form with a set of fields.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactForm.php</span>
+<span class="x">namespace Sensio\HelloBundle\Contact;</span>
+
+<span class="x">use Symfony\Component\Form\Form;</span>
+<span class="x">use Symfony\Component\Form\TextField;</span>
+<span class="x">use Symfony\Component\Form\TextareaField;</span>
+<span class="x">use Symfony\Component\Form\CheckboxField;</span>
+
+<span class="x">class ContactForm extends Form</span>
+<span class="x">{</span>
+<span class="x">    protected function configure()</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;add(new TextField(&#39;subject&#39;, array(</span>
+<span class="x">            &#39;max_length&#39; =&gt; 100,</span>
+<span class="x">        )));</span>
+<span class="x">        $this-&gt;add(new TextareaField(&#39;message&#39;));</span>
+<span class="x">        $this-&gt;add(new TextField(&#39;sender&#39;));</span>
+<span class="x">        $this-&gt;add(new CheckboxField(&#39;ccmyself&#39;, array(</span>
+<span class="x">            &#39;required&#39; =&gt; false,</span>
+<span class="x">        )));</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>A form consists of <tt class="docutils literal"><span class="pre">Field</span></tt> objects. In this case, our form has the fields
+<tt class="docutils literal"><span class="pre">subject</span></tt>, <tt class="docutils literal"><span class="pre">message</span></tt>, <tt class="docutils literal"><span class="pre">sender</span></tt> and <tt class="docutils literal"><span class="pre">ccmyself</span></tt>. <tt class="docutils literal"><span class="pre">TextField</span></tt>,
+<tt class="docutils literal"><span class="pre">TextareaField</span></tt> and <tt class="docutils literal"><span class="pre">CheckboxField</span></tt> are only three of the
+available form fields; a full list can be found in <a class="reference internal" href="fields.html"><em>Form fields</em></a>.</p>
+</div>
+<div class="section" id="using-a-form-in-a-controller">
+<h2>Using a Form in a Controller<a class="headerlink" href="#using-a-form-in-a-controller" title="Permalink to this headline">¶</a></h2>
+<p>The standard pattern for using a form in a controller looks like this:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Controller/HelloController.php</span>
+<span class="x">public function contactAction()</span>
+<span class="x">{</span>
+<span class="x">    $contactRequest = new ContactRequest($this-&gt;get(&#39;mailer&#39;));</span>
+<span class="x">    $form = ContactForm::create($this-&gt;get(&#39;form.context&#39;), &#39;contact&#39;);</span>
+
+<span class="x">    // If a POST request, write the submitted data into $contactRequest</span>
+<span class="x">    // and validate the object</span>
+<span class="x">    $form-&gt;bind($this-&gt;get(&#39;request&#39;), $contactRequest);</span>
+
+<span class="x">    // If the form has been submitted and is valid...</span>
+<span class="x">    if ($form-&gt;isValid()) {</span>
+<span class="x">        $contactRequest-&gt;send();</span>
+<span class="x">    }</span>
+
+<span class="x">    // Display the form with the values in $contactRequest</span>
+<span class="x">    return $this-&gt;render(&#39;HelloBundle:Hello:contact.html.twig&#39;, array(</span>
+<span class="x">        &#39;form&#39; =&gt; $form</span>
+<span class="x">    ));</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>There are two code paths there:</p>
+<ol class="arabic simple">
+<li>If the form has not been submitted or is invalid, it is simply passed to
+the template.</li>
+<li>If the form has been submitted and is valid, the contact request is sent.</li>
+</ol>
+<p>We created the form with the static <tt class="docutils literal"><span class="pre">create()</span></tt> method. This method expects
+a form context that contains all default services (for example a <tt class="docutils literal"><span class="pre">Validator</span></tt>)
+and settings that a form needs to work.</p>
+</div>
+<div class="section" id="forms-and-domain-objects">
+<h2>Forms and Domain Objects<a class="headerlink" href="#forms-and-domain-objects" title="Permalink to this headline">¶</a></h2>
+<p>In the last example a <tt class="docutils literal"><span class="pre">ContactRequest</span></tt> was bound to the form. The property
+values of this object are used to populate the form fields. After binding,
+the submitted values are written into the object again. The <tt class="docutils literal"><span class="pre">ContactRequest</span></tt>
+class could look like this:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactRequest.php</span>
+<span class="x">namespace Sensio\HelloBundle\Contact;</span>
+
+<span class="x">class ContactRequest</span>
+<span class="x">{</span>
+<span class="x">    protected $subject = &#39;Subject...&#39;;</span>
+
+<span class="x">    protected $message;</span>
+
+<span class="x">    protected $sender;</span>
+
+<span class="x">    protected $ccmyself = false;</span>
+
+<span class="x">    protected $mailer;</span>
+
+<span class="x">    public function __construct(\Swift_Mailer $mailer)</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;mailer = $mailer;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function setSubject($subject)</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;subject = $subject;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function getSubject()</span>
+<span class="x">    {</span>
+<span class="x">        return $this-&gt;subject;</span>
+<span class="x">    }</span>
+
+<span class="x">    // Setters and getters for the other properties</span>
+<span class="x">    // ...</span>
+
+<span class="x">    public function send()</span>
+<span class="x">    {</span>
+<span class="x">        // Send the contact mail</span>
+<span class="x">        $message = \Swift_Message::newInstance()</span>
+<span class="x">            -&gt;setSubject($this-&gt;subject)</span>
+<span class="x">            -&gt;setFrom($this-&gt;sender)</span>
+<span class="x">            -&gt;setTo(&#39;me@example.com&#39;)</span>
+<span class="x">            -&gt;setBody($this-&gt;message);</span>
+
+<span class="x">        $this-&gt;mailer-&gt;send($message);</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See <a class="reference internal" href="../../cookbook/email.html"><em>Emails</em></a> for more information on sending mails.</p>
+</div>
+<p>For each field in your form, the class of the domain object needs to have</p>
+<ol class="arabic simple">
+<li>A public property with the field&#8217;s name, or</li>
+<li>A public setter and getter with the prefix &#8220;set&#8221;/&#8221;get&#8221;, followed by the
+field&#8217;s name with a first capital letter.</li>
+</ol>
+</div>
+<div class="section" id="validating-submitted-data">
+<h2>Validating Submitted Data<a class="headerlink" href="#validating-submitted-data" title="Permalink to this headline">¶</a></h2>
+<p>The form uses the <tt class="docutils literal"><span class="pre">Validator</span></tt> component to validate submitted form values.
+All constraints on the domain object, on the form and on its fields will be
+validated when <tt class="docutils literal"><span class="pre">bind()</span></tt> is called. We will add a few constraints to
+<tt class="docutils literal"><span class="pre">ContactRequest</span></tt> to make sure that nobody can submit the form with invalid
+data.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactRequest.php</span>
+<span class="x">namespace Sensio\HelloBundle\Contact;</span>
+
+<span class="x">class ContactRequest</span>
+<span class="x">{</span>
+<span class="x">    /**</span>
+<span class="x">     * @validation:MaxLength(100)</span>
+<span class="x">     * @validation:NotBlank</span>
+<span class="x">     */</span>
+<span class="x">    protected $subject = &#39;Subject...&#39;;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @validation:NotBlank</span>
+<span class="x">     */</span>
+<span class="x">    protected $message;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @validation:Email</span>
+<span class="x">     * @validation:NotBlank</span>
+<span class="x">     */</span>
+<span class="x">    protected $sender;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @validation:AssertType(&quot;boolean&quot;)</span>
+<span class="x">     */</span>
+<span class="x">    protected $ccmyself = false;</span>
+
+<span class="x">    // Other code...</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>If any constraint fails, the error is displayed next to the corresponding
+form field. You can learn more about constraints in <a class="reference internal" href="../validator/constraints.html"><em>Validation
+Constraints</em></a>.</p>
+</div>
+<div class="section" id="creating-form-fields-automatically">
+<h2>Creating Form Fields Automatically<a class="headerlink" href="#creating-form-fields-automatically" title="Permalink to this headline">¶</a></h2>
+<p>If you use Doctrine2 or Symfony&#8217;s <tt class="docutils literal"><span class="pre">Validator</span></tt>, Symfony already knows quite
+a lot about your domain classes. It knows which data type is used to persist
+a property in the database, what validation constraints the property has etc.
+The Form component can use this information to &#8220;guess&#8221; which field type should
+be created with which settings.</p>
+<p>To use this feature, a form needs to know the class of the related domain
+object. You can set this class within the <tt class="docutils literal"><span class="pre">configure()</span></tt> method of the form
+by using <tt class="docutils literal"><span class="pre">setDataClass()</span></tt> and passing the fully qualified class name as
+a string. Calling <tt class="docutils literal"><span class="pre">add()</span></tt> with only the name of the property will then
+automatically create the best-matching field.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactForm.php</span>
+<span class="x">class ContactForm extends Form</span>
+<span class="x">{</span>
+<span class="x">    protected function configure()</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;setDataClass(&#39;Sensio\\HelloBundle\\Contact\\ContactRequest&#39;);</span>
+<span class="x">        $this-&gt;add(&#39;subject&#39;);  // TextField with max_length=100 because</span>
+<span class="x">                                // of the @MaxLength constraint</span>
+<span class="x">        $this-&gt;add(&#39;message&#39;);  // TextField</span>
+<span class="x">        $this-&gt;add(&#39;sender&#39;);   // EmailField because of the @Email constraint</span>
+<span class="x">        $this-&gt;add(&#39;ccmyself&#39;); // CheckboxField because of @AssertType(&quot;boolean&quot;)</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>These field guesses are obviously not always right. For the property <tt class="docutils literal"><span class="pre">message</span></tt>
+Symfony created a <tt class="docutils literal"><span class="pre">TextField</span></tt>, it couldn&#8217;t know from the validation constraints
+that you wanted a <tt class="docutils literal"><span class="pre">TextareaField</span></tt> instead. So you have to create this field
+manually. You can also tweak the options of the generated fields by passing
+them in the second parameter. We will add a <tt class="docutils literal"><span class="pre">max_length</span></tt> option to the
+<tt class="docutils literal"><span class="pre">sender</span></tt> field to limit its length.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactForm.php</span>
+<span class="x">class ContactForm extends Form</span>
+<span class="x">{</span>
+<span class="x">    protected function configure()</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;setDataClass(&#39;Sensio\\HelloBundle\\Contact\\ContactRequest&#39;);</span>
+<span class="x">        $this-&gt;add(&#39;subject&#39;);</span>
+<span class="x">        $this-&gt;add(new TextareaField(&#39;message&#39;));</span>
+<span class="x">        $this-&gt;add(&#39;sender&#39;, array(&#39;max_length&#39; =&gt; 50));</span>
+<span class="x">        $this-&gt;add(&#39;ccmyself&#39;);</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Generating form fields automatically helps you to increase your development
+speed and reduces code duplication. You can store information about class
+properties once and let Symfony2 do the other work for you.</p>
+</div>
+<div class="section" id="rendering-forms-as-html">
+<h2>Rendering Forms as HTML<a class="headerlink" href="#rendering-forms-as-html" title="Permalink to this headline">¶</a></h2>
+<p>In the controller we passed the form to the template in the <tt class="docutils literal"><span class="pre">form</span></tt> variable.
+In the template we can use the <tt class="docutils literal"><span class="pre">form_field</span></tt> helper to output a raw prototype
+of the form.</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre># src/Sensio/HelloBundle/Resources/views/Hello/contact.html.twig
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;HelloBundle::layout.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Send!&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customizing-the-html-output">
+<h2>Customizing the HTML Output<a class="headerlink" href="#customizing-the-html-output" title="Permalink to this headline">¶</a></h2>
+<p>In most applications you will want to customize the HTML of the form. You
+can do so by using the other built-in form rendering helpers.</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre># src/Sensio/HelloBundle/Resources/views/Hello/contact.html.twig
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;HelloBundle::layout.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="cp">{{</span> <span class="nv">form_enctype</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span><span class="nt">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+        <span class="cp">{%</span> <span class="k">if</span> <span class="k">not</span> <span class="nv">field.ishidden</span> <span class="cp">%}</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+            <span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+            <span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+
+    <span class="cp">{{</span> <span class="nv">form_hidden</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Symfony2 comes with the following helpers:</p>
+<dl class="docutils">
+<dt><em>``form_enctype``</em></dt>
+<dd>Outputs the <tt class="docutils literal"><span class="pre">enctype</span></tt> attribute of the form tag. Required for file uploads.</dd>
+<dt><em>``form_errors``</em></dt>
+<dd>Outputs the a <tt class="docutils literal"><span class="pre">&lt;ul&gt;</span></tt> tag with errors of a field or a form.</dd>
+<dt><em>``form_label``</em></dt>
+<dd>Outputs the <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt> tag of a field.</dd>
+<dt><em>``form_field``</em></dt>
+<dd>Outputs HTML of a field or a form.</dd>
+<dt><em>``form_hidden``</em></dt>
+<dd>Outputs all hidden fields of a form.</dd>
+</dl>
+<p>Form rendering is covered in detail in <a class="reference internal" href="view.html"><em>Forms in Templates</em></a>.</p>
+<p>Congratulations! You just created your first fully-functional form with
+Symfony2.</p>
+</div>
+<div class="section" id="learn-more-from-the-cookbook">
+<h2>Learn more from the Cookbook<a class="headerlink" href="#learn-more-from-the-cookbook" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../cookbook/email.html"><em>How to send an Email</em></a></li>
+<li><a class="reference internal" href="../../cookbook/gmail.html"><em>How to use Gmail to send Emails</em></a></li>
+<li><a class="reference internal" href="../../cookbook/templating/PHP.html"><em>How to use PHP instead of Twig for Templates</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Working with Forms</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#form-objects">Form Objects</a></li>
+<li><a class="reference internal" href="#using-a-form-in-a-controller">Using a Form in a Controller</a></li>
+<li><a class="reference internal" href="#forms-and-domain-objects">Forms and Domain Objects</a></li>
+<li><a class="reference internal" href="#validating-submitted-data">Validating Submitted Data</a></li>
+<li><a class="reference internal" href="#creating-form-fields-automatically">Creating Form Fields Automatically</a></li>
+<li><a class="reference internal" href="#rendering-forms-as-html">Rendering Forms as HTML</a></li>
+<li><a class="reference internal" href="#customizing-the-html-output">Customizing the HTML Output</a></li>
+<li><a class="reference internal" href="#learn-more-from-the-cookbook">Learn more from the Cookbook</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Symfony2 Forms</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fields.html"
+                        title="next chapter">Form Fields</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/forms/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fields.html" title="Form Fields"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Symfony2 Forms"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Forms</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

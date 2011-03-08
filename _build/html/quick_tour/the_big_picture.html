@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Big Picture &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../index.html" />
+    <link rel="up" title="Visite éclair" href="index.html" />
+    <link rel="next" title="La Vue" href="the_view.html" />
+    <link rel="prev" title="Visite éclair" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="the_view.html" title="La Vue"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Visite éclair"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Visite éclair</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-big-picture">
+<h1>The Big Picture<a class="headerlink" href="#the-big-picture" title="Permalink to this headline">¶</a></h1>
+<p>Commencez à utiliser Symfony2 en 10 minutes! Ce tutoriel vous guide à travers
+quelques-uns des concepts les plus importants derrière Symfony2. Il explique
+comment démarrer rapidement en vous montrant la structure d&#8217;un exemple de
+projet.</p>
+<p>Si vous avez utilisé un framework web avant, vous devriez vous sentir à l&#8217;aise
+avec Symfony2. Sinon, bienvenue dans une toute nouvelle façon de développer des
+applications web!</p>
+<div class="section" id="telechargement-et-installation-de-symfony2">
+<span id="index-0"></span><h2>Téléchargement et Installation de Symfony2<a class="headerlink" href="#telechargement-et-installation-de-symfony2" title="Permalink to this headline">¶</a></h2>
+<p>Tout d&#8217;abord, vérifiez que vous avez installé et configuré un serveur web (comme
+Apache) avec PHP 5.3.2 ou supérieur.</p>
+<p>Vous êtes prêt? Commençons par télécharger Symfony2. Pour commencer encore plus
+vite, nous allons utiliser la fonction &#8220;sandbox Symfony2&#8221;. Il s&#8217;agit d&#8217;un projet
+Symfony2 préconfiguré qui comprend certains contrôleurs simples et de leurs
+bibliothèques requises. Le grand avantage du sandbox sur les autres méthodes
+d&#8217;installation est que vous pouvez commencer à expérimenter avec Symfony2
+immédiatement.</p>
+<p>Télécharger le <a class="reference external" href="http://symfony-reloaded.org/code#sandbox">sandbox</a> et décompressez-le dans votre répertoire racine web.
+Vous devriez maintenant avoir une arborescence <tt class="docutils literal"><span class="pre">sandbox/</span></tt> comme ci-après:</p>
+<div class="highlight-python"><pre>www/ &lt;- votre répertoire web racine
+    sandbox/ &lt;- l'archive décompressée
+        app/
+            cache/
+            config/
+            logs/
+        src/
+            Sensio/
+                HelloBundle/
+                    Controller/
+                    Resources/
+        vendor/
+            symfony/
+            doctrine/
+            ...
+        web/</pre>
+</div>
+</div>
+<div class="section" id="verification-de-la-configuration">
+<span id="index-1"></span><h2>Vérification de la Configuration<a class="headerlink" href="#verification-de-la-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Symfony2 est livré avec un testeur intuitif de configuration du serveur pour
+vous éviter des maux de tête dûs au serveur web ou à une mauvaise configuration
+de PHP. Utilisez l&#8217;URL suivante pour consulter le diagnostic de votre serveur:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/sandbox/web/check.php">http://localhost/sandbox/web/check.php</a></div></blockquote>
+<p>Lisez attentivement le résultat du script et corrigez tous les éventuels
+problèmes d&#8217;exception.</p>
+<p>Maintenant, vous pouvez afficher votre première &#8220;vraie&#8221; page web Symfony2:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/sandbox/web/app_dev.php/">http://localhost/sandbox/web/app_dev.php/</a></div></blockquote>
+<p>Symfony2 devrait vous féliciter pour le travail accompli jusqu&#8217;à présent!</p>
+</div>
+<div class="section" id="creation-de-votre-premiere-application">
+<h2>Création de votre première Application<a class="headerlink" href="#creation-de-votre-premiere-application" title="Permalink to this headline">¶</a></h2>
+<p>Le sandbox est livré avec une petite &#8220;<a class="reference internal" href="../glossary.html#term-application"><em class="xref std std-term">application</em></a>&#8221; Hello Word que nous
+allons utiliser pour en savoir plus sur Symfony2. Saisissez l&#8217;URL ci-dessous
+pour être accueilli par Symfony2 (remplacez Fabien par votre prénom):</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/sandbox/web/app_dev.php/hello/Fabien">http://localhost/sandbox/web/app_dev.php/hello/Fabien</a></div></blockquote>
+<p>Que se passe-t-il ici? Disséquons cette URL:</p>
+<ul class="simple" id="index-2">
+<li><tt class="docutils literal"><span class="pre">app_dev.php</span></tt>: Il s&#8217;agit du contrôleur frontal. C&#8217;est le point d&#8217;entrée</li>
+</ul>
+<p>unique de l&#8217;application et il répond à toutes les demandes des utilisateurs;</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">/hello/Fabien</span></tt>: C&#8217;est le chemin d&#8217;accès virtuel à la ressource auquel</li>
+</ul>
+<p>l&#8217;utilisateur souhaite accéder.</p>
+<p>Votre responsabilité en tant que développeur est d&#8217;écrire le code qui envoie la
+demande de l&#8217;utilisateur (<tt class="docutils literal"><span class="pre">/hello/Fabien</span></tt>) à la ressource qui lui est associée
+(<tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">Fabien!</span></tt>).</p>
+<div class="section" id="configuration">
+<span id="index-3"></span><h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>Les fichiers de configuration de Symfony2 peuvent être aussi bien écrits en PHP,
+XML ou <a class="reference external" href="http://www.yaml.org/">YAML</a>. Ces différents types sont compatibles et peuvent être utilisés
+de manière interchangeable dans une application.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Le sandbox est par défaut en YAML mais vous pouvez aisément choisir XML ou
+PHP en ouvrant le fichier <tt class="docutils literal"><span class="pre">app/AppKernel.php</span></tt> et en modifiant la méthode
+<tt class="docutils literal"><span class="pre">registerContainerConfiguration</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="routage">
+<span id="index-4"></span><h3>Routage<a class="headerlink" href="#routage" title="Permalink to this headline">¶</a></h3>
+<p>Symfony2 achemine la requête de votre code en utilisant un fichier de
+configuration. Voici quelques exemples du fichier de configuration du routage
+pour notre application:</p>
+<p>Les toutes premières lignes du fichier de configuration du routage définit le
+code qui sera exécuté quand l&#8217;utilisateur demandera la ressource &#8220;<tt class="docutils literal"><span class="pre">/</span></tt>&#8221; (par
+exemple, la page d&#8217;accueil).</p>
+<p>Si vous êtes à l&#8217;aise avec le routage, jetez un oeil à la dernière directive du
+fichier de configuration. Symfony2 peut inclure des informations de routage
+d&#8217;autres fichiers de configuration de routage en utilisant la directive
+d&#8217;importation. Dans ce cas, nous voulons importer la configuration de routage de
+HelloBundle. Un Bundle est comme un plugin qui aurait des pouvoirs décuplés mais
+nous en reparlerons plus tard. Pour l&#8217;instant, regardons la configuration de
+routage que nous avons importé:</p>
+<p>Comme vous pouvez le voir, le gabarit de ressources &#8220;<tt class="docutils literal"><span class="pre">/hello/{name}</span></tt>&#8221; (une
+chaîne de caractères entre accolades comme <tt class="docutils literal"><span class="pre">{name}</span></tt> est un espace réservé) est
+associé à un contrôleur, référencé par la valeur <tt class="docutils literal"><span class="pre">_controller</span></tt>.</p>
+</div>
+<div class="section" id="controleurs">
+<span id="index-5"></span><h3>Contrôleurs<a class="headerlink" href="#controleurs" title="Permalink to this headline">¶</a></h3>
+<p>Le contrôleur définit les actions pour traiter les demandes des utilisateurs et
+prépare des réponses (souvent en HTML).</p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="x"> // src/Sensio/HelloBundle/Controller/HelloController.php</span>
+
+<span class="x"> namespace Sensio\HelloBundle\Controller;</span>
+
+<span class="x"> use Symfony\Bundle\FrameworkBundle\Controller\Controller;</span>
+
+<span class="x"> class HelloController extends Controller</span>
+<span class="x"> {</span>
+<span class="x">     public function indexAction($name)</span>
+<span class="x">     {</span>
+<span class="x">         return $this-&gt;render(&#39;HelloBundle:Hello:index.html.twig&#39;, array(&#39;name&#39; =&gt; $name));</span>
+
+<span class="x">         // render a PHP template instead</span>
+<span class="x">         // return $this-&gt;render(&#39;HelloBundle:Hello:index.html.php&#39;, array(&#39;name&#39; =&gt; $name));</span>
+<span class="x">     }</span>
+<span class="x"> }</span>
+</pre></div>
+</td></tr></table></div>
+<p>Le code est assez simple à comprendre mais nous allons quand même l&#8217;expliquer
+ligne par ligne:</p>
+<ul class="simple">
+<li><em>ligne 3</em>: Symfony2 tire profit de la nouvelle fonctionnalité de PHP 5.3
+(<em>namespace</em>) et tous les contrôleurs devraient être proprement &#8220;namespacées&#8221;
+(si ce n&#8217;est pas obligatoire). Dans cet exemple, le contrôleur se situe dans
+le Bundle intitulé HelloBundle, qui forme la première partie de la valeur du
+routage <tt class="docutils literal"><span class="pre">_controller</span></tt>.</li>
+<li><em>ligne 7</em>: Le nom du contôleur est une combinaison de la seconde partie de la
+valeur <tt class="docutils literal"><span class="pre">_controller</span></tt> du routage (<tt class="docutils literal"><span class="pre">Hello</span></tt>) et du mot <tt class="docutils literal"><span class="pre">Controller</span></tt>. Elle
+étend le classe intégrée <tt class="docutils literal"><span class="pre">Controller</span></tt>, qui offre des racourcis utiles (comme
+nous le verrons un peu plus tard dans ce tutoriel).</li>
+<li><em>ligne 9</em>: Chaque contrôleur est constitué de plusieurs actions. Selon la
+configuration du routage, la page hello est gérée par l&#8217;action <tt class="docutils literal"><span class="pre">index</span></tt> (la
+troisième partie de la valeur du routage <tt class="docutils literal"><span class="pre">_controller</span></tt>). Cette méthode
+reçoit les valeurs indiquées en tant qu&#8217;arguments (<tt class="docutils literal"><span class="pre">$name</span></tt> dans notre cas).</li>
+<li><em>ligne 11</em>: La méthode <tt class="docutils literal"><span class="pre">render()</span></tt> charge et transforme un fichier template
+(<tt class="docutils literal"><span class="pre">HelloBundle:Hello:index.html.twig</span></tt>) avec les variables passées comme
+second argument.</li>
+</ul>
+<p>Mais qu&#8217;est-ce qu&#8217;un <a class="reference internal" href="../glossary.html#term-bundle"><em class="xref std std-term">Bundle</em></a> ? Tout le code que vous écrivez dans un
+projet Symfony2 est organisée en Bundles. Dans le jargon Symfony2, un Bundle est
+un ensemble structuré de fichiers (scripts PHP, feuilles de style CSS,
+javascripts, images,...) qui implémente une fonction unique (un blog,
+un forum,...) et qui peuvent être facilement partagés avec d&#8217;autres les
+développeurs. Dans notre exemple, nous n&#8217;avons qu&#8217;un seul Bundle,
+<tt class="docutils literal"><span class="pre">HelloBundle</span></tt>.</p>
+</div>
+<div class="section" id="templates">
+<h3>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
+<p>Le contrôleur diffuse le template <tt class="docutils literal"><span class="pre">HelloBundle:Hello:index.html.twig</span></tt>. Par
+défaut, le sandbox utilise Twig comme moteur de template, mais vous pouvez
+également utiliser un template PHP traditionnel si vous voulez.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# src/Sensio/HelloBundle/Resources/views/Hello/index.html.twig #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;HelloBundle::layout.html.twig&quot;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    Hello </span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">!</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Félicitations! Vous avez eu votre première découverte du code de Symfony2 et
+créé votre première page. Ce n&#8217;était pas si éreintant, n&#8217;est-ce pas? Il y a
+beaucoup plus à explorer, mais vous devriez déjà voir comment Symfony2 permet
+vraiment facilement la mise en œuvre de meilleurs sites plus rapidement.</p>
+</div>
+</div>
+<div class="section" id="differenciation-des-environnements">
+<span id="index-6"></span><h2>Différenciation des environnements<a class="headerlink" href="#differenciation-des-environnements" title="Permalink to this headline">¶</a></h2>
+<p>Maintenant que vous avez une meilleure compréhension de la façon dont Symfony2
+fonctionne, intéressons nous de plus près au bas de la page, vous remarquerez
+une petite barre avec les logos de Symfony2 et PHP. C&#8217;est ce qu&#8217;on appelle la
+&#8220;barre de débug Symfony&#8221; et c&#8217;est le meilleur ami du développeur. Bien entendu,
+un tel outil ne doit pas être affiché lorsque vous déployez votre application en
+production. C&#8217;est pourquoi vous trouverez un autre contrôleur frontal dans le
+répertoire <tt class="docutils literal"><span class="pre">web/</span></tt> (<tt class="docutils literal"><span class="pre">app.php</span></tt>), optimisé pour l&#8217;environnement de production:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/sandbox/web/app.php/hello/Fabien">http://localhost/sandbox/web/app.php/hello/Fabien</a></div></blockquote>
+<p>Et si vous utilisez Apache avec <tt class="docutils literal"><span class="pre">mod_rewrite</span></tt> activé, vous pouvez même
+occulter le <tt class="docutils literal"><span class="pre">app.php</span></tt> de votre URL:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/sandbox/web/hello/Fabien">http://localhost/sandbox/web/hello/Fabien</a></div></blockquote>
+<p>Dernière chose et pas des moindres, sur les serveurs de production, vous devez
+pointer votre répertoire racine web sur le répertoire <tt class="docutils literal"><span class="pre">web/</span></tt> pour garantir
+votre installation et avoir une meilleure apparence d&#8217;URL:</p>
+<blockquote>
+<div><a class="reference external" href="http://localhost/hello/Fabien">http://localhost/hello/Fabien</a></div></blockquote>
+<p>Pour rendre l&#8217;environnement de production aussi véloce que possible, Symfony2
+maintient un cache dans le répertoire <tt class="docutils literal"><span class="pre">app/cache/</span></tt>. Lorsque vous apportez des
+modifications au code ou à la configuration, vous devrez supprimer manuellement
+les fichiers mis en cache. Lorsque vous développez votre application, vous devez
+utiliser le contrôleur frontal de développement (<tt class="docutils literal"><span class="pre">app_dev.php</span></tt>), qui n&#8217;utilise
+pas le cache. Lorsque vous utilisez le contrôleur frontal de développement, vos
+modifications apparaissent immédiatement.</p>
+</div>
+<div class="section" id="reflexions-finales">
+<h2>Réflexions finales<a class="headerlink" href="#reflexions-finales" title="Permalink to this headline">¶</a></h2>
+<p>Merci d&#8217;essayer Symfony2! A l&#8217;heure actuelle, vous devriez être en mesure de
+vous exercer sur vos propres routages, contrôleurs et templates. Comme exercice,
+essayez de construire quelque chose de plus utile que l&#8217;application Hello! Si
+vous êtes désireux d&#8217;en apprendre plus sur Symfony2, plongez dans la section
+suivante: &#8220;La Vue&#8221;.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Big Picture</a><ul>
+<li><a class="reference internal" href="#telechargement-et-installation-de-symfony2">Téléchargement et Installation de Symfony2</a></li>
+<li><a class="reference internal" href="#verification-de-la-configuration">Vérification de la Configuration</a></li>
+<li><a class="reference internal" href="#creation-de-votre-premiere-application">Création de votre première Application</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#routage">Routage</a></li>
+<li><a class="reference internal" href="#controleurs">Contrôleurs</a></li>
+<li><a class="reference internal" href="#templates">Templates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#differenciation-des-environnements">Différenciation des environnements</a></li>
+<li><a class="reference internal" href="#reflexions-finales">Réflexions finales</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Visite éclair</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="the_view.html"
+                        title="next chapter">La Vue</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/quick_tour/the_big_picture.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="the_view.html" title="La Vue"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Visite éclair"
+             >previous</a> |</li>
+        <li><a href="../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Visite éclair</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

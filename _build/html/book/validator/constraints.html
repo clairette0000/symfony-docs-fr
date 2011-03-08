@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Constraints &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Validator" href="index.html" />
+    <link rel="next" title="Symfony2 Validator Constraints" href="constraints/index.html" />
+    <link rel="prev" title="Constraint Validation" href="validation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="constraints/index.html" title="Symfony2 Validator Constraints"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="validation.html" title="Constraint Validation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Validator</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="constraints">
+<h1>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h1>
+<p>The Validator is designed to validate objects against <em>constraints</em>.
+In real life, a constraint could be: &#8220;The cake must not be burned&#8221;. In
+Symfony2, constraints are similar: They are assertions that a condition is
+true.</p>
+<div class="section" id="supported-constraints">
+<h2>Supported Constraints<a class="headerlink" href="#supported-constraints" title="Permalink to this headline">¶</a></h2>
+<p>The following constraints are natively available in Symfony2:</p>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><a class="reference internal" href="constraints/AssertFalse.html"><em>AssertFalse</em></a></li>
+<li><a class="reference internal" href="constraints/AssertTrue.html"><em>AssertTrue</em></a></li>
+<li><a class="reference internal" href="constraints/AssertType.html"><em>AssertType</em></a></li>
+<li><a class="reference internal" href="constraints/Choice.html"><em>Choice</em></a></li>
+<li><a class="reference internal" href="constraints/Collection.html"><em>Collection</em></a></li>
+<li><a class="reference internal" href="constraints/Date.html"><em>Date</em></a></li>
+<li><a class="reference internal" href="constraints/DateTime.html"><em>DateTime</em></a></li>
+<li><a class="reference internal" href="constraints/Email.html"><em>Email</em></a></li>
+<li><a class="reference internal" href="constraints/File.html"><em>File</em></a></li>
+<li><a class="reference internal" href="constraints/Max.html"><em>Max</em></a></li>
+<li><a class="reference internal" href="constraints/MaxLength.html"><em>MaxLength</em></a></li>
+<li><a class="reference internal" href="constraints/Min.html"><em>Min</em></a></li>
+<li><a class="reference internal" href="constraints/MinLength.html"><em>MinLength</em></a></li>
+<li><a class="reference internal" href="constraints/NotBlank.html"><em>NotBlank</em></a></li>
+<li><a class="reference internal" href="constraints/NotNull.html"><em>NotNull</em></a></li>
+<li><a class="reference internal" href="constraints/Regex.html"><em>Regex</em></a></li>
+<li><a class="reference internal" href="constraints/Time.html"><em>Time</em></a></li>
+<li><a class="reference internal" href="constraints/Url.html"><em>Url</em></a></li>
+<li><a class="reference internal" href="constraints/Valid.html"><em>Valid</em></a></li>
+</ul>
+</div>
+<div class="section" id="constraint-targets">
+<h2>Constraint Targets<a class="headerlink" href="#constraint-targets" title="Permalink to this headline">¶</a></h2>
+<p>Constraints can be put on properties of a class, on public getters and on the
+class itself. The benefit of class constraints is that they can validate
+the whole state of an object at once, with all of its properties and methods.</p>
+<div class="section" id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h3>
+<p>Validating class properties is the most basic validation technique. Symfony2
+allows you to validate private, protected or public properties. The next
+listing shows how to configure the properties <tt class="docutils literal"><span class="pre">$firstName</span></tt> and <tt class="docutils literal"><span class="pre">$lastName</span></tt>
+of a class <tt class="docutils literal"><span class="pre">Author</span></tt> to have at least 3 characters.</p>
+</div>
+<div class="section" id="getters">
+<h3>Getters<a class="headerlink" href="#getters" title="Permalink to this headline">¶</a></h3>
+<p>The next validation technique is to constrain the return value of a method.
+Symfony2 allows you to constrain any public method whose name starts with
+&#8220;get&#8221; or &#8220;is&#8221;. In this chapter, this is commonly referred to as &#8220;getter&#8221;.</p>
+<p>The benefit of this technique is that it allows you to validate your object
+dynamically. Depending on the state of your object, the method may return
+different values which are then validated.</p>
+<p>The next listing shows you how to use the <a class="reference internal" href="constraints/AssertTrue.html"><em>AssertTrue</em></a> constraint to validate whether a dynamically
+generated token is correct:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The keen-eyed among you will have noticed that the prefix of the getter
+(&#8220;get&#8221; or &#8220;is&#8221;) is omitted in the mapping. This allows you to move the
+constraint to a property with the same name later (or vice versa) without
+changing your validation logic.</p>
+</div>
+</div>
+</div>
+<div class="section" id="custom-constraints">
+<h2>Custom Constraints<a class="headerlink" href="#custom-constraints" title="Permalink to this headline">¶</a></h2>
+<p>You can create a custom constraint by extending the base constraint class,
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Validator\Constraint</span></tt>. Options for your
+constraint are represented by public properties on the constraint class. For
+example, the <tt class="docutils literal"><span class="pre">Url</span></tt> constraint includes <tt class="docutils literal"><span class="pre">message</span></tt> and <tt class="docutils literal"><span class="pre">protocols</span></tt>
+properties:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">namespace Symfony\Component\Validator\Constraints;</span>
+
+<span class="x">class Url extends \Symfony\Component\Validator\Constraint</span>
+<span class="x">{</span>
+<span class="x">    public $message = &#39;This value is not a valid URL&#39;;</span>
+<span class="x">    public $protocols = array(&#39;http&#39;, &#39;https&#39;, &#39;ftp&#39;, &#39;ftps&#39;);</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>As you can see, a constraint class is fairly minimal. The actual validation is
+performed by a another &#8220;constraint validator&#8221; class. Which constraint
+validator is specified by the constraint&#8217;s <tt class="docutils literal"><span class="pre">validatedBy()</span></tt> method, which
+includes some simple default logic:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// in the base Symfony\Component\Validator\Constraint class</span>
+<span class="x">public function validatedBy()</span>
+<span class="x">{</span>
+<span class="x">    return get_class($this).&#39;Validator&#39;;</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<div class="section" id="constraint-validators-with-dependencies">
+<h3>Constraint Validators with Dependencies<a class="headerlink" href="#constraint-validators-with-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>If your constraint validator has dependencies, such as a database connection,
+it will need to be configured as a service in the dependency injection
+container. This service must include the <tt class="docutils literal"><span class="pre">validator.constraint_validator</span></tt>
+tag and an <tt class="docutils literal"><span class="pre">alias</span></tt> attribute:</p>
+<p>Your constraint class may now use this alias to reference the appropriate
+validator:</p>
+<div class="highlight-python"><pre>public function validatedBy()
+{
+    return 'alias_name';
+}</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Constraints</a><ul>
+<li><a class="reference internal" href="#supported-constraints">Supported Constraints</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#constraint-targets">Constraint Targets</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#getters">Getters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#custom-constraints">Custom Constraints</a><ul>
+<li><a class="reference internal" href="#constraint-validators-with-dependencies">Constraint Validators with Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="validation.html"
+                        title="previous chapter">Constraint Validation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="constraints/index.html"
+                        title="next chapter">Symfony2 Validator Constraints</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/validator/constraints.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="constraints/index.html" title="Symfony2 Validator Constraints"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="validation.html" title="Constraint Validation"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Validator</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

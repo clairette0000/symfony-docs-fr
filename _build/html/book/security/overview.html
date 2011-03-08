@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Security &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Security" href="index.html" />
+    <link rel="next" title="Users" href="users.html" />
+    <link rel="prev" title="Security" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="users.html" title="Users"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Security"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Security</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="security">
+<span id="index-0"></span><h1>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h1>
+<p>Symfony2 comes with a built-in security layer. It secures your application by
+providing authentication and authorization.</p>
+<p><em>Authentication</em> ensures that the user is who he claims to be. <em>Authorization</em>
+refers to the process of deciding whether a user is allowed to perform an
+action or not (authentication is always performed before authorization).</p>
+<p>This document is a quick overview over these main concepts, but it barely scratches
+the surface. If you want to get to know the real power of Symfony2&#8217;s security
+layer, you should also read these more specific documents:
+<a class="reference internal" href="users.html"><em>Users</em></a>,
+<a class="reference internal" href="authentication.html"><em>Authentication</em></a>, and
+<a class="reference internal" href="authorization.html"><em>Authorization</em></a>.</p>
+<div class="section" id="configuration">
+<span id="index-1"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>For most common use cases, the Symfony2 security can be easily configured from
+your main configuration file; here is a typical configuration:</p>
+<p>Most of the time, it is more convenient to outsource all security related
+configuration into an external file. If you use XML, the external file can use
+the security namespace as the default one to make it more readable:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;srv:container</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/security&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:srv=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/services&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;config&gt;</span>
+        <span class="nt">&lt;provider&gt;</span>
+            <span class="nt">&lt;password-encoder</span> <span class="na">hash=</span><span class="s">&quot;sha1&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/provider&gt;</span>
+
+        <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/.*&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;logout</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/firewall&gt;</span>
+
+        <span class="nt">&lt;access-control&gt;</span>
+            <span class="nt">&lt;rule</span> <span class="na">path=</span><span class="s">&quot;/.*&quot;</span> <span class="na">role=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/access-control&gt;</span>
+    <span class="nt">&lt;/config&gt;</span>
+<span class="nt">&lt;/srv:container&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All examples in the documentation assume that you are using an external
+file with the default security namespace as above.</p>
+</div>
+<p>As you can see, the configuration has four sections:</p>
+<ul class="simple">
+<li><em>encoder</em>: An encoder is used for hashing passwords of users;</li>
+<li><em>provider</em>: A provider knows how to create users;</li>
+<li><em>firewall</em>: A firewall defines the authentication mechanisms for the whole
+application or for just a part of it;</li>
+<li><em>access-control</em>: Access control rules secure parts of your application with
+roles.</li>
+</ul>
+<p>To sum up the workflow, the firewall authenticates the client based on the
+submitted credentials and the user created by the user provider. Finally,
+access control is used to protect specific resources.</p>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>Symfony2 supports many different authentication mechanisms out of the box, and
+more can be easily added if needed; main ones are:</p>
+<ul class="simple">
+<li>HTTP Basic;</li>
+<li>HTTP Digest;</li>
+<li>Form based authentication;</li>
+<li>X.509 certificates.</li>
+</ul>
+<p>Here is how you can secure your application with HTTP basic authentication:</p>
+<p>Several firewalls can also be defined if you need different authentication
+mechanisms for different parts of the application:</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Using HTTP basic is the easiest, but read the <a class="reference internal" href="authentication.html"><em>Authentication</em></a> document to learn how to configure
+other authentication mechanisms, how to configure a stateless
+authentication, how you can impersonate another user, how you can enforce
+https, and much more.</p>
+</div>
+</div>
+<div class="section" id="users">
+<h2>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h2>
+<p>During authentication, Symfony2 asks a user provider to create the user object
+matching the client request (via credentials like a username and a password).
+To get started fast, you can define an in-memory provider directly in your
+configuration:</p>
+<p>The above configuration defines a &#8216;foo&#8217; user with a &#8216;foo&#8217; password. After
+authentication, you can access the authenticated user via the security context
+(the user is an instance of <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\Core\User\User</span></tt>):</p>
+<div class="highlight-python"><pre>$user = $container-&gt;get('security.context')-&gt;getToken()-&gt;getUser();</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Using the in-memory provider is a great way to easily secure your personal
+website backend, to create a prototype, or to provide fixtures for your
+tests. Read the <a class="reference internal" href="users.html"><em>Users</em></a> document to learn
+how to avoid the password to be in clear, how to use a Doctrine Entity as
+a user provider, how to define several providers, and much more.</p>
+</div>
+</div>
+<div class="section" id="authorization">
+<h2>Authorization<a class="headerlink" href="#authorization" title="Permalink to this headline">¶</a></h2>
+<p>Authorization is optional but gives you a powerful way to restrict access to
+your application resources based user roles:</p>
+<p>The above configuration defines a &#8216;foo&#8217; user with the &#8216;ROLE_USER&#8217; and
+&#8216;ROLE_ADMIN&#8217; roles and it restricts access to the whole application to users
+having the &#8216;ROLE_USER&#8217; role.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Read the <a class="reference internal" href="authorization.html"><em>Authorization</em></a> document to
+learn how to define a role hierarchy, how to customize your template based
+on roles, how to define access control rules based on request attributes,
+and much more.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Security</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#authentication">Authentication</a></li>
+<li><a class="reference internal" href="#users">Users</a></li>
+<li><a class="reference internal" href="#authorization">Authorization</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Security</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="users.html"
+                        title="next chapter">Users</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/security/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="users.html" title="Users"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Security"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Security</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

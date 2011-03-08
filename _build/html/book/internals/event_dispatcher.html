@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Event Dispatcher &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Internals" href="index.html" />
+    <link rel="next" title="Profiler" href="profiler.html" />
+    <link rel="prev" title="Kernel" href="kernel.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="profiler.html" title="Profiler"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="kernel.html" title="Kernel"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-event-dispatcher">
+<span id="index-0"></span><h1>The Event Dispatcher<a class="headerlink" href="#the-event-dispatcher" title="Permalink to this headline">¶</a></h1>
+<p>Objected Oriented code has gone a long way to ensuring code extensibility. By
+creating classes that have well defined responsibilities, your code becomes
+more flexible as a developer can extend them with sub-classes to modify their
+behaviors. But if he wants to share his changes with other developers who have
+also made their own subclasses, code inheritance is moot.</p>
+<p>A real-world example is when you want to provide a plugin system for your
+project. A plugin should be able to add methods, or do something before or
+after a method is executed, without interfering with other plugins. This is
+not an easy problem to solve with single inheritance, and multiple inheritance
+(were it possible with PHP) has its own drawbacks.</p>
+<p>The Symfony2 Event Dispatcher implements the <a class="reference external" href="http://en.wikipedia.org/wiki/Observer_pattern">Observer</a> pattern in a simple
+and effective way to make all these things possible and make your projects
+truly extensible.</p>
+<p>The Event Dispatcher provides <em>dispatcher</em> that allows objects to communicate
+together without knowing each others. Objects (<em>listeners</em>) can <em>connect</em> to
+the dispatcher to listen to specific events, and some others can <em>notify</em> an
+<em>event</em> to the dispatcher. Whenever an event is notified, the dispatcher will
+call all the connected listeners.</p>
+<div class="section" id="events">
+<span id="index-1"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p>Unlike many other implementations of the Observer pattern, you don&#8217;t need to
+create a class to define a new event. All events are instead instances of the
+<tt class="docutils literal"><span class="pre">Event</span></tt> class and are uniquely identified by their names, a string that
+optionally follows simple naming conventions:</p>
+<ul class="simple">
+<li>use only lowercase letters, numbers, and underscores (<tt class="docutils literal"><span class="pre">_</span></tt>);</li>
+<li>prefix names with a namespace followed by a dot (<tt class="docutils literal"><span class="pre">.</span></tt>);</li>
+<li>use a verb to indicate what action will be done.</li>
+</ul>
+<p>Here are some examples of good event names:</p>
+<ul class="simple">
+<li>user.change_culture</li>
+<li>response.filter_content</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can of course extend the <tt class="docutils literal"><span class="pre">Event</span></tt> class to specialize an event
+further, or enforce some constraints, but most of the time it adds an
+unnecessary level of complexity.</p>
+</div>
+<p>Besides its name, an <tt class="docutils literal"><span class="pre">Event</span></tt> instance can store additional data about the
+notified event:</p>
+<ul class="simple">
+<li>The <em>subject</em> of the event (most of the time, this is the object notifying
+the event, but it can be any other object or <tt class="docutils literal"><span class="pre">null</span></tt>);</li>
+<li>The event name;</li>
+<li>An array of parameters to pass to the listeners (an empty array by default).</li>
+</ul>
+<p>These data are passed as arguments to the <tt class="docutils literal"><span class="pre">Event</span></tt> constructor:</p>
+<div class="highlight-python"><pre>use Symfony\Component\EventDispatcher\Event;
+
+$event = new Event($this, 'user.change_culture', array('culture' =&gt; $culture));</pre>
+</div>
+<p>The event object has several methods to get the event data:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">getName()</span></tt>: Returns the event name;</li>
+<li><tt class="docutils literal"><span class="pre">getSubject()</span></tt>: Gets the subject object attached to the event;</li>
+<li><tt class="docutils literal"><span class="pre">get()</span></tt>: Gets the value of a parameter;</li>
+<li><tt class="docutils literal"><span class="pre">all()</span></tt>: Returns the event parameters.</li>
+</ul>
+</div>
+<div class="section" id="the-dispatcher">
+<h2>The Dispatcher<a class="headerlink" href="#the-dispatcher" title="Permalink to this headline">¶</a></h2>
+<p>The dispatcher maintains a register of listeners and calls them whenever an
+event is notified:</p>
+<div class="highlight-python"><pre>use Symfony\Component\EventDispatcher\EventDispatcher;
+
+$dispatcher = new EventDispatcher();</pre>
+</div>
+</div>
+<div class="section" id="connecting-listeners">
+<span id="index-2"></span><h2>Connecting Listeners<a class="headerlink" href="#connecting-listeners" title="Permalink to this headline">¶</a></h2>
+<p>Obviously, you need to connect some listeners to the dispatcher before it can
+be useful. A call to the dispatcher <tt class="docutils literal"><span class="pre">connect()</span></tt> method associates a PHP
+callable to an event:</p>
+<div class="highlight-python"><pre>$dispatcher-&gt;connect('user.change_culture', $callable);</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">connect()</span></tt> method takes two arguments:</p>
+<ul class="simple">
+<li>The event name;</li>
+<li>A PHP callable to call when the event is notified.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A <a class="reference external" href="http://www.php.net/manual/en/function.is-callable.php">PHP callable</a> is a PHP variable that can be used by the
+<tt class="docutils literal"><span class="pre">call_user_func()</span></tt> function and returns <tt class="docutils literal"><span class="pre">true</span></tt> when passed to the
+<tt class="docutils literal"><span class="pre">is_callable()</span></tt> function. It can be a <tt class="docutils literal"><span class="pre">\Closure</span></tt> instance, a string
+representing a function, or an array representing an object method or a
+class method.</p>
+</div>
+<p>Once a listener is registered with the dispatcher, it waits until the event is
+notified. For the above example, the dispatcher calls <tt class="docutils literal"><span class="pre">$callable</span></tt> whenever
+the <tt class="docutils literal"><span class="pre">user.change_culture</span></tt> event is notified; the listener receives an
+<tt class="docutils literal"><span class="pre">Event</span></tt> instance as an argument.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The listeners are called by the event dispatcher in the same order you
+connected them.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you use the Symfony2 MVC framework, listeners are automatically
+registered based on your <em class="xref std std-ref">configuration</em>.</p>
+</div>
+</div>
+<div class="section" id="notifying-events">
+<span id="index-3"></span><h2>Notifying Events<a class="headerlink" href="#notifying-events" title="Permalink to this headline">¶</a></h2>
+<p>Events can be notified by using three methods:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">notify()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">notifyUntil()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">filter()</span></tt></li>
+</ul>
+<div class="section" id="notify">
+<h3><tt class="docutils literal"><span class="pre">notify</span></tt><a class="headerlink" href="#notify" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">notify()</span></tt> method notifies all listeners in turn:</p>
+<div class="highlight-python"><pre>$dispatcher-&gt;notify($event);</pre>
+</div>
+<p>By using the <tt class="docutils literal"><span class="pre">notify()</span></tt> method, you make sure that all registered listeners
+for the event are executed but their return values is ignored.</p>
+</div>
+<div class="section" id="notifyuntil">
+<h3><tt class="docutils literal"><span class="pre">notifyUntil</span></tt><a class="headerlink" href="#notifyuntil" title="Permalink to this headline">¶</a></h3>
+<p>In some cases, you need to allow a listener to stop the event and prevent
+further listeners from being notified about it. In this case, you should use
+<tt class="docutils literal"><span class="pre">notifyUntil()</span></tt> instead of <tt class="docutils literal"><span class="pre">notify()</span></tt>. The dispatcher will then execute all
+listeners until one returns <tt class="docutils literal"><span class="pre">true</span></tt>, and then stop the event notification:</p>
+<div class="highlight-python"><pre>$dispatcher-&gt;notifyUntil($event);</pre>
+</div>
+<p>The listener that stops the chain may also call the <tt class="docutils literal"><span class="pre">setReturnValue()</span></tt> method
+to return back some value to the subject:</p>
+<div class="highlight-python"><pre>$event-&gt;setReturnValue('foo');
+
+return true;</pre>
+</div>
+<p>The notifier can check if a listener has processed the event by calling the
+<tt class="docutils literal"><span class="pre">isProcessed()</span></tt> method:</p>
+<div class="highlight-python"><pre>if ($event-&gt;isProcessed()) {
+    $ret = $event-&gt;getReturnValue();
+
+    // ...
+}</pre>
+</div>
+</div>
+<div class="section" id="filter">
+<h3><tt class="docutils literal"><span class="pre">filter</span></tt><a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">filter()</span></tt> method asks all listeners to filter a given value, passed by
+the notifier as its second argument, and retrieved by the listener callable as
+the second argument:</p>
+<div class="highlight-python"><pre>$dispatcher-&gt;filter($event, $response-&gt;getContent());
+
+$listener = function (Event $event, $content)
+{
+    // do something with $content
+
+    // don't forget to return the content
+    return $content;
+};</pre>
+</div>
+<p>All listeners are passed the value and they must return the filtered value,
+whether they altered it or not. All listeners are guaranteed to be executed.</p>
+<p>The notifier can get the filtered value by calling the <tt class="docutils literal"><span class="pre">getReturnValue()</span></tt>
+method:</p>
+<div class="highlight-python"><pre>$ret = $event-&gt;getReturnValue();</pre>
+</div>
+</div>
+</div>
+<div class="section" id="passing-along-the-event-dispatcher-object">
+<h2>Passing along the Event Dispatcher Object<a class="headerlink" href="#passing-along-the-event-dispatcher-object" title="Permalink to this headline">¶</a></h2>
+<p>If you have a look at the <tt class="docutils literal"><span class="pre">EventDispatcher</span></tt> class, you will notice that the
+class does not act as a Singleton (there is no <tt class="docutils literal"><span class="pre">getInstance()</span></tt> static method).
+That is intentional, as you might want to have several concurrent event
+dispatchers in a single PHP request. But it also means that you need a way to
+pass the dispatcher to the objects that need to connect or notify events.</p>
+<p>The best practice is to inject the event dispatcher object into your objects,
+aka dependency injection.</p>
+<p>You can use constructor injection:</p>
+<div class="highlight-python"><pre>class Foo
+{
+    protected $dispatcher = null;
+
+    public function __construct(EventDispatcher $dispatcher)
+    {
+        $this-&gt;dispatcher = $dispatcher;
+    }
+}</pre>
+</div>
+<p>Or setter injection:</p>
+<div class="highlight-python"><pre>class Foo
+{
+    protected $dispatcher = null;
+
+    public function setEventDispatcher(EventDispatcher $dispatcher)
+    {
+        $this-&gt;dispatcher = $dispatcher;
+    }
+}</pre>
+</div>
+<p>Choosing between the two is really a matter of taste. I tend to prefer the
+constructor injection as the objects are fully initialized at construction
+time. But when you have a long list of dependencies, using setter injection
+can be the way to go, especially for optional dependencies.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you use dependency injection like we did in the two examples above, you
+can then easily use the Symfony2 Dependency Injection component to
+elegantly manage these objects.</p>
+</div>
+</div>
+<div class="section" id="learn-more-from-the-cookbook">
+<h2>Learn more from the Cookbook<a class="headerlink" href="#learn-more-from-the-cookbook" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../cookbook/event_dispatcher/class_extension.html"><em>How to extend a Class without using Inheritance</em></a></li>
+<li><a class="reference internal" href="../../cookbook/event_dispatcher/method_behavior.html"><em>How to customize a Method Behavior without using Inheritance</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Event Dispatcher</a><ul>
+<li><a class="reference internal" href="#events">Events</a></li>
+<li><a class="reference internal" href="#the-dispatcher">The Dispatcher</a></li>
+<li><a class="reference internal" href="#connecting-listeners">Connecting Listeners</a></li>
+<li><a class="reference internal" href="#notifying-events">Notifying Events</a><ul>
+<li><a class="reference internal" href="#notify"><tt class="docutils literal"><span class="pre">notify</span></tt></a></li>
+<li><a class="reference internal" href="#notifyuntil"><tt class="docutils literal"><span class="pre">notifyUntil</span></tt></a></li>
+<li><a class="reference internal" href="#filter"><tt class="docutils literal"><span class="pre">filter</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#passing-along-the-event-dispatcher-object">Passing along the Event Dispatcher Object</a></li>
+<li><a class="reference internal" href="#learn-more-from-the-cookbook">Learn more from the Cookbook</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="kernel.html"
+                        title="previous chapter">Kernel</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="profiler.html"
+                        title="next chapter">Profiler</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/internals/event_dispatcher.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="profiler.html" title="Profiler"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="kernel.html" title="Kernel"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Authentication &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Security" href="index.html" />
+    <link rel="next" title="Authorization" href="authorization.html" />
+    <link rel="prev" title="Users" href="users.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="authorization.html" title="Authorization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="users.html" title="Users"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Security</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="authentication">
+<span id="index-0"></span><h1>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h1>
+<p>Authentication in Symfony2 is managed by the Firewall system. It is made of
+listeners that enforce security and redirect the user if his credentials are
+not available, not sufficient, or just wrong.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Firewall is implemented via a <tt class="docutils literal"><span class="pre">core.security</span></tt> event, notified just
+after the <tt class="docutils literal"><span class="pre">core.request</span></tt> one. All features described in this document
+are implemented as listeners to this event.</p>
+</div>
+<div class="section" id="the-firewall-map">
+<span id="index-1"></span><h2>The Firewall Map<a class="headerlink" href="#the-firewall-map" title="Permalink to this headline">¶</a></h2>
+<p>The Firewall can be configured to secure your application as a whole, or to
+use different authentication strategies for different parts of the application.</p>
+<p>Typically, a website can open the public part to all, secure the backend via a
+form based authentication, and secure the public API/Web Service via an HTTP
+basic authentication:</p>
+<p>Each firewall configuration is activated when the incoming request matches the
+regular expression defined by the <tt class="docutils literal"><span class="pre">pattern</span></tt> setting. This pattern must match
+the request path info (<tt class="docutils literal"><span class="pre">preg_match('#^'.PATTERN_VALUE.'$#',</span>
+<span class="pre">$request-&gt;getPathInfo())</span></tt>).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The definition order of firewall configurations is significant as Symfony2
+will use the first configuration for which the pattern matches the request
+(so you need to define more specific configurations first).</p>
+</div>
+</div>
+<div class="section" id="authentication-mechanisms">
+<span id="index-2"></span><h2>Authentication Mechanisms<a class="headerlink" href="#authentication-mechanisms" title="Permalink to this headline">¶</a></h2>
+<p>Out of the box, Symfony2 supports the following authentication mechanisms:</p>
+<ul class="simple">
+<li>HTTP Basic;</li>
+<li>HTTP Digest;</li>
+<li>Form based authentication;</li>
+<li>X.509 certificates;</li>
+<li>Anonymous authentication.</li>
+</ul>
+<p>Each authentication mechanism consists of two classes that makes it work: a
+listener and an entry point. The <em>listener</em> tries to authenticate incoming
+requests. When the user is not authenticated or when the listener detects
+wrong credentials, the <em>entry point</em> creates a response to send feedback to
+the user and to provide a way for him to enter his credentials.</p>
+<p>You can configure a firewall to use more than one authentication mechanisms:</p>
+<p>A user accessing a resource under <tt class="docutils literal"><span class="pre">/admin/</span></tt> will be able to provide a valid
+X.509 certificate, an Authorization HTTP header, or use a form to login.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When the user is not authenticated and if there is more than one
+authentication mechanisms, Symfony2 automatically defines a default entry
+point (in the example above, the login form; but if the user send an
+Authorization HTTP header with wrong credentials, Symfony2 will use the
+HTTP basic entry point).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">HTTP Basic authentication is interoperable, but not secure. HTTP Digest is
+more secure, but not really interoperable in practice.</p>
+</div>
+<div class="section" id="http-basic">
+<span id="index-3"></span><h3>HTTP Basic<a class="headerlink" href="#http-basic" title="Permalink to this headline">¶</a></h3>
+<p>Configuring HTTP basic authentication is as simple as it can get:</p>
+</div>
+<div class="section" id="http-digest">
+<span id="index-4"></span><h3>HTTP Digest<a class="headerlink" href="#http-digest" title="Permalink to this headline">¶</a></h3>
+<p>Configuring HTTP digest authentication is as simple as it can get:</p>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">To use HTTP Digest, you must store the user passwords in clear.</p>
+</div>
+</div>
+<div class="section" id="form-based-authentication">
+<span id="index-5"></span><h3>Form based authentication<a class="headerlink" href="#form-based-authentication" title="Permalink to this headline">¶</a></h3>
+<p>Form based authentication is the most used authentication mechanism on the Web
+nowadays:</p>
+<p>When the user is not authenticated, he is redirected to the <tt class="docutils literal"><span class="pre">login_path</span></tt> URL
+(<tt class="docutils literal"><span class="pre">/login</span></tt> by default).</p>
+<p>This listener relies on a form to interact with the user. It handles the form
+submission automatically but not its display; so you must implement that part
+yourself:</p>
+<div class="highlight-python"><pre>use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\SecurityContext;
+
+class SecurityController extends Controller
+{
+    public function loginAction()
+    {
+        // get the error if any (works with forward and redirect -- see below)
+        if ($this-&gt;get('request')-&gt;attributes-&gt;has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $this-&gt;get('request')-&gt;attributes-&gt;get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $this-&gt;get('request')-&gt;getSession()-&gt;get(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        return $this-&gt;render('SecurityBundle:Security:login.html.twig', array(
+            // last username entered by the user
+            'last_username' =&gt; $this-&gt;get('request')-&gt;getSession()-&gt;get(SecurityContext::LAST_USERNAME),
+            'error'         =&gt; $error,
+        ));
+    }
+}</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">$error</span></tt> variable references an instance of
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\Core\Exception\AuthenticationException</span></tt>,
+or one of its sub-classes. This exception might contain sensitive information,
+so you should be very careful how much of the contained information you want
+to expose on your production system.</p>
+</div>
+<p>And the corresponding template might look like this:</p>
+<p>The template must have a <tt class="docutils literal"><span class="pre">_username</span></tt> and <tt class="docutils literal"><span class="pre">_password</span></tt> fields, and the form
+submission URL must be the value of the <tt class="docutils literal"><span class="pre">check_path</span></tt> setting
+(<tt class="docutils literal"><span class="pre">/login_check</span></tt> by default).</p>
+<p>Finally, add routes for the <tt class="docutils literal"><span class="pre">/login</span></tt> (<tt class="docutils literal"><span class="pre">login_path</span></tt> value) and
+<tt class="docutils literal"><span class="pre">/login_check</span></tt> (<tt class="docutils literal"><span class="pre">login_check</span></tt> value) URLs:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;_security_login&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/login&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>SecurityBundle:Security:login<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+
+<span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;_security_check&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/login_check&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>After an authentication failure, the user is redirected to the login page. You
+can use forward instead by setting the <tt class="docutils literal"><span class="pre">failure_forward</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>. You
+can also redirect or forward to another page if you set the <tt class="docutils literal"><span class="pre">failure_path</span></tt>
+setting.</p>
+<p>After a successful authentication, the user is redirected based on the
+following algorithm:</p>
+<ul class="simple">
+<li>if <tt class="docutils literal"><span class="pre">always_use_default_target_path</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> (<tt class="docutils literal"><span class="pre">false</span></tt> by default),
+redirect the user to the <tt class="docutils literal"><span class="pre">default_target_path</span></tt> (<tt class="docutils literal"><span class="pre">/</span></tt> by default);</li>
+<li>if the request contains a parameter named <tt class="docutils literal"><span class="pre">_target_path</span></tt> (configurable via
+<tt class="docutils literal"><span class="pre">target_path_parameter</span></tt>), redirect the user to this parameter value;</li>
+<li>if there is a target URL stored in the session (which is done automatically
+when a user is redirected to the login page), redirect the user to that URL;</li>
+<li>if <tt class="docutils literal"><span class="pre">use_referer</span></tt> is set to <tt class="docutils literal"><span class="pre">true</span></tt> (<tt class="docutils literal"><span class="pre">false</span></tt> is the default), redirect
+the user to the Referrer URL;</li>
+<li>Redirect the user to the <tt class="docutils literal"><span class="pre">default_target_path</span></tt> URL (<tt class="docutils literal"><span class="pre">/</span></tt> by default).</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All URLs must be path info values or absolute URLs.</p>
+</div>
+<p>The default values for all settings are the most sensible ones, but here is a
+configuration example that shows how to override them all:</p>
+</div>
+<div class="section" id="x-509-certificates">
+<span id="index-6"></span><h3>X.509 Certificates<a class="headerlink" href="#x-509-certificates" title="Permalink to this headline">¶</a></h3>
+<p>X.509 certificates are a great way to authenticate users if you know them all:</p>
+<p>As Symfony2 does not validate the certificate itself, and because obviously it
+cannot enforce the password, you must first configure your web server
+correctly before enabling this authenticating mechanism. Here is a simple but
+working configuration for Apache:</p>
+<div class="highlight-xml"><pre>&lt;VirtualHost *:443&gt;
+    ServerName intranet.example.com:443
+
+    DocumentRoot "/some/path"
+    DirectoryIndex app.php
+    &lt;Directory "/some/path"&gt;
+        Allow from all
+        Order allow,deny
+        SSLOptions +StdEnvVars
+    &lt;/Directory&gt;
+
+    SSLEngine on
+    SSLCertificateFile "/path/to/server.crt"
+    SSLCertificateKeyFile "/path/to/server.key"
+    SSLCertificateChainFile "/path/to/ca.crt"
+    SSLCACertificateFile "/path/to/ca.crt"
+    SSLVerifyClient require
+    SSLVerifyDepth 1
+&lt;/VirtualHost&gt;</pre>
+</div>
+<p>By default, the username is the email declared in the certificate (the value
+of the <tt class="docutils literal"><span class="pre">SSL_CLIENT_S_DN_Email</span></tt> environment variable).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Certificate authentication only works when the user access the application
+via HTTPS.</p>
+</div>
+</div>
+<div class="section" id="anonymous-users">
+<span id="index-7"></span><h3>Anonymous Users<a class="headerlink" href="#anonymous-users" title="Permalink to this headline">¶</a></h3>
+<p>When you disable security, no user is attached to the request anymore. If you
+still want one, you can activate anonymous users. An anonymous user is
+authenticated but only has the <tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_ANONYMOUSLY</span></tt> role. The
+&#8220;real&#8221; authentication only occurs whenever the user accesses a resource
+restricted by a more restrictive access control rule:</p>
+<p>As anonymous users are authenticated, the <tt class="docutils literal"><span class="pre">isAuthenticated()</span></tt> method returns
+<tt class="docutils literal"><span class="pre">true</span></tt>. To check is the user is anonymous, check for the
+<tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_ANONYMOUSLY</span></tt> role instead (note that all non-anonymous
+users have the <tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_FULLY</span></tt> role).</p>
+</div>
+</div>
+<div class="section" id="stateless-authentication">
+<span id="index-8"></span><h2>Stateless Authentication<a class="headerlink" href="#stateless-authentication" title="Permalink to this headline">¶</a></h2>
+<p>By default, Symfony2 relies on a cookie (the Session) to persist the security
+context of the user. But if you use certificates or HTTP authentication for
+instance, persistence is not needed as credentials are available for each
+request. In that case, and if you don&#8217;t need to store anything else between
+requests, you can activate the stateless authentication (which means that no
+cookie will be ever created by Symfony2):</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you use a form login, Symfony2 will create a cookie even if you set
+<tt class="docutils literal"><span class="pre">stateless</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="impersonating-a-user">
+<span id="index-9"></span><h2>Impersonating a User<a class="headerlink" href="#impersonating-a-user" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, it&#8217;s useful to be able to switch from one user to another without
+having to logout and login again (for instance when you are debugging or try
+to understand a bug a user see and you cannot reproduce). This can be easily
+done by activating the <tt class="docutils literal"><span class="pre">switch-user</span></tt> listener:</p>
+<p>To switch to another user, just add a query string with the <tt class="docutils literal"><span class="pre">_switch_user</span></tt>
+parameter and the username as the value to the current URL:</p>
+<blockquote>
+<div><a class="reference external" href="http://example.com/somewhere?_switch_user=thomas">http://example.com/somewhere?_switch_user=thomas</a></div></blockquote>
+<p>To switch back to the original user, use the special <tt class="docutils literal"><span class="pre">_exit</span></tt> username:</p>
+<blockquote>
+<div><a class="reference external" href="http://example.com/somewhere?_switch_user=_exit">http://example.com/somewhere?_switch_user=_exit</a></div></blockquote>
+<p>Of course, this feature needs to be made available to a small group of users.
+By default, access is restricted to users having the &#8216;ROLE_ALLOWED_TO_SWITCH&#8217;
+role. Change the default role with the <tt class="docutils literal"><span class="pre">role</span></tt> setting and for extra
+security, also change the parameter name via the <tt class="docutils literal"><span class="pre">parameter</span></tt> setting:</p>
+</div>
+<div class="section" id="logout-users">
+<span id="index-10"></span><h2>Logout Users<a class="headerlink" href="#logout-users" title="Permalink to this headline">¶</a></h2>
+<p>If you want to provide a way for your users to logout, activate the logout
+listener:</p>
+<p>By default, users are logged out when they access <tt class="docutils literal"><span class="pre">/logout</span></tt> path and they
+are redirected to <tt class="docutils literal"><span class="pre">/</span></tt>. This can be easily changed via the <tt class="docutils literal"><span class="pre">path</span></tt> and
+<tt class="docutils literal"><span class="pre">target</span></tt> settings:</p>
+</div>
+<div class="section" id="authentication-and-user-providers">
+<h2>Authentication and User Providers<a class="headerlink" href="#authentication-and-user-providers" title="Permalink to this headline">¶</a></h2>
+<p>By default, a firewall uses the first declared user provider for
+authentication. But if you want to use different user providers for different
+parts of your website, you can explicitly change the user provider for a
+firewall, or just for an authentication mechanism:</p>
+<p>In the above example, <tt class="docutils literal"><span class="pre">/admin/.*</span></tt> URLs accept users from the <tt class="docutils literal"><span class="pre">certificate</span></tt>
+user provider when using X.509 authenticating, and the <tt class="docutils literal"><span class="pre">default</span></tt> provider
+when the user signs in with a form. The <tt class="docutils literal"><span class="pre">/api/.*</span></tt> URLs use the <tt class="docutils literal"><span class="pre">default</span></tt>
+provider for all authentication mechanisms.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The listeners do not use the user providers directly, but authenticating
+providers. They do the actual authentication, like checking the password,
+and they can use a user provider for that (this is not the case for the
+anonymous authentication provider for instance).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Authentication</a><ul>
+<li><a class="reference internal" href="#the-firewall-map">The Firewall Map</a></li>
+<li><a class="reference internal" href="#authentication-mechanisms">Authentication Mechanisms</a><ul>
+<li><a class="reference internal" href="#http-basic">HTTP Basic</a></li>
+<li><a class="reference internal" href="#http-digest">HTTP Digest</a></li>
+<li><a class="reference internal" href="#form-based-authentication">Form based authentication</a></li>
+<li><a class="reference internal" href="#x-509-certificates">X.509 Certificates</a></li>
+<li><a class="reference internal" href="#anonymous-users">Anonymous Users</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stateless-authentication">Stateless Authentication</a></li>
+<li><a class="reference internal" href="#impersonating-a-user">Impersonating a User</a></li>
+<li><a class="reference internal" href="#logout-users">Logout Users</a></li>
+<li><a class="reference internal" href="#authentication-and-user-providers">Authentication and User Providers</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="users.html"
+                        title="previous chapter">Users</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="authorization.html"
+                        title="next chapter">Authorization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/security/authentication.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="authorization.html" title="Authorization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="users.html" title="Users"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Security</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

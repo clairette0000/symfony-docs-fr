@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ORM &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Object Relational Mapper" href="index.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Object Relational Mapper" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Object Relational Mapper"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Object Relational Mapper</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="orm">
+<span id="index-0"></span><h1>ORM<a class="headerlink" href="#orm" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://www.doctrine-project.org">Doctrine</a> is an Object relational mapper (ORM) for PHP that sits on top of a
+powerful DataBase Abstraction Layer (DBAL). It provides transparent
+persistence for PHP objects.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You can read more about the Doctrine Object Relational Mapper on the
+official <a class="reference external" href="http://www.doctrine-project.org/projects/orm/2.0/docs/en">documentation</a> website.</p>
+</div>
+<p>To get started, enable and configure the <a class="reference internal" href="../dbal/overview.html"><em>Doctrine DBAL</em></a>, then enable the ORM. The minimal
+necessary configuration is to specify the bundle name which contains your entities.</p>
+<p>As Doctrine provides transparent persistence for PHP objects, it works with
+any PHP class:</p>
+<div class="highlight-python"><pre>// Sensio/HelloBundle/Entity/User.php
+namespace Sensio\HelloBundle\Entity;
+
+class User
+{
+    protected $id;
+    protected $name;
+
+    public function getId()
+    {
+        return $this-&gt;id;
+    }
+
+    public function setName($name)
+    {
+        $this-&gt;name = $name;
+    }
+
+    public function getName()
+    {
+        return $this-&gt;name;
+    }
+}</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">When defining your entities, you can omit the getter/setter methods and
+let Doctrine create them for you with the <tt class="docutils literal"><span class="pre">doctrine:generate:entities</span></tt>
+command. This only works after you create the mapping information (see
+below).</p>
+</div>
+<p>To let Doctrine manage your classes (entities in Doctrine2 speak), you need to
+write mapping information with annotations, XML, or YAML:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you use YAML or XML to describe your entities, you can omit the creation
+of the Entity class, and let the <tt class="docutils literal"><span class="pre">doctrine:generate:entities</span></tt> command do
+it for you.</p>
+</div>
+<p>Create the database and the schema related to your metadata information with
+the following commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>php app/console doctrine:database:create
+<span class="nv">$ </span>php app/console doctrine:schema:create
+</pre></div>
+</div>
+<p>Eventually, use your entity and manage its persistent state with Doctrine:</p>
+<div class="highlight-python"><pre>// Sensio/HelloBundle/Controller/UserController.php
+namespace Sensio\HelloBundle\Controller;
+
+use Sensio\HelloBundle\Entity\User;
+
+class UserController extends Controller
+{
+    public function createAction()
+    {
+        $user = new User();
+        $user-&gt;setName('Jonathan H. Wage');
+
+        $em = $this-&gt;get('doctrine.orm.entity_manager');
+        $em-&gt;persist($user);
+        $em-&gt;flush();
+
+        // ...
+    }
+
+    public function editAction($id)
+    {
+        $em = $this-&gt;get('doctrine.orm.entity_manager');
+        $user = $em-&gt;find('HelloBundle:User', $id);
+        $user-&gt;setBody('new body');
+        $em-&gt;persist($user);
+        $em-&gt;flush();
+
+        // ...
+    }
+
+    public function deleteAction($id)
+    {
+        $em = $this-&gt;get('doctrine.orm.entity_manager');
+        $user = $em-&gt;find('HelloBundle:User', $id);
+        $em-&gt;remove($user);
+        $em-&gt;flush();
+
+        // ...
+    }
+}</pre>
+</div>
+<p>Now the scenario arises where you want to change your mapping information and
+update your development database schema without blowing away everything and
+losing your existing data. So first lets just add a new property to our <tt class="docutils literal"><span class="pre">User</span></tt>
+entity:</p>
+<div class="highlight-python"><pre>namespace Sensio\HelloBundle\Entity;
+
+/** @orm:Entity */
+class User
+{
+    /** @orm:Column(type="string") */
+    protected $new;
+
+    // ...
+}</pre>
+</div>
+<p>Once you&#8217;ve done that, to get your database schema updated with the new column
+you just need to run the following command:</p>
+<blockquote>
+<div>$ php app/console doctrine:schema:update</div></blockquote>
+<p>Now your database will be updated and the new column added to the database
+table.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Object Relational Mapper</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="configuration.html"
+                        title="next chapter">Configuration</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/book/doctrine/orm/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Object Relational Mapper"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" >Object Relational Mapper</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

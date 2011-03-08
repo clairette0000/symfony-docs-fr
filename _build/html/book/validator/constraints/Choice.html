@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Choice &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Symfony2 Validator Constraints" href="index.html" />
+    <link rel="next" title="Collection" href="Collection.html" />
+    <link rel="prev" title="AssertType" href="AssertType.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Collection.html" title="Collection"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="AssertType.html" title="AssertType"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Symfony2 Validator</a> &raquo;</li>
+          <li><a href="../constraints.html" >Constraints</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Validator Constraints</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="choice">
+<h1>Choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h1>
+<p>Validates that a value is one or more of a list of choices.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">gender</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Choice</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">male</span><span class="p-Indicator">,</span> <span class="nv">female</span><span class="p-Indicator">]</span>
+</pre></div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">choices</span></tt> (<strong>default</strong>, required): The available choices</li>
+<li><tt class="docutils literal"><span class="pre">callback</span></tt>: Can be used instead of <tt class="docutils literal"><span class="pre">choices</span></tt>. A static callback method
+returning the choices. If you pass a string, it is expected to be
+the name of a static method in the validated class.</li>
+<li><tt class="docutils literal"><span class="pre">multiple</span></tt>: Whether multiple choices are allowed. Default: <tt class="docutils literal"><span class="pre">false</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">min</span></tt>: The minimum amount of selected choices</li>
+<li><tt class="docutils literal"><span class="pre">max</span></tt>: The maximum amount of selected choices</li>
+<li><tt class="docutils literal"><span class="pre">message</span></tt>: The error message if validation fails</li>
+<li><tt class="docutils literal"><span class="pre">minMessage</span></tt>: The error message if <tt class="docutils literal"><span class="pre">min</span></tt> validation fails</li>
+<li><tt class="docutils literal"><span class="pre">maxMessage</span></tt>: The error message if <tt class="docutils literal"><span class="pre">max</span></tt> validation fails</li>
+</ul>
+</div>
+<div class="section" id="example-1-choices-as-static-array">
+<h2>Example 1: Choices as static array<a class="headerlink" href="#example-1-choices-as-static-array" title="Permalink to this headline">¶</a></h2>
+<p>If the choices are few and easy to determine, they can be passed to the
+constraint definition as array.</p>
+</div>
+<div class="section" id="example-2-choices-from-a-callback">
+<h2>Example 2: Choices from a callback<a class="headerlink" href="#example-2-choices-from-a-callback" title="Permalink to this headline">¶</a></h2>
+<p>When you also need the choices in other contexts (such as a drop-down box in
+a form), it is more flexible to bind them to your domain model using a static
+callback method.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// Sensio/HelloBundle/Author.php</span>
+<span class="x">class Author</span>
+<span class="x">{</span>
+<span class="x">    public static function getGenders()</span>
+<span class="x">    {</span>
+<span class="x">        return array(&#39;male&#39;, &#39;female&#39;);</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>You can pass the name of this method to the <tt class="docutils literal"><span class="pre">callback</span></tt> option of the <tt class="docutils literal"><span class="pre">Choice</span></tt>
+constraint.</p>
+<p>If the static callback is stored in a different class, for example <tt class="docutils literal"><span class="pre">Util</span></tt>,
+you can pass the class name and the method as array.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Choice</a><ul>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#example-1-choices-as-static-array">Example 1: Choices as static array</a></li>
+<li><a class="reference internal" href="#example-2-choices-from-a-callback">Example 2: Choices from a callback</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="AssertType.html"
+                        title="previous chapter">AssertType</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Collection.html"
+                        title="next chapter">Collection</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/book/validator/constraints/Choice.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Collection.html" title="Collection"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="AssertType.html" title="AssertType"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Symfony2 Validator</a> &raquo;</li>
+          <li><a href="../constraints.html" >Constraints</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Validator Constraints</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

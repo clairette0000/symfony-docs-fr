@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Kernel &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Internals" href="index.html" />
+    <link rel="next" title="The Event Dispatcher" href="event_dispatcher.html" />
+    <link rel="prev" title="Internals Overview" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="event_dispatcher.html" title="The Event Dispatcher"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Internals Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="kernel">
+<span id="index-0"></span><h1>Kernel<a class="headerlink" href="#kernel" title="Permalink to this headline">¶</a></h1>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\HttpKernel</span></tt> is the class responsible
+for handling client requests. Its main goal is to &#8220;convert&#8221;
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Request</span></tt> objects to
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Response</span></tt> ones.</p>
+<p>All Symfony2 Kernels implement
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\HttpKernelInterface</span></tt>:</p>
+<div class="highlight-python"><pre>function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)</pre>
+</div>
+<div class="section" id="controllers">
+<span id="index-1"></span><h2>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h2>
+<p>To convert a Request to a Response, the Kernel relies on a &#8220;Controller&#8221;. A
+Controller can be any valid PHP callable.</p>
+<p>The Kernel delegates the selection of the Controller to execute to an
+implementation of
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\Controller\ControllerResolverInterface</span></tt>:</p>
+<div class="highlight-python"><pre>public function getController(Request $request);
+
+public function getArguments(Request $request, $controller);</pre>
+</div>
+<p>The
+<a href="#id1"><span class="problematic" id="id2">:method:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface::getController`</span></a>
+method returns the Controller (a PHP callable) associated with the given
+Request. The default implementation
+(<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\Controller\ControllerResolver</span></tt>)
+looks for a <tt class="docutils literal"><span class="pre">_controller</span></tt> request attribute that represents the controller
+name (a &#8220;class::method&#8221; string, like
+<tt class="docutils literal"><span class="pre">Bundle\BlogBundle\PostController:indexAction</span></tt>).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The default implementation uses the
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Bundle\FrameworkBundle\RequestListener</span></tt> to define the
+<tt class="docutils literal"><span class="pre">_controller</span></tt> Request attribute (see below).</p>
+</div>
+<p>The
+<a href="#id3"><span class="problematic" id="id4">:method:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface::getArguments`</span></a>
+method returns an array of arguments to pass to the Controller callable. The
+default implementation automatically resolves the method arguments, based on
+the Request attributes.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Matching Controller method arguments from Request attributes</p>
+<p>For each method argument, Symfony2 tries to get the value of a Request
+attribute with the same name. If it is not defined, the argument default
+value is used if defined:</p>
+<div class="last highlight-python"><pre>// Symfony2 will look for an 'id' attribute (mandatory)
+// and an 'admin' one (optional)
+public function showAction($id, $admin = true)
+{
+    // ...
+}</pre>
+</div>
+</div>
+</div>
+<div class="section" id="handling-requests">
+<span id="index-2"></span><h2>Handling Requests<a class="headerlink" href="#handling-requests" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">handle()</span></tt> method takes a Request and <em>always</em> returns a Response. To
+convert the Request, <tt class="docutils literal"><span class="pre">handle()</span></tt> relies on the Resolver and an ordered chain
+of Event notifications (see the next section for more information about each
+Event):</p>
+<ol class="arabic simple">
+<li>Before doing anything else, the <tt class="docutils literal"><span class="pre">core.request</span></tt> event is notified &#8211; if
+one of the listener returns a Response, it jumps to step 8 directly;</li>
+<li>The Resolver is called to determine the Controller to execute;</li>
+<li>Listeners of the <tt class="docutils literal"><span class="pre">core.controller</span></tt> event can now manipulate the
+Controller callable the way they want (change it, wrap it, ...);</li>
+<li>The Kernel checks that the Controller is actually a valid PHP callable;</li>
+<li>The Resolver is called to determine the arguments to pass to the Controller;</li>
+<li>The Kernel calls the Controller;</li>
+<li>If the Controller does not return a Response, listeners of the
+<tt class="docutils literal"><span class="pre">core.view</span></tt> event can convert the Controller return value to a Response;</li>
+<li>Listeners of the <tt class="docutils literal"><span class="pre">core.response</span></tt> event can manipulate the Response
+(content and headers);</li>
+<li>The Response is returned.</li>
+</ol>
+<p>If an Exception is thrown during processing, the <tt class="docutils literal"><span class="pre">core.exception</span></tt> is
+notified and listeners are given a change to convert the Exception to a
+Response. If that works, the <tt class="docutils literal"><span class="pre">core.response</span></tt> event is notified; if not the
+Exception is re-thrown.</p>
+<p>If you don&#8217;t want Exceptions to be caught (for embedded requests for instance),
+disable the <tt class="docutils literal"><span class="pre">core.exception</span></tt> event by passing <tt class="docutils literal"><span class="pre">false</span></tt> as the third argument
+to the <tt class="docutils literal"><span class="pre">handle()</span></tt> method.</p>
+</div>
+<div class="section" id="internal-requests">
+<span id="index-3"></span><h2>Internal Requests<a class="headerlink" href="#internal-requests" title="Permalink to this headline">¶</a></h2>
+<p>At any time during the handling of a request (the &#8216;master&#8217; one), a sub-request
+can be handled. You can pass the request type to the <tt class="docutils literal"><span class="pre">handle()</span></tt> method (its
+second argument):</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">HttpKernelInterface::MASTER_REQUEST</span></tt>;</li>
+<li><tt class="docutils literal"><span class="pre">HttpKernelInterface::SUB_REQUEST</span></tt>.</li>
+</ul>
+<p>The type is passed to all events and listeners can act accordingly (some
+processing must only occur on the master request).</p>
+</div>
+<div class="section" id="events">
+<span id="index-4"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p>All events have a <tt class="docutils literal"><span class="pre">request_type</span></tt> parameter which allows listeners to know
+the type of the request. For instance, if a listener must only be active for
+master requests, add the following code at the beginning of your listener
+method:</p>
+<div class="highlight-python"><pre>if (HttpKernelInterface::MASTER_REQUEST !== $event-&gt;get('request_type')) {
+    // return immediately
+    // if the event is a filter, return the filtered value instead
+    return;
+}</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you are not yet familiar with the Symfony2 Event Dispatcher, read the
+<a class="reference internal" href="event_dispatcher.html"><em>dedicated chapter</em></a> first.</p>
+</div>
+<div class="section" id="core-request-event">
+<span id="index-5"></span><h3><tt class="docutils literal"><span class="pre">core.request</span></tt> Event<a class="headerlink" href="#core-request-event" title="Permalink to this headline">¶</a></h3>
+<p><em>Type</em>: <tt class="docutils literal"><span class="pre">notifyUntil()</span></tt></p>
+<p><em>Parameters</em>: <tt class="docutils literal"><span class="pre">request_type</span></tt> and <tt class="docutils literal"><span class="pre">request</span></tt></p>
+<p>As the event is notified with the <tt class="docutils literal"><span class="pre">notifyUntil()</span></tt> method, if a listener
+returns a Response object, other listeners won&#8217;t be called.</p>
+<p>This event is used by <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> to populate the <tt class="docutils literal"><span class="pre">_controller</span></tt>
+Request attribute, via the
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Bundle\FrameworkBundle\RequestListener</span></tt>. RequestListener
+uses a <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Routing\RouterInterface</span></tt> object to match
+the Request and determine the Controller name (stored in the <tt class="docutils literal"><span class="pre">_controller</span></tt>
+Request attribute).</p>
+</div>
+<div class="section" id="core-controller-event">
+<span id="index-6"></span><h3><tt class="docutils literal"><span class="pre">core.controller</span></tt> Event<a class="headerlink" href="#core-controller-event" title="Permalink to this headline">¶</a></h3>
+<p><em>Type</em>: <tt class="docutils literal"><span class="pre">filter</span></tt></p>
+<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">request_type</span></tt> and <tt class="docutils literal"><span class="pre">request</span></tt></p>
+<p><em>Value to filter</em>: The Controller value</p>
+<p>This event is not used by <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>.</p>
+</div>
+<div class="section" id="core-view-event">
+<span id="index-7"></span><h3><tt class="docutils literal"><span class="pre">core.view</span></tt> Event<a class="headerlink" href="#core-view-event" title="Permalink to this headline">¶</a></h3>
+<p><em>Type</em>: <tt class="docutils literal"><span class="pre">notifyUntil</span></tt></p>
+<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">request_type</span></tt>, <tt class="docutils literal"><span class="pre">request</span></tt>, and <tt class="docutils literal"><span class="pre">controller_value</span></tt></p>
+<p>This event is not used by <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>. It can be used to implement a
+view sub-system.</p>
+</div>
+<div class="section" id="core-response-event">
+<span id="index-8"></span><h3><tt class="docutils literal"><span class="pre">core.response</span></tt> Event<a class="headerlink" href="#core-response-event" title="Permalink to this headline">¶</a></h3>
+<p><em>Type</em>: <tt class="docutils literal"><span class="pre">filter</span></tt></p>
+<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">request_type</span></tt> and <tt class="docutils literal"><span class="pre">request</span></tt></p>
+<p><em>Value to filter</em>: The Response instance</p>
+<p><tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> registers several listeners:</p>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\Profiler\ProfilerListener</span></tt>:
+collects data for the current request;</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Bundle\WebProfilerBundle\WebDebugToolbarListener</span></tt>:
+injects the Web Debug Toolbar;</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\ResponseListener</span></tt>: fixes the
+Response <tt class="docutils literal"><span class="pre">Content-Type</span></tt>;</li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpKernel\Cache\EsiListener</span></tt>: adds a
+<tt class="docutils literal"><span class="pre">Surrogate-Control</span></tt> HTTP header when the Response needs to be parsed for
+ESI tags.</li>
+</ul>
+</div>
+<div class="section" id="core-exception-event">
+<span id="index-9"></span><h3><tt class="docutils literal"><span class="pre">core.exception</span></tt> Event<a class="headerlink" href="#core-exception-event" title="Permalink to this headline">¶</a></h3>
+<p><em>Type</em>: <tt class="docutils literal"><span class="pre">notifyUntil</span></tt></p>
+<p><em>Arguments</em>: <tt class="docutils literal"><span class="pre">request_type</span></tt>, <tt class="docutils literal"><span class="pre">request</span></tt>, and <tt class="docutils literal"><span class="pre">exception</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> registers a
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Bundle\FrameworkBundle\Controller\ExceptionListener</span></tt> that
+forwards the Request to a given Controller (the value of the
+<tt class="docutils literal"><span class="pre">exception_listener.controller</span></tt> parameter &#8211; must be in the
+<tt class="docutils literal"><span class="pre">class::method</span></tt> notation).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Kernel</a><ul>
+<li><a class="reference internal" href="#controllers">Controllers</a></li>
+<li><a class="reference internal" href="#handling-requests">Handling Requests</a></li>
+<li><a class="reference internal" href="#internal-requests">Internal Requests</a></li>
+<li><a class="reference internal" href="#events">Events</a><ul>
+<li><a class="reference internal" href="#core-request-event"><tt class="docutils literal"><span class="pre">core.request</span></tt> Event</a></li>
+<li><a class="reference internal" href="#core-controller-event"><tt class="docutils literal"><span class="pre">core.controller</span></tt> Event</a></li>
+<li><a class="reference internal" href="#core-view-event"><tt class="docutils literal"><span class="pre">core.view</span></tt> Event</a></li>
+<li><a class="reference internal" href="#core-response-event"><tt class="docutils literal"><span class="pre">core.response</span></tt> Event</a></li>
+<li><a class="reference internal" href="#core-exception-event"><tt class="docutils literal"><span class="pre">core.exception</span></tt> Event</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Internals Overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="event_dispatcher.html"
+                        title="next chapter">The Event Dispatcher</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/internals/kernel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="event_dispatcher.html" title="The Event Dispatcher"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Internals Overview"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

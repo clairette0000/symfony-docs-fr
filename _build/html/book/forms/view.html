@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Forms in Templates &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Forms" href="index.html" />
+    <link rel="next" title="Security" href="../security/index.html" />
+    <link rel="prev" title="UrlField" href="fields/UrlField.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../security/index.html" title="Security"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fields/UrlField.html" title="UrlField"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Forms</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="forms-in-templates">
+<span id="index-0"></span><h1>Forms in Templates<a class="headerlink" href="#forms-in-templates" title="Permalink to this headline">¶</a></h1>
+<p>A Symfony2 <a class="reference internal" href="overview.html"><em>Form</em></a> is made of fields. Fields
+describe the form semantic, not its end-user representation; it means that a
+form is not necessarily tied to HTML. Instead, it is the responsibility of the
+web designer to display each form field the way he wants. So, displaying a
+Symfony2 form in a template can easily be done manually. But, Symfony2 eases
+form integration and customization by providing helpers for PHP and Twig
+templates.</p>
+<div class="section" id="displaying-a-form-manually">
+<h2>Displaying a Form &#8220;manually&#8221;<a class="headerlink" href="#displaying-a-form-manually" title="Permalink to this headline">¶</a></h2>
+<p>Before diving into the Symfony2 wrappers and how they help you to display form
+easily, securely, and fast, you must know that nothing special happens under
+the hood. You can use any HTML you want to display a Symfony2 form:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+<p>If there is a validation error, you should display it and fill the fields with
+the submitted values to make it easier to fix the problems fast. Just use the
+form dedicated methods:</p>
+<p>The Symfony2 helpers help you to keep your template short, make your form
+layout easily customizable, support internationalization, CSRF protection,
+file upload, and more out of the box. The following sections tells you
+everything about them.</p>
+</div>
+<div class="section" id="displaying-a-form">
+<h2>Displaying a Form<a class="headerlink" href="#displaying-a-form" title="Permalink to this headline">¶</a></h2>
+<p>As the global structure of a form (the form tag, the submit button, ...) is
+not defined by the form instance, you are free to use the HTML code you want.
+A simple form template reads as follows:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Display the form fields --&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+<p>Besides the global form structure, you need a way to display global errors and
+hidden fields. Symfony2 provides helpers to fulfill this job. In Twig templates,
+these helpers are implemented as global functions that can be applied on forms
+and form fields. In PHP templates, the &#8220;form&#8221; helper offers the same
+functionality through public methods that accept the form or form field as
+parameter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As you can see, Twig functions are prefixed with &#8220;form_&#8221;. Other than the
+methods of the &#8220;form&#8221; helper, these functions are global and prone to
+naming collisions.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">By default, the <tt class="docutils literal"><span class="pre">errors</span></tt> helper generates a <tt class="docutils literal"><span class="pre">&lt;ul&gt;</span></tt> list, but this
+can be easily customized as you will see later in this document.</p>
+</div>
+<p>Last but not the least, a form containing a file input must contain the
+<tt class="docutils literal"><span class="pre">enctype</span></tt> attribute; use the <tt class="docutils literal"><span class="pre">enctype</span></tt> helper to take render it:</p>
+</div>
+<div class="section" id="displaying-fields">
+<h2>Displaying Fields<a class="headerlink" href="#displaying-fields" title="Permalink to this headline">¶</a></h2>
+<p>Accessing form fields is easy as a Symfony2 form acts as an array:</p>
+<p>As each field is a Field instance, it cannot be displayed as shown above; use
+one of the helpers instead.</p>
+<p>The <tt class="docutils literal"><span class="pre">render</span></tt> helper renders the HTML representation of a field:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The field&#8217;s template is selected based on the field&#8217;s class name, as you will
+learn later.</p>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">label</span></tt> helper renders the <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt> tag associated with the field:</p>
+<p>By default, Symfony2 &#8220;humanizes&#8221; the field name, but you can give your own
+label:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Symfony2 automatically internationalizes all labels and error messages.</p>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">errors</span></tt> helper renders the field errors:</p>
+</div>
+<div class="section" id="defining-the-html-representation">
+<h2>Defining the HTML Representation<a class="headerlink" href="#defining-the-html-representation" title="Permalink to this headline">¶</a></h2>
+<p>The helpers rely on templates to render HTML. By default, Symfony2 comes bundled
+with templates for all built-in fields.</p>
+<p>In Twig templates, each helper is associated with one template block. The
+<tt class="docutils literal"><span class="pre">form_errors</span></tt> function, for example, looks for an <tt class="docutils literal"><span class="pre">errors</span></tt> block. The
+built-in one reads as follows:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# TwigBundle::form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">errors</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">if</span> <span class="nv">errors</span> <span class="cp">%}</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">error</span> <span class="k">in</span> <span class="nv">errors</span> <span class="cp">%}</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">{%</span> <span class="k">trans</span> <span class="nv">error.0</span> <span class="k">with</span> <span class="nv">error.1</span> <span class="nv">from</span> <span class="nv">validators</span> <span class="cp">%}</span><span class="nt">&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">errors</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>In PHP templates, on the other hand, each helper is associated with one PHP
+template. The <tt class="docutils literal"><span class="pre">errors()</span></tt> helper looks for an <tt class="docutils literal"><span class="pre">errors.php</span></tt> template, which
+reads as follows:</p>
+<div class="highlight-html+php"><div class="highlight"><pre>{# FrameworkBundle:Form:errors.php #}
+
+<span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$errors</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$errors</span> <span class="k">as</span> <span class="nv">$error</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;translator&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$error</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nv">$error</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;validators&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Here is the full list of helpers and their associated blocks/templates:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="29%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Helper</th>
+<th class="head">Twig Block</th>
+<th class="head">PHP Template Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">errors</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">errors</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">FrameworkBundle:Form:errors.php</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">hidden</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">hidden</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">FrameworkBundle:Form:hidden.php</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">label</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">label</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">FrameworkBundle:Form:label.php</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">render</span></tt></td>
+<td>see below</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<p>The <tt class="docutils literal"><span class="pre">render</span></tt> helper is a bit different as it selects the template to
+render based on the underscored version of the field&#8217;s class name. For instance,
+it looks for a <tt class="docutils literal"><span class="pre">textarea_field</span></tt> block or a <tt class="docutils literal"><span class="pre">textarea_field.php</span></tt> template when
+rendering a <tt class="docutils literal"><span class="pre">TextareaField</span></tt> instance:</p>
+<p>If the block or template does not exist, the method looks for that of the
+field&#8217;s parent classes. That&#8217;s why there is no default <tt class="docutils literal"><span class="pre">collection_field</span></tt>
+block as its representation is exactly the same as of its parent class
+(<tt class="docutils literal"><span class="pre">field_group</span></tt>).</p>
+</div>
+<div class="section" id="customizing-field-representation">
+<h2>Customizing Field Representation<a class="headerlink" href="#customizing-field-representation" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to customize a field is by passing custom HTML attributes as
+an argument to the <tt class="docutils literal"><span class="pre">render</span></tt> helper:</p>
+<p>Some fields, like <tt class="docutils literal"><span class="pre">ChoiceField</span></tt>, accept parameters to customize the field&#8217;s
+representation. You can pass them in the next argument.</p>
+<p>All helpers accept a template name in the last argument, which allows you to
+completely change the HTML output of the helper:</p>
+<div class="section" id="form-theming-twig-only">
+<h3>Form Theming (Twig only)<a class="headerlink" href="#form-theming-twig-only" title="Permalink to this headline">¶</a></h3>
+<p>In the last example, the <tt class="docutils literal"><span class="pre">HelloBundle::form.html.twig</span></tt> is a regular Twig template
+containing blocks defining the HTML representation for fields you want to
+override:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# HelloBundle/Resources/views/form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">textarea_field</span> <span class="cp">%}</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;textarea_field&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;textarea</span> <span class="cp">{%</span> <span class="k">display</span> <span class="nv">field_attributes</span> <span class="cp">%}</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">field.displayedData</span> <span class="cp">}}</span><span class="nt">&lt;/textarea&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">textarea_field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>In this example, the <tt class="docutils literal"><span class="pre">textarea_field</span></tt> block is redefined. Instead of changing
+the default representation, you can also extend the default one by using the
+Twig native inheritance feature:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# HelloBundle/Resources/views/form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;TwigBundle::form.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">date_field</span> <span class="cp">%}</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;important_date_field&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">date_field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>If you want to customize all fields of a given form, use the <tt class="docutils literal"><span class="pre">form_theme</span></tt> tag:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">form_theme</span> <span class="nv">form</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Whenever you call the <tt class="docutils literal"><span class="pre">form_field</span></tt> function on the <tt class="docutils literal"><span class="pre">form</span></tt> after this call,
+Symfony2 will look for a representation in your template before falling back to
+the default one.</p>
+<p>If the field blocks are defined in several templates, add them as an ordered
+array:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">form_theme</span> <span class="nv">form</span> <span class="o">[</span><span class="s1">&#39;HelloBundle::form.html.twig&#39;</span><span class="o">,</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span><span class="o">,</span> <span class="s1">&#39;HelloBundle::hello_form.html.twig&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>A theme can be attached to a whole form (as above) or just for a field group:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">form_theme</span> <span class="nv">form.user</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Finally, customizing the representation of all forms of an application is
+possible via configuration:</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>Whenever a form function or tag takes a template name as an argument, you
+can use <tt class="docutils literal"><span class="pre">_self</span></tt> instead and define the customization directly in the
+current template:</p>
+<div class="last highlight-jinja"><pre>{% form_theme form _self %}
+
+{% block textarea_field %}
+    ...
+{% endblock %}
+
+{{ form_field(form.description, {}, {}, _self) }}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="prototyping">
+<h2>Prototyping<a class="headerlink" href="#prototyping" title="Permalink to this headline">¶</a></h2>
+<p>When prototyping a form, you can use the <tt class="docutils literal"><span class="pre">render</span></tt> helper on the form instead
+of manually rendering all fields:</p>
+<p>As there is no block/template defined for the <tt class="docutils literal"><span class="pre">Form</span></tt> class, the one of its
+parent class - <tt class="docutils literal"><span class="pre">FieldGroup</span></tt> - is used instead:</p>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">render</span></tt> method is not very flexible and should only be used to
+build prototypes.</p>
+</div>
+</div>
+<div class="section" id="learn-more-from-the-cookbook">
+<h2>Learn more from the Cookbook<a class="headerlink" href="#learn-more-from-the-cookbook" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../cookbook/templating/PHP.html"><em>How to use PHP instead of Twig for Templates</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Forms in Templates</a><ul>
+<li><a class="reference internal" href="#displaying-a-form-manually">Displaying a Form &#8220;manually&#8221;</a></li>
+<li><a class="reference internal" href="#displaying-a-form">Displaying a Form</a></li>
+<li><a class="reference internal" href="#displaying-fields">Displaying Fields</a></li>
+<li><a class="reference internal" href="#defining-the-html-representation">Defining the HTML Representation</a></li>
+<li><a class="reference internal" href="#customizing-field-representation">Customizing Field Representation</a><ul>
+<li><a class="reference internal" href="#form-theming-twig-only">Form Theming (Twig only)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#prototyping">Prototyping</a></li>
+<li><a class="reference internal" href="#learn-more-from-the-cookbook">Learn more from the Cookbook</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="fields/UrlField.html"
+                        title="previous chapter">UrlField</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../security/index.html"
+                        title="next chapter">Security</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/forms/view.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../security/index.html" title="Security"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fields/UrlField.html" title="UrlField"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Forms</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

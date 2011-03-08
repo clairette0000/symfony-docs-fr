@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DBAL &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Database Abstraction Layer" href="index.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Database Abstraction Layer" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Database Abstraction Layer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Database Abstraction Layer</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dbal">
+<span id="index-0"></span><h1>DBAL<a class="headerlink" href="#dbal" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://www.doctrine-project.org">Doctrine</a> Database Abstraction Layer (DBAL) is an abstraction layer that
+sits on top of <a class="reference external" href="http://www.php.net/pdo">PDO</a> and offers an intuitive and flexible API for
+communicating with the most popular relational databases that exist today!</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You can read more about the Doctrine DBAL on the official <a class="reference external" href="http://www.doctrine-project.org/projects/dbal/2.0/docs/en">documentation</a>
+website.</p>
+</div>
+<p>To get started you just need to enable and configure the DBAL:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+
+<span class="l-Scalar-Plain">doctrine</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">dbal</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">driver</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">pdo_mysql</span>
+        <span class="l-Scalar-Plain">dbname</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">Symfony2</span>
+        <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">null</span>
+</pre></div>
+</div>
+<p>You can then access the Doctrine DBAL connection by accessing the
+<tt class="docutils literal"><span class="pre">database_connection</span></tt> service:</p>
+<div class="highlight-python"><pre>class UserController extends Controller
+{
+    public function indexAction()
+    {
+        $conn = $this-&gt;get('database_connection');
+
+        $users = $conn-&gt;fetchAll('SELECT * FROM users');
+    }
+}</pre>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Database Abstraction Layer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="configuration.html"
+                        title="next chapter">Configuration</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/book/doctrine/dbal/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Database Abstraction Layer"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" >Database Abstraction Layer</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

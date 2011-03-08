@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Database Abstraction Layer" href="index.html" />
+    <link rel="next" title="Database Migrations" href="../migrations/index.html" />
+    <link rel="prev" title="DBAL" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../migrations/index.html" title="Database Migrations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="DBAL"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Database Abstraction Layer</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuration">
+<span id="index-0"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>One example configuration with a MySQL database could look like this following
+example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">doctrine</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">dbal</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">driver</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">pdo_mysql</span>
+        <span class="l-Scalar-Plain">dbname</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">Symfony2</span>
+        <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">root</span>
+        <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">null</span>
+</pre></div>
+</div>
+<p>The DoctrineBundle supports all parameters that all the default doctrine drivers
+accept, converted to the XML or YAML naming standards that Symfony enforces.
+See the Doctrine DBAL <a class="reference external" href="http://www.doctrine-project.org/projects/dbal/2.0/docs/en">documentation</a> for more information. Additionally
+there are some Symfony related options that you can configure. The following
+block shows all possible configuration keys without explaining their meaning
+further:</p>
+<p>There are also a bunch of dependency injection container parameters
+that allow you to specify which classes are used (with their default values):</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">doctrine.dbal.logger_class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Symfony\Bundle\DoctrineBundle\Logger\DbalLogger</span>
+    <span class="l-Scalar-Plain">doctrine.dbal.configuration_class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Doctrine\DBAL\Configuration</span>
+    <span class="l-Scalar-Plain">doctrine.data_collector.class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Symfony\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector</span>
+    <span class="l-Scalar-Plain">doctrine.dbal.event_manager_class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Doctrine\Common\EventManager</span>
+    <span class="l-Scalar-Plain">doctrine.dbal.events.mysql_session_init.class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Doctrine\DBAL\Event\Listeners\MysqlSessionInit</span>
+    <span class="l-Scalar-Plain">doctrine.dbal.events.oracle_session_init.class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Doctrine\DBAL\Event\Listeners\OracleSessionInit</span>
+    <span class="l-Scalar-Plain">doctrine.dbal.logging</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>If you want to configure multiple connections you can do so by simply listing
+them under the key named <tt class="docutils literal"><span class="pre">connections</span></tt>. All the parameters shown above
+can also be specified in the connections subkeys.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">doctrine</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">dbal</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">default_connection</span><span class="p-Indicator">:</span>       <span class="l-Scalar-Plain">default</span>
+        <span class="l-Scalar-Plain">connections</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">dbname</span><span class="p-Indicator">:</span>           <span class="l-Scalar-Plain">Symfony2</span>
+                <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span>             <span class="l-Scalar-Plain">root</span>
+                <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span>         <span class="l-Scalar-Plain">null</span>
+                <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span>             <span class="l-Scalar-Plain">localhost</span>
+            <span class="l-Scalar-Plain">customer</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">dbname</span><span class="p-Indicator">:</span>           <span class="l-Scalar-Plain">customer</span>
+                <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span>             <span class="l-Scalar-Plain">root</span>
+                <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span>         <span class="l-Scalar-Plain">null</span>
+                <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span>             <span class="l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+<p>If you have defined multiple connections you can use the
+<tt class="docutils literal"><span class="pre">$this-&gt;get('doctrine.dbal.[connectionname]_connection)</span></tt>
+as well but you must pass it an argument with the
+connection name that you want get:</p>
+<div class="highlight-python"><pre>class UserController extends Controller
+{
+    public function indexAction()
+    {
+        $defaultConn1 = $this-&gt;get('doctrine.dbal.connection');
+        $defaultConn2 = $this-&gt;get('doctrine.dbal.default_connection');
+        // $defaultConn1 === $defaultConn2
+
+        $customerConn = $this-&gt;get('doctrine.dbal.customer_connection');
+    }
+}</pre>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">DBAL</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../migrations/index.html"
+                        title="next chapter">Database Migrations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/book/doctrine/dbal/configuration.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../migrations/index.html" title="Database Migrations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="DBAL"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" >Database Abstraction Layer</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

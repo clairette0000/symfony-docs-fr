@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to customize a Method Behavior without using Inheritance &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Vadémécum" href="../index.html" />
+    <link rel="next" title="How to create a custom Data Collector" href="../profiler/data_collector.html" />
+    <link rel="prev" title="How to extend a Class without using Inheritance" href="class_extension.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../profiler/data_collector.html" title="How to create a custom Data Collector"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="class_extension.html" title="How to extend a Class without using Inheritance"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Vadémécum</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="how-to-customize-a-method-behavior-without-using-inheritance">
+<span id="index-0"></span><h1>How to customize a Method Behavior without using Inheritance<a class="headerlink" href="#how-to-customize-a-method-behavior-without-using-inheritance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="doing-something-before-or-after-a-method-call">
+<h2>Doing something before or after a Method Call<a class="headerlink" href="#doing-something-before-or-after-a-method-call" title="Permalink to this headline">¶</a></h2>
+<p>If you want to do something just before, or just after a method is called, you
+can notify respectively an event at the beginning or at the end of the
+method:</p>
+<div class="highlight-python"><pre>class Foo
+{
+    // ...
+
+    public function send($foo, $bar)
+    {
+        // do something before the method
+        $event = new Event($this, 'foo.do_before_send', array('foo' =&gt; $foo, 'bar' =&gt; $bar));
+        $this-&gt;dispatcher-&gt;notify($event);
+
+        // the real method implementation is here
+        // $ret = ...;
+
+        // do something after the method
+        $event = new Event($this, 'foo.do_after_send', array('ret' =&gt; $ret));
+        $this-&gt;dispatcher-&gt;notify($event);
+
+        return $ret;
+    }
+}</pre>
+</div>
+</div>
+<div class="section" id="modifying-method-arguments">
+<h2>Modifying Method Arguments<a class="headerlink" href="#modifying-method-arguments" title="Permalink to this headline">¶</a></h2>
+<p>If you want to allow third party classes to modify arguments passed to a method
+just before that method is executed, add a <tt class="docutils literal"><span class="pre">filter</span></tt> event at the beginning of
+the method:</p>
+<div class="highlight-python"><pre>class Foo
+{
+    // ...
+
+    public function render($template, $arguments = array())
+    {
+        // filter the arguments
+        $event = new Event($this, 'foo.filter_arguments');
+        $this-&gt;dispatcher-&gt;filter($event, $arguments);
+
+        // get the filtered arguments
+        $arguments = $event-&gt;getReturnValue();
+        // the method starts here
+    }
+}</pre>
+</div>
+<p>And here is a filter example:</p>
+<div class="highlight-python"><pre>class Bar
+{
+    public function filterFooArguments(Event $event, $arguments)
+    {
+        $arguments['processed'] = true;
+
+        return $arguments;
+    }
+}</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to customize a Method Behavior without using Inheritance</a><ul>
+<li><a class="reference internal" href="#doing-something-before-or-after-a-method-call">Doing something before or after a Method Call</a></li>
+<li><a class="reference internal" href="#modifying-method-arguments">Modifying Method Arguments</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="class_extension.html"
+                        title="previous chapter">How to extend a Class without using Inheritance</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../profiler/data_collector.html"
+                        title="next chapter">How to create a custom Data Collector</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/cookbook/event_dispatcher/method_behavior.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../profiler/data_collector.html" title="How to create a custom Data Collector"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="class_extension.html" title="How to extend a Class without using Inheritance"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Vadémécum</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

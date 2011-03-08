@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Dependency Injection Tags &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../index.html" />
+    <link rel="up" title="Documents de référence" href="index.html" />
+    <link rel="next" title="YAML" href="YAML.html" />
+    <link rel="prev" title="Documents de référence" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="YAML.html" title="YAML"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Documents de référence"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Documents de référence</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-dependency-injection-tags">
+<h1>The Dependency Injection Tags<a class="headerlink" href="#the-dependency-injection-tags" title="Permalink to this headline">¶</a></h1>
+<p>Tags:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">data_collector</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.listener</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">templating.helper</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">templating.renderer</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">routing.loader</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">twig.extension</span></tt></li>
+</ul>
+<div class="section" id="enabling-custom-php-template-helpers">
+<h2>Enabling Custom PHP Template Helpers<a class="headerlink" href="#enabling-custom-php-template-helpers" title="Permalink to this headline">¶</a></h2>
+<p>To enable a custom template helper, add it as a regular service in one of your
+configuration, tag it with <tt class="docutils literal"><span class="pre">templating.helper</span></tt> and define an <tt class="docutils literal"><span class="pre">alias</span></tt>
+attribute (the helper will be accessible via this alias in the templates):</p>
+</div>
+<div class="section" id="enabling-custom-twig-extensions">
+<h2>Enabling Custom Twig Extensions<a class="headerlink" href="#enabling-custom-twig-extensions" title="Permalink to this headline">¶</a></h2>
+<p>To enable a Twig extension, add it as a regular service in one of your
+configuration, and tag it with <tt class="docutils literal"><span class="pre">twig.extension</span></tt>:</p>
+</div>
+<div class="section" id="enabling-custom-listeners">
+<h2>Enabling Custom Listeners<a class="headerlink" href="#enabling-custom-listeners" title="Permalink to this headline">¶</a></h2>
+<p>To enable a custom listener, add it as a regular service in one of your
+configuration, and tag it with <tt class="docutils literal"><span class="pre">kernel.listener</span></tt>:</p>
+</div>
+<div class="section" id="enabling-custom-template-engines">
+<h2>Enabling Custom Template Engines<a class="headerlink" href="#enabling-custom-template-engines" title="Permalink to this headline">¶</a></h2>
+<p>To enable a custom template engine, add it as a regular service in one of your
+configuration, tag it with <tt class="docutils literal"><span class="pre">templating.engine</span></tt>:</p>
+</div>
+<div class="section" id="enabling-custom-routing-loaders">
+<h2>Enabling Custom Routing Loaders<a class="headerlink" href="#enabling-custom-routing-loaders" title="Permalink to this headline">¶</a></h2>
+<p>To enable a custom routing loader, add it as a regular service in one of your
+configuration, and tag it with <tt class="docutils literal"><span class="pre">routing.loader</span></tt>:</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Dependency Injection Tags</a><ul>
+<li><a class="reference internal" href="#enabling-custom-php-template-helpers">Enabling Custom PHP Template Helpers</a></li>
+<li><a class="reference internal" href="#enabling-custom-twig-extensions">Enabling Custom Twig Extensions</a></li>
+<li><a class="reference internal" href="#enabling-custom-listeners">Enabling Custom Listeners</a></li>
+<li><a class="reference internal" href="#enabling-custom-template-engines">Enabling Custom Template Engines</a></li>
+<li><a class="reference internal" href="#enabling-custom-routing-loaders">Enabling Custom Routing Loaders</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Documents de référence</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="YAML.html"
+                        title="next chapter">YAML</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/reference/dic_tags.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="YAML.html" title="YAML"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Documents de référence"
+             >previous</a> |</li>
+        <li><a href="../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Documents de référence</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

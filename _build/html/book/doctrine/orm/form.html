@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Form Integration &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Object Relational Mapper" href="index.html" />
+    <link rel="next" title="Database Abstraction Layer" href="../dbal/index.html" />
+    <link rel="prev" title="Console Commands" href="console.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../dbal/index.html" title="Database Abstraction Layer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="console.html" title="Console Commands"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Object Relational Mapper</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="form-integration">
+<h1>Form Integration<a class="headerlink" href="#form-integration" title="Permalink to this headline">¶</a></h1>
+<p>There is a tight integration between Doctrine ORM and the Symfony2 Form
+component. Since Doctrine Entities are plain old php objects they nicely
+integrate into the Form component by default, at least for the primitive data
+types such as strings, integers and fields. However you can also integrate
+them nicely with associations.</p>
+<p>This is done by the help of ValueTransformers, which are form field extension
+points. There are currently three transformers that allow you to transform
+Doctrine ORM Collections and Entities into their identifier values that can be
+used with the Form component. Furthermore they translate form values back to
+the Doctrine representation in the most efficient way possible, issuing as few
+queries as possible.</p>
+<div class="section" id="collectiontochoicetransformer">
+<h2>CollectionToChoiceTransformer<a class="headerlink" href="#collectiontochoicetransformer" title="Permalink to this headline">¶</a></h2>
+<p>This transformer allows you to transform a Collection of Entities into an
+array of ids. This transformer should be used with the ChoiceField or any
+compatible field that handles arrays of values:</p>
+<div class="highlight-python"><pre>use Symfony\Component\Form\ChoiceField;
+use Symfony\Bundle\DoctrineBundle\Form\ValueTransformer\CollectionToChoiceTransformer;
+
+$productTransformer = new CollectionToChoiceTransformer(array(
+    'em' =&gt; $em,
+    'className' =&gt; 'Product',
+));
+
+$field = new ChoiceField('products', array(
+    'choices' =&gt; $productChoices,
+    'multiple' =&gt; true,
+    'expanded' =&gt; true,
+    'value_transformer' =&gt; $productTransformer,
+));
+
+$form-&gt;addField($field);</pre>
+</div>
+<p>The &#8216;em&#8217; property expects the EntityManager, the &#8216;className&#8217; property expects
+the Entity Class name as an argument.</p>
+</div>
+<div class="section" id="collectiontostringtransformer">
+<h2>CollectionToStringTransformer<a class="headerlink" href="#collectiontostringtransformer" title="Permalink to this headline">¶</a></h2>
+<p>This transformer allows you to transform a Collection of Entities into a
+string separated by a separator. This is useful for lists of tags, usernames
+or similar unique fields of your Entities.</p>
+</div>
+<div class="section" id="entitytoidtransformer">
+<h2>EntityToIDTransformer<a class="headerlink" href="#entitytoidtransformer" title="Permalink to this headline">¶</a></h2>
+<p>This transformer converts an Entity into its ID and back to allow to select
+many-to-one or one-to-one entities in choice fields. See this extended example
+on how it works. In this case a list of all users is used in a Choice field to
+be chosen from:</p>
+<div class="highlight-python"><pre>use Symfony\Bundle\DoctrineBundle\Form\ValueTransformer\EntityToIDTransformer;
+use Symfony\Component\Form\ChoiceField;
+
+$userChoices = array();
+$users = $em-&gt;getRepository('User')-&gt;findAll();
+foreach ($users as $user) {
+    $userChoices[$user-&gt;id] = $user-&gt;name;
+}
+
+$userTransformer = new EntityToIDTransformer(array(
+    'em' =&gt; $em,
+    'className' =&gt; 'User',
+));
+$engineerField = new ChoiceField('engineer', array(
+    'choices' =&gt; $userChoices,
+    'value_transformer' =&gt; $userTransformer,
+));
+$reporterField = new ChoiceField('reporter', array(
+    'choices' =&gt; $userChoices,
+    'value_transformer' =&gt; $userTransformer,
+));
+
+$form-&gt;add($engineerField);
+$form-&gt;add($reporterField);</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Form Integration</a><ul>
+<li><a class="reference internal" href="#collectiontochoicetransformer">CollectionToChoiceTransformer</a></li>
+<li><a class="reference internal" href="#collectiontostringtransformer">CollectionToStringTransformer</a></li>
+<li><a class="reference internal" href="#entitytoidtransformer">EntityToIDTransformer</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="console.html"
+                        title="previous chapter">Console Commands</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../dbal/index.html"
+                        title="next chapter">Database Abstraction Layer</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/book/doctrine/orm/form.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../dbal/index.html" title="Database Abstraction Layer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="console.html" title="Console Commands"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="../index.html" >Doctrine</a> &raquo;</li>
+          <li><a href="index.html" >Object Relational Mapper</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

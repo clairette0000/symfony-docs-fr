@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Form Fields &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Forms" href="index.html" />
+    <link rel="next" title="Built-in Fields" href="fields/index.html" />
+    <link rel="prev" title="Working with Forms" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fields/index.html" title="Built-in Fields"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Working with Forms"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Forms</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="form-fields">
+<h1>Form Fields<a class="headerlink" href="#form-fields" title="Permalink to this headline">¶</a></h1>
+<p>A form consists of one or more form fields. Each field is an object whose
+class implements <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\FormFieldInterface</span></tt>.
+Fields convert data between normalized and human representations.</p>
+<p>Let&#8217;s look at the <tt class="docutils literal"><span class="pre">DateField</span></tt> for example. While your application stores
+dates as strings or <tt class="docutils literal"><span class="pre">DateTime</span></tt> objects, users prefer to choose a date in
+drop downs. <tt class="docutils literal"><span class="pre">DateField</span></tt> handles the rendering and type conversion for you.</p>
+<div class="section" id="core-field-options">
+<h2>Core Field Options<a class="headerlink" href="#core-field-options" title="Permalink to this headline">¶</a></h2>
+<p>All built-in fields accept an array of options in their constructor. For
+convenience, these core fields are subclasses of
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\Field</span></tt> which predefines a couple of options.</p>
+<div class="section" id="data">
+<h3><tt class="docutils literal"><span class="pre">data</span></tt><a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
+<p>When you create a form, each field initially displays the value of the
+corresponding property of the form&#8217;s domain object. If you want to override
+this initial value, you can set it in the <tt class="docutils literal"><span class="pre">data</span></tt> option.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\HiddenField</span>
+
+<span class="x">$field = new HiddenField(&#39;token&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;abcdef&#39;,</span>
+<span class="x">));</span>
+
+<span class="x">assert(&#39;abcdef&#39; === $field-&gt;getData());</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When you set the <tt class="docutils literal"><span class="pre">data</span></tt> option, the field will also not write the the
+domain object, because the <tt class="docutils literal"><span class="pre">property_path</span></tt> option will implicitely be
+<tt class="docutils literal"><span class="pre">null</span></tt>. Read <a class="reference internal" href="#form-field-property-path"><em>property_path</em></a> for more information.</p>
+</div>
+</div>
+<div class="section" id="required">
+<h3><tt class="docutils literal"><span class="pre">required</span></tt><a class="headerlink" href="#required" title="Permalink to this headline">¶</a></h3>
+<p>By default, each <tt class="docutils literal"><span class="pre">Field</span></tt> assumes that its value is required, so no empty
+value should be submitted. This setting affects the behaviour and rendering of
+some fields. The <tt class="docutils literal"><span class="pre">ChoiceField</span></tt>, for example, includes an empty choice if
+it is not required.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\ChoiceField</span>
+
+<span class="x">$field = new ChoiceField(&#39;status&#39;, array(</span>
+<span class="x">    &#39;choices&#39; =&gt; array(&#39;tbd&#39; =&gt; &#39;To be done&#39;, &#39;rdy&#39; =&gt; &#39;Ready&#39;),</span>
+<span class="x">    &#39;required&#39; =&gt; false,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disabled">
+<h3><tt class="docutils literal"><span class="pre">disabled</span></tt><a class="headerlink" href="#disabled" title="Permalink to this headline">¶</a></h3>
+<p>If you don&#8217;t want a user to modify the value of a field, you can set the
+<tt class="docutils literal"><span class="pre">disabled</span></tt> option to <tt class="docutils literal"><span class="pre">true</span></tt>. Any submitted value will be ignored.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$field = new TextField(&#39;status&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;Old data&#39;,</span>
+<span class="x">    &#39;disabled&#39; =&gt; true,</span>
+<span class="x">));</span>
+<span class="x">$field-&gt;submit(&#39;New data&#39;);</span>
+
+<span class="x">assert(&#39;Old data&#39; === $field-&gt;getData());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trim">
+<h3><tt class="docutils literal"><span class="pre">trim</span></tt><a class="headerlink" href="#trim" title="Permalink to this headline">¶</a></h3>
+<p>Many users accidentally type leading or trailing spaces into input fields.
+The form framework automatically removes these spaces. If you want to keep them,
+set the <tt class="docutils literal"><span class="pre">trim</span></tt> option to <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$field = new TextField(&#39;status&#39;, array(</span>
+<span class="x">    &#39;trim&#39; =&gt; false,</span>
+<span class="x">));</span>
+<span class="x">$field-&gt;submit(&#39;   Data   &#39;);</span>
+
+<span class="x">assert(&#39;   Data   &#39; === $field-&gt;getData());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="property-path">
+<span id="form-field-property-path"></span><h3><tt class="docutils literal"><span class="pre">property_path</span></tt><a class="headerlink" href="#property-path" title="Permalink to this headline">¶</a></h3>
+<p>Fields display a property value of the form&#8217;s domain object by default. When
+the form is submitted, the submitted value is written back into the object.</p>
+<p>If you want to override the property that a field reads from and writes to,
+you can set the <tt class="docutils literal"><span class="pre">property_path</span></tt> option. Its default value is the field&#8217;s
+name.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\Form</span>
+<span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$author = new Author();</span>
+<span class="x">$author-&gt;setFirstName(&#39;Your name...&#39;);</span>
+
+<span class="x">$form = new Form(&#39;author&#39;);</span>
+<span class="x">$form-&gt;add(new TextField(&#39;name&#39;, array(</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;firstName&#39;,</span>
+<span class="x">)));</span>
+<span class="x">$form-&gt;bind($request, $author);</span>
+
+<span class="x">assert(&#39;Your name...&#39; === $form[&#39;name&#39;]-&gt;getData());</span>
+</pre></div>
+</div>
+<p>For a property path, the class of the domain object needs to have</p>
+<ol class="arabic simple">
+<li>A matching public property, or</li>
+<li>A public setter and getter with the prefix &#8220;set&#8221;/&#8221;get&#8221;, followed by the
+property path.</li>
+</ol>
+<p>Property paths can also refer to nested objects by using dots.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\Form</span>
+<span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$author = new Author();</span>
+<span class="x">$author-&gt;getEmail()-&gt;setAddress(&#39;me@example.com&#39;);</span>
+
+<span class="x">$form = new Form(&#39;author&#39;);</span>
+<span class="x">$form-&gt;add(new EmailField(&#39;email&#39;, array(</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;email.address&#39;,</span>
+<span class="x">)));</span>
+<span class="x">$form-&gt;bind($request, $author);</span>
+
+<span class="x">assert(&#39;me@example.com&#39; === $form[&#39;email&#39;]-&gt;getData());</span>
+</pre></div>
+</div>
+<p>You can refer to entries of nested arrays or objects implementing
+<tt class="docutils literal"><span class="pre">\Traversable</span></tt> using squared brackets.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\Form</span>
+<span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$author = new Author();</span>
+<span class="x">$author-&gt;setEmails(array(0 =&gt; &#39;me@example.com&#39;));</span>
+
+<span class="x">$form = new Form(&#39;author&#39;);</span>
+<span class="x">$form-&gt;add(new EmailField(&#39;email&#39;, array(</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;emails[0]&#39;,</span>
+<span class="x">)));</span>
+<span class="x">$form-&gt;bind($request, $author);</span>
+
+<span class="x">assert(&#39;me@example.com&#39; === $form[&#39;email&#39;]-&gt;getData());</span>
+</pre></div>
+</div>
+<p>If the property path is <tt class="docutils literal"><span class="pre">null</span></tt>, the field will neither read from nor write
+to the domain object. This is useful if you want to have fields with fixed
+values.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\HiddenField</span>
+
+<span class="x">$field = new HiddenField(&#39;token&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;abcdef&#39;,</span>
+<span class="x">    &#39;property_path&#39; =&gt; null,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p>Because this is such a common scenario, <tt class="docutils literal"><span class="pre">property_path</span></tt> is always <tt class="docutils literal"><span class="pre">null</span></tt>
+if you set the <tt class="docutils literal"><span class="pre">data</span></tt> option. So the last code example can be simplified to:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\HiddenField</span>
+
+<span class="x">$field = new HiddenField(&#39;token&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;abcdef&#39;,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you want to set a custom default value but still write to the domain
+object, you need to pass <tt class="docutils literal"><span class="pre">property_path</span></tt> manually.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$field = new TextField(&#39;name&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;Custom default...&#39;,</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;token&#39;,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p class="last">Usually this is not necessary, because you should rather the default value
+of the <tt class="docutils literal"><span class="pre">token</span></tt> property in your domain object.</p>
+</div>
+</div>
+</div>
+<div class="section" id="built-in-fields">
+<h2>Built-in Fields<a class="headerlink" href="#built-in-fields" title="Permalink to this headline">¶</a></h2>
+<p>Symfony2 ships with the following fields:</p>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><a class="reference internal" href="fields/BirthdayField.html"><em>BirthdayField</em></a></li>
+<li><a class="reference internal" href="fields/CheckboxField.html"><em>CheckboxField</em></a></li>
+<li><a class="reference internal" href="fields/ChoiceField.html"><em>ChoiceField</em></a></li>
+<li><a class="reference internal" href="fields/CollectionField.html"><em>CollectionField</em></a></li>
+<li><a class="reference internal" href="fields/CountryField.html"><em>CountryField</em></a></li>
+<li><a class="reference internal" href="fields/DateField.html"><em>DateField</em></a></li>
+<li><a class="reference internal" href="fields/DateTimeField.html"><em>DateTimeField</em></a></li>
+<li><a class="reference internal" href="fields/EntityChoiceField.html"><em>EntityChoiceField</em></a></li>
+<li><a class="reference internal" href="fields/FileField.html"><em>FileField</em></a></li>
+<li><a class="reference internal" href="fields/HiddenField.html"><em>HiddenField</em></a></li>
+<li><a class="reference internal" href="fields/IntegerField.html"><em>IntegerField</em></a></li>
+<li><a class="reference internal" href="fields/LanguageField.html"><em>LanguageField</em></a></li>
+<li><a class="reference internal" href="fields/LocaleField.html"><em>LocaleField</em></a></li>
+<li><a class="reference internal" href="fields/MoneyField.html"><em>MoneyField</em></a></li>
+<li><a class="reference internal" href="fields/NumberField.html"><em>NumberField</em></a></li>
+<li><a class="reference internal" href="fields/PasswordField.html"><em>PasswordField</em></a></li>
+<li><a class="reference internal" href="fields/PercentField.html"><em>PercentField</em></a></li>
+<li><a class="reference internal" href="fields/RepeatedField.html"><em>RepeatedField</em></a></li>
+<li><a class="reference internal" href="fields/TextareaField.html"><em>TextareaField</em></a></li>
+<li><a class="reference internal" href="fields/TextField.html"><em>TextField</em></a></li>
+<li><a class="reference internal" href="fields/TimeField.html"><em>TimeField</em></a></li>
+<li><a class="reference internal" href="fields/TimezoneField.html"><em>TimezoneField</em></a></li>
+<li><a class="reference internal" href="fields/UrlField.html"><em>UrlField</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Form Fields</a><ul>
+<li><a class="reference internal" href="#core-field-options">Core Field Options</a><ul>
+<li><a class="reference internal" href="#data"><tt class="docutils literal"><span class="pre">data</span></tt></a></li>
+<li><a class="reference internal" href="#required"><tt class="docutils literal"><span class="pre">required</span></tt></a></li>
+<li><a class="reference internal" href="#disabled"><tt class="docutils literal"><span class="pre">disabled</span></tt></a></li>
+<li><a class="reference internal" href="#trim"><tt class="docutils literal"><span class="pre">trim</span></tt></a></li>
+<li><a class="reference internal" href="#property-path"><tt class="docutils literal"><span class="pre">property_path</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#built-in-fields">Built-in Fields</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Working with Forms</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fields/index.html"
+                        title="next chapter">Built-in Fields</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/forms/fields.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fields/index.html" title="Built-in Fields"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Working with Forms"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Forms</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

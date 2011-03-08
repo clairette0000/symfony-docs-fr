@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Internals Overview &mdash; symfony-docs-fr v0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="symfony-docs-fr v0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Symfony2 Internals" href="index.html" />
+    <link rel="next" title="Kernel" href="kernel.html" />
+    <link rel="prev" title="Symfony2 Internals" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="kernel.html" title="Kernel"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Symfony2 Internals"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Symfony2 Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="internals-overview">
+<span id="index-0"></span><h1>Internals Overview<a class="headerlink" href="#internals-overview" title="Permalink to this headline">¶</a></h1>
+<p>Looks like you want to understand how Symfony2 works and how to extend it.
+That makes me very happy! This section is an in-depth explanation of the
+Symfony2 internals.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You need to read this section only if you want to understand how Symfony2
+works behind the scene, or if you want to extend Symfony2.</p>
+</div>
+<p>The Symfony2 code is made of several independent layers. Each layer is built
+on top of the previous one.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Autoloading is not managed by the framework directly; it&#8217;s done
+independently with the help of the
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\UniversalClassLoader</span></tt> class
+and the <tt class="docutils literal"><span class="pre">src/autoload.php</span></tt> file. Read the <a class="reference internal" href="../../cookbook/tools/autoloader.html"><em>dedicated chapter</em></a> for more information.</p>
+</div>
+<div class="section" id="httpfoundation-component">
+<h2><tt class="docutils literal"><span class="pre">HttpFoundation</span></tt> Component<a class="headerlink" href="#httpfoundation-component" title="Permalink to this headline">¶</a></h2>
+<p>The deepest level is the <a href="#id1"><span class="problematic" id="id2">:namespace:`Symfony\\Component\\HttpFoundation`</span></a>
+component. HttpFoundation provides the main objects needed to deal with HTTP.
+It is an Object-Oriented abstraction of some native PHP functions and
+variables:</p>
+<ul class="simple">
+<li>The <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Request</span></tt> class abstracts
+the main PHP global variables like <tt class="docutils literal"><span class="pre">$_GET</span></tt>, <tt class="docutils literal"><span class="pre">$_POST</span></tt>, <tt class="docutils literal"><span class="pre">$_COOKIE</span></tt>,
+<tt class="docutils literal"><span class="pre">$_FILES</span></tt>, and <tt class="docutils literal"><span class="pre">$_SERVER</span></tt>;</li>
+<li>The <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Response</span></tt> class abstracts
+some PHP functions like <tt class="docutils literal"><span class="pre">header()</span></tt>, <tt class="docutils literal"><span class="pre">setcookie()</span></tt>, and <tt class="docutils literal"><span class="pre">echo</span></tt>;</li>
+<li>The <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Session</span></tt> class and
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\SessionStorage\SessionStorageInterface</span></tt>
+interface abstract session management <tt class="docutils literal"><span class="pre">session_*()</span></tt> functions.</li>
+</ul>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about the <tt class="xref doc docutils literal"><span class="pre">HttpFoundation</span></tt> component.</p>
+</div>
+</div>
+<div class="section" id="httpkernel-component">
+<h2><tt class="docutils literal"><span class="pre">HttpKernel</span></tt> Component<a class="headerlink" href="#httpkernel-component" title="Permalink to this headline">¶</a></h2>
+<p>On top of HttpFoundation is the <a href="#id3"><span class="problematic" id="id4">:namespace:`Symfony\\Component\\HttpKernel`</span></a>
+component. HttpKernel handles the dynamic part of HTTP; it is a thin wrapper
+on top of the Request and Response classes to standardize the way requests are
+handled. It also provides extension points and tools that makes it the ideal
+starting point to create a Web framework without too much overhead.</p>
+<p>It also optionally adds configurability and extensibility, thanks to the
+Dependency Injection component and a powerful plugin system (bundles).</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about the <a class="reference internal" href="kernel.html"><em>HttpKernel</em></a> component. Read more about
+<a class="reference internal" href="../service_container.html"><em>Dependency Injection</em></a> and <tt class="xref doc docutils literal"><span class="pre">Bundles</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="frameworkbundle-bundle">
+<h2><tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> Bundle<a class="headerlink" href="#frameworkbundle-bundle" title="Permalink to this headline">¶</a></h2>
+<p>The <a href="#id5"><span class="problematic" id="id6">:namespace:`Symfony\\Bundle\\FrameworkBundle`</span></a> bundle is the bundle that
+ties the main components and libraries together to make a lightweight and fast
+MVC framework. It comes with a sensible default configuration and conventions
+to ease the learning curve.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Internals Overview</a><ul>
+<li><a class="reference internal" href="#httpfoundation-component"><tt class="docutils literal"><span class="pre">HttpFoundation</span></tt> Component</a></li>
+<li><a class="reference internal" href="#httpkernel-component"><tt class="docutils literal"><span class="pre">HttpKernel</span></tt> Component</a></li>
+<li><a class="reference internal" href="#frameworkbundle-bundle"><tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> Bundle</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Symfony2 Internals</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="kernel.html"
+                        title="next chapter">Kernel</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/book/internals/overview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="kernel.html" title="Kernel"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Symfony2 Internals"
+             >previous</a> |</li>
+        <li><a href="../../index.html">symfony-docs-fr v0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Manuel</a> &raquo;</li>
+          <li><a href="index.html" >Symfony2 Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
