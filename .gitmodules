@@ -1,3 +1,0 @@
-[submodule "sphinx-php"]
-	path = sphinx-php
-	url = https://github.com/fabpot/sphinx-php.git
