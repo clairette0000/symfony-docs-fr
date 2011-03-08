@@ -255,7 +255,7 @@ ligne par ligne:
 * *ligne 7*: Le nom du contôleur est une combinaison de la seconde partie de la
   valeur ``_controller`` du routage (``Hello``) et du mot ``Controller``. Elle
   étend le classe intégrée ``Controller``, qui offre des racourcis utiles (comme
-  nous le verrons un peu plus tard dans ce tutorial).
+  nous le verrons un peu plus tard dans ce tutoriel).
   
 * *ligne 9*: Chaque contrôleur est constitué de plusieurs actions. Selon la
   configuration du routage, la page hello est gérée par l'action ``index`` (la
