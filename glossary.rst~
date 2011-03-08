@@ -16,9 +16,9 @@ Glossaire
         un certain nombre de "Bundles" donnés.
 
    Bundle
-        Un *Bundle* est un ensemble structuré de fichiers (scripts PHP, feuilles
+        Un *Bundle* est un ensemble structuré de fichiers (fichiers PHP, feuilles
         de style CSS, javascripts, images,...) qui mettent en œuvre une fonction
-        unique (un blog, un forum,...) et qui peuvent être aisément partagés
+        unique (un blog, un forum,...) et qui peuvent être facilement partagés
         avec d'autres développeurs.
         
    Front Controller
@@ -46,11 +46,11 @@ Glossaire
 
    Specification HTTP
         La *Specification HTTP* est un document de référence qui décrit le
-        Protocole de Transfert HTTP (un ensemble de règles portant sur la
-        communication requête-réponse d'un traditionnel client-serveur). Cette
+        Protocole de Transfert HTTP - un ensemble de règles portant sur la
+        communication requête-réponse d'un traditionnel client-serveur. Cette
         spécification définit le format utilisé pour une requête tout comme une
-        réponse aussi exhaustivement que les HTTP headers peuvent l'accomplir.
-        Pour plus d'informations, reportez-vous au `HTTP 1.1 RFC`_.
+        réponse aussi exhaustivement que les HTTP headers peuvent accomplir. Pour
+        plus d'informations, reportez-vous au `HTTP 1.1 RFC`_.
 
 .. _`architecture orientée services`: http://fr.wikipedia.org/wiki/Architecture_orient%C3%A9e_services
 .. _`HTTP 1.1 RFC`: http://www.w3.org/Protocols/rfc2616/rfc2616.html
