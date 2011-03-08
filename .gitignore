@@ -1,2 +1,4 @@
 # Ignoring all temporary backup files
 *~
+_build/doctrees
+_build/html
