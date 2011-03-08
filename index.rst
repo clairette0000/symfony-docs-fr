@@ -1,10 +1,10 @@
 Documentation de Symfony2
 ======================
 
-Formation éclair
+Visite éclair
 ----------
 
-Soyez rapidement opérationnel avec Symfony2 :doc:`Formation éclair <quick_tour/index>`:
+Soyez rapidement opérationnel avec Symfony2 :doc:`Visite éclair <quick_tour/index>`:
 
 .. toctree::
     :hidden:

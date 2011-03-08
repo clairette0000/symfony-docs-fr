@@ -1,4 +1,4 @@
-Formation éclair
+Visite éclair
 ==========
 
 .. toctree::
