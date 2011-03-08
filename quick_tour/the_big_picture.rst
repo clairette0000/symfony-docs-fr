@@ -1,13 +1,13 @@
 The Big Picture
 ===============
 
-Commencer à utiliser Symfony2 en 10 minutes! Ce tutoriel vous guide à travers
+Commencez à utiliser Symfony2 en 10 minutes! Ce tutoriel vous guide à travers
 quelques-uns des concepts les plus importants derrière Symfony2. Il explique
 comment démarrer rapidement en vous montrant la structure d'un exemple de
 projet.
 
 Si vous avez utilisé un framework web avant, vous devriez vous sentir à l'aise
-avec Symfony2. Sinon, bienvenue à une toute nouvelle façon de développer des
+avec Symfony2. Sinon, bienvenue dans une toute nouvelle façon de développer des
 applications web!
 
 .. index::
@@ -53,7 +53,7 @@ Vérification de la Configuration
 --------------------------------
 
 Symfony2 est livré avec un testeur intuitif de configuration du serveur pour
-vous éviter des maux de tête dûs au serveur web ou d'une mauvaise configuration
+vous éviter des maux de tête dûs au serveur web ou à une mauvaise configuration
 de PHP. Utilisez l'URL suivante pour consulter le diagnostic de votre serveur:
 
     http://localhost/sandbox/web/check.php
@@ -70,15 +70,13 @@ Symfony2 devrait vous féliciter pour le travail accompli jusqu'à présent!
 Création de votre première Application
 --------------------------------------
 
-Le sandbox est livré avec un simple Bonjour tout le monde " application "que nous allons utiliser pour en savoir plus sur Symfony2. Go to the following URL to be greeted by Symfony2 (replace Fabien with your first name): Aller à l'URL ci-dessous pour être accueilli par Symfony2 (remplacer Fabien avec votre prénom):
-
 Le sandbox est livré avec une petite ":term:`application`" Hello Word que nous
 allons utiliser pour en savoir plus sur Symfony2. Saisissez l'URL ci-dessous
 pour être accueilli par Symfony2 (remplacez Fabien par votre prénom):
 
     http://localhost/sandbox/web/app_dev.php/hello/Fabien
 
-Que ce passe-t-il ici? Disséquons cette URL:
+Que se passe-t-il ici? Disséquons cette URL:
 
 .. index:: Front Controller
 
@@ -86,7 +84,7 @@ Que ce passe-t-il ici? Disséquons cette URL:
 unique de l'application et il répond à toutes les demandes des utilisateurs;
 
 * ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel
-l'utilisateut souhaite accéder.
+l'utilisateur souhaite accéder.
 
 Votre responsabilité en tant que développeur est d'écrire le code qui envoie la
 demande de l'utilisateur (``/hello/Fabien``) à la ressource qui lui est associée
@@ -262,16 +260,17 @@ ligne par ligne:
   troisième partie de la valeur du routage ``_controller``). Cette méthode
   reçoit les valeurs indiquées en tant qu'arguments (``$name`` dans notre cas).
   
-* *ligne 11*: La méthode ``render()`` charge et génère un fichier template
+* *ligne 11*: La méthode ``render()`` charge et transforme un fichier template
   (``HelloBundle:Hello:index.html.twig``) avec les variables passées comme
   second argument.
   
 Mais qu'est-ce qu'un :term:`Bundle` ? Tout le code que vous écrivez dans un
 projet Symfony2 est organisée en Bundles. Dans le jargon Symfony2, un Bundle est
 un ensemble structuré de fichiers (scripts PHP, feuilles de style CSS,
-javascripts, images,...) qui implémente une fonction unique (un blog, un forum,
-...) et qui peuvent être facilement partagés avec d'autres les développeurs.
-Dans notre exemple, nous n'avons qu'un seul Bundle, ``HelloBundle``.
+javascripts, images,...) qui implémente une fonction unique (un blog,
+un forum,...) et qui peuvent être facilement partagés avec d'autres les
+développeurs. Dans notre exemple, nous n'avons qu'un seul Bundle,
+``HelloBundle``.
 
 Templates
 ~~~~~~~~~
@@ -292,7 +291,7 @@ défaut, le sandbox utilise Twig comme moteur de template, mais vous pouvez
 Félicitations! Vous avez eu votre première découverte du code de Symfony2 et
 créé votre première page. Ce n'était pas si éreintant, n'est-ce pas? Il y a
 beaucoup plus à explorer, mais vous devriez déjà voir comment Symfony2 permet
-vraiment facilement la mise en œuvre des sites meilleurs et plus rapidement.
+vraiment facilement la mise en œuvre de meilleurs sites plus rapidement.
 
 .. index::
    single: Environment
@@ -311,8 +310,8 @@ répertoire ``web/`` (``app.php``), optimisé pour l'environnement de production
 
     http://localhost/sandbox/web/app.php/hello/Fabien
 
-Et si vous utilisez Apache avec ``mod_rewrite`` activé, vous pouvez même le
-``app.php`` de votre URL:
+Et si vous utilisez Apache avec ``mod_rewrite`` activé, vous pouvez même
+occulter le ``app.php`` de votre URL:
 
     http://localhost/sandbox/web/hello/Fabien
 

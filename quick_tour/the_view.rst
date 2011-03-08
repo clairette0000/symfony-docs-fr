@@ -2,7 +2,7 @@ La Vue
 ======
 
 Après avoir lu la première partie de ce tutoriel, vous avez considéré que
-Symfony2 valait encore 10 minutes. Grand bien vous fasse! Dans cette seconde
+Symfony2 valait encore 10 minutes. Je partage votre avis! Dans cette seconde
 partie, vous en apprendrez plus sur le moteur de template Symfony2, `Twig`_.
 Twig est un moteur de template pour PHP flexible, rapide et sécurisé. Il rend
 vos templates plus lisibles et concis, il les rend aussi plus conviviaux pour
@@ -21,8 +21,8 @@ Twig, un aperçu rapide
 ----------------------
 
 .. tip::
-    Si vous voulez apprendre Twig, nous vous recommandons fortement de lire ses
-    `documentations`_ officielles . Cette section est juste un aperçu rapide des
+    Si vous voulez apprendre Twig, nous vous recommandons fortement de lire sa
+    `documentation`_ officielle . Cette section est juste un aperçu rapide des
     principaux concepts.
 
 Un template Twig est un fichier texte qui peut générer n'importe quel format
@@ -81,10 +81,11 @@ d'accéder aux "attributs" de la variable grâce à l'usage d'un point (``.``).
 
 .. note::
     Il est important de savoir que les accolades ne font pas partie de la
-    variable, mais l'instruction print. Si vous accédez aux variables à
-    l'intérieur de balises ne mettez pas les accolades autour.
+    variable, mais remplacent l'instruction print en quelque sorte. Si vous
+    accédez aux variables à l'intérieur des balises, ne mettez pas d'accolades
+    autour.
 
-Enrobage des Templates
+Enrobage des templates
 ----------------------
 
 Les templates d'un projet partagent des éléments communs plus souvent qu'on le
@@ -120,8 +121,8 @@ Maintenant, jetons un coup d'œil au fichier ``layout.html.twig``:
     {% endblock %}
 
 Le tag ``{% block %}`` definit deux blocs (``body`` et ``content``) que le
-template enfant peut remplir. Tous les tags block ne fait que dire qu'un
-template enfant peut l'emporter sur ces portions de template. Le template
+template enfant peut remplir. Tous les tags block ne font que dire qu'annoncer
+qu'un template enfant peut l'emporter sur ces portions de template. Le template
 ``index.html.twig`` surcharge le bloc ``content``. L'autre est définit dans le
 layout de base comme le layout étant lui-même enrobé par un autre. Quand la
 partie Bundle du template est vide (``::base.html.twig``), les vues sont à
@@ -155,14 +156,14 @@ Inclusion d'autres templates
 La meilleure façon de partager un bout de code entre plusieurs templates
 distincts est de définir un template qui peut alors être inclus dans un autre.
 
-Créer un template ``hello.html.twig``:
+Créez un template ``hello.html.twig``:
 
 .. code-block:: jinja
 
     {# src/Sensio/HelloBundle/Resources/views/Hello/hello.html.twig #}
     Hello {{ name }}
 
-Et changer le template ``index.html.twig`` pour y inclure:
+Et changez le template ``index.html.twig`` pour y inclure:
 
 .. code-block:: jinja
 
@@ -239,7 +240,7 @@ gabarit de routage:
 Inclusion d'Assets: images, javascripts et feuilles de styles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Que serait internet sans images, javascripts, et feuilles de style? Symfony2
+Que serait internet sans images, javascripts, et feuilles de styles? Symfony2
 fournit une fonction ``asset`` pour les manipuler aisément:
 
 .. code-block:: jinja
@@ -256,7 +257,7 @@ code de votre modèle.
 Output Escaping
 ---------------
 
-Twig est configuré pour s'échapper automatiquement toutes les sorties par défaut.
+Twig est configuré pour échapper automatiquement toutes les sorties par défaut.
 Lisez la `documentation`_ de Twig pour en apprendre davantage sur l'Output
 Escaping et son extension dédiée.
 
@@ -276,5 +277,5 @@ Mais je m'avance. Tout d'abord, vous devez en savoir plus sur le contrôleur et
 c'est exactement le sujet de la prochaine partie de ce tutoriel. Prêt pour 10
 minutes supplémentaires avec Symfony2?
 
-.. _Twig:           http://www.twig-project.org/
-.. _documentations: http://www.twig-project.org/documentation
+.. _Twig:          http://www.twig-project.org/
+.. _documentation: http://www.twig-project.org/documentation
