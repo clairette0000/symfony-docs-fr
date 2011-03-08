@@ -23,14 +23,14 @@ Vous êtes prêt? Commençons par télécharger Symfony2. Pour commencer encore 
 vite, nous allons utiliser la fonction "sandbox Symfony2". Il s'agit d'un projet
 Symfony2 préconfiguré qui comprend certains contrôleurs simples et de leurs
 bibliothèques requises. Le grand avantage du sandbox sur les autres méthodes
-d'installation est que vous pouvez commencer à expérimenter avec Symfony2
+d'installation est que vous pouvez commencer à expérimenter Symfony2
 immédiatement.
 
 Télécharger le `sandbox`_ et décompressez-le dans votre répertoire racine web.
 Vous devriez maintenant avoir une arborescence ``sandbox/`` comme ci-après::
 
-    www/ <- votre répertoire web racine
-        sandbox/ <- l'archive décompressée
+    www/ ← votre répertoire web racine
+        sandbox/ ← l'archive décompressée
             app/
                 cache/
                 config/
@@ -80,11 +80,9 @@ Que se passe-t-il ici? Disséquons cette URL:
 
 .. index:: Front Controller
 
-* ``app_dev.php``: Il s'agit du contrôleur frontal. C'est le point d'entrée
-unique de l'application et il répond à toutes les demandes des utilisateurs;
+* ``app_dev.php``: Il s'agit du contrôleur frontal. C'est le point d'entrée unique de l'application et il répond à toutes les demandes des utilisateurs;
 
-* ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel
-l'utilisateur souhaite accéder.
+* ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel l'utilisateur souhaite accéder.
 
 Votre responsabilité en tant que développeur est d'écrire le code qui envoie la
 demande de l'utilisateur (``/hello/Fabien``) à la ressource qui lui est associée
@@ -268,7 +266,7 @@ Mais qu'est-ce qu'un :term:`Bundle` ? Tout le code que vous écrivez dans un
 projet Symfony2 est organisée en Bundles. Dans le jargon Symfony2, un Bundle est
 un ensemble structuré de fichiers (scripts PHP, feuilles de style CSS,
 javascripts, images,...) qui implémente une fonction unique (un blog,
-un forum,...) et qui peuvent être facilement partagés avec d'autres les
+un forum,...) et qui peuvent être facilement partagés avec d'autres
 développeurs. Dans notre exemple, nous n'avons qu'un seul Bundle,
 ``HelloBundle``.
 
