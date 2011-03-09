@@ -1,5 +1,7 @@
-Préliminaires
-=============
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
+Les Préliminaires
+=================
 
 Commencez à utiliser Symfony2 en 10 minutes! Ce tutoriel vous guide à travers
 quelques-uns des concepts les plus importants derrière Symfony2. Il explique
@@ -11,7 +13,7 @@ avec Symfony2. Sinon, bienvenue dans une toute nouvelle façon de développer de
 applications web!
 
 .. index::
-   pair: Sandbox; Download
+   pair: Sandbox; Téléchargement
 
 Téléchargement et Installation de Symfony2
 ------------------------------------------
@@ -26,10 +28,11 @@ bibliothèques requises. Le grand avantage du sandbox sur les autres méthodes
 d'installation est que vous pouvez commencer à expérimenter Symfony2
 immédiatement.
 
-Télécharger le `sandbox`_ et décompressez-le dans votre répertoire racine web.
+Télécharger le `sandbox`_ et décompressez-le dans le répertoire racine de votre
+serveur web.
 Vous devriez maintenant avoir une arborescence ``sandbox/`` comme ci-après::
 
-    www/ ← votre répertoire web racine
+    www/ ← le répertoire racine de votre serveur web
         sandbox/ ← l'archive décompressée
             app/
                 cache/
@@ -47,13 +50,13 @@ Vous devriez maintenant avoir une arborescence ``sandbox/`` comme ci-après::
             web/
 
 .. index::
-   single: Installation; Check
+   single: Installation; Vérification
 
 Vérification de la Configuration
 --------------------------------
 
-Symfony2 est livré avec un testeur intuitif de configuration du serveur pour
-vous éviter des maux de tête dûs au serveur web ou à une mauvaise configuration
+Symfony2 est livré avec un vérificateur de configuration de votre serveur pour
+vous éviter tous maux de tête dûs au serveur ou à une mauvaise configuration
 de PHP. Utilisez l'URL suivante pour consulter le diagnostic de votre serveur:
 
     http://localhost/sandbox/web/check.php
@@ -70,17 +73,17 @@ Symfony2 devrait vous féliciter pour le travail accompli jusqu'à présent!
 Création de votre première Application
 --------------------------------------
 
-Le sandbox est livré avec une petite ":term:`application`" Hello Word que nous
-allons utiliser pour en savoir plus sur Symfony2. Saisissez l'URL ci-dessous
-pour être accueilli par Symfony2 (remplacez Fabien par votre prénom):
+Le sandbox est accompagné d'une :term:`application` triviale "Hello World" que
+nous allons décortiquer pour en savoir plus sur Symfony2. Saisissez l'URL
+ci-dessous pour être accueilli par Symfony2 (remplacez Fabien par votre prénom):
 
     http://localhost/sandbox/web/app_dev.php/hello/Fabien
 
 Que se passe-t-il ici? Disséquons cette URL:
 
-.. index:: Front Controller
+.. index:: Contrôleur Frontal
 
-* ``app_dev.php``: Il s'agit du contrôleur frontal. C'est le point d'entrée unique de l'application et il répond à toutes les demandes des utilisateurs;
+* ``app_dev.php``: Il s'agit du :term:`contrôleur frontal`. C'est le point d'entrée unique de l'application et il répond à toutes les demandes des utilisateurs;
 
 * ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel l'utilisateur souhaite accéder.
 
@@ -105,8 +108,8 @@ de manière interchangeable dans une application.
     ``registerContainerConfiguration``.
 
 .. index::
-   single: Routing
-   pair: Configuration; Routing
+   single: Routage
+   pair: Configuration; Routage
 
 Routage
 ~~~~~~~
@@ -158,16 +161,16 @@ pour notre application:
         return $collection;
 
 Les toutes premières lignes du fichier de configuration du routage définit le
-code qui sera exécuté quand l'utilisateur demandera la ressource "``/``" (par
+code qui sera exécuté quand le visiteur réclamera la ressource "``/``" (par
 exemple, la page d'accueil). Ici, on exécute la méthode ``index`` du contrôleur
 ``Default`` à l'intérieur du ``FrameworkBundle``.
 
 Jetons un œil à la dernière directive du fichier de configuration. Symfony2 peut
-inclure des informations de routage d'autres fichiers de configuration de routage
+inclure des informations de routage d'autres fichiers de configuration du routage
 en utilisant la directive ``import``. Dans ce cas, nous voulons importer la
-configuration de routage provenant de ``HelloBundle``. Un Bundle est comme un
+configuration du routage provenant de ``HelloBundle``. Un Bundle est comme un
 plugin qui aurait des pouvoirs décuplés mais nous en reparlerons plus tard. Pour
-l'instant, regardons la configuration de routage que nous avons importé:
+l'instant, regardons la configuration du routage que nous avons importé:
 
 .. configuration-block::
 
@@ -211,8 +214,8 @@ caractères entre accolades (``{name}``) est un espace réservé et définit un
 argument qui sera communiqué au contrôleur.
 
 .. index::
-   single: Controller
-   single: MVC; Controller
+   single: Contrôleur
+   single: MVC; Contrôleur
 
 Contrôleurs
 ~~~~~~~~~~~
@@ -269,7 +272,7 @@ Bundles
 ~~~~~~~
   
 Mais qu'est-ce qu'un :term:`Bundle` ? Tout le code que vous écrivez dans un
-projet Symfony2 est organisée en Bundles. Dans le jargon Symfony2, un Bundle est
+projet Symfony2 est organisé en Bundles. Dans le jargon Symfony2, un Bundle est
 un ensemble structuré de fichiers (scripts PHP, feuilles de style CSS,
 javascripts, images,...) qui implémente une fonction unique (un blog,
 un forum,...) et qui peuvent être facilement partagés avec d'autres
@@ -298,8 +301,8 @@ beaucoup plus à explorer, mais vous devriez déjà voir comment Symfony2 permet
 vraiment facilement la mise en œuvre de meilleurs sites plus rapidement.
 
 .. index::
-   single: Environment
-   single: Configuration; Environment
+   single: Environnement
+   single: Configuration; Environnement
 
 Différenciation des environnements
 ----------------------------------
@@ -320,8 +323,8 @@ occulter le ``app.php`` de votre URL:
     http://localhost/sandbox/web/hello/Fabien
 
 Dernière chose et pas des moindres, sur les serveurs de production, vous devez
-pointer votre répertoire racine web sur le répertoire ``web/`` pour garantir
-votre installation et avoir une meilleure apparence d'URL:
+toujours pointer votre répertoire racine web sur le répertoire ``web/`` pour
+garantir votre installation et avoir une meilleure apparence de vos adresses:
 
     http://localhost/hello/Fabien
 
@@ -329,7 +332,7 @@ Pour rendre l'environnement de production aussi véloce que possible, Symfony2
 maintient un cache dans le répertoire ``app/cache/``. Lorsque vous apportez des
 modifications au code ou à la configuration, vous devrez supprimer manuellement
 les fichiers mis en cache. Lorsque vous développez votre application, vous devez
-utiliser le contrôleur frontal de développement (``app_dev.php``), qui n'utilise
+utiliser le contrôleur frontal de développement (``app_dev.php``) qui n'utilise
 pas le cache. Lorsque vous utilisez le contrôleur frontal de développement, vos
 modifications apparaissent immédiatement.
 

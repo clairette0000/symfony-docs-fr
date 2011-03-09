@@ -1,3 +1,5 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
    single: Finder
 
@@ -138,7 +140,8 @@ La méthode ``name()`` accepte les globs, les strings ou les regexes::
 
     $finder->files()->name('/\.php$/');
 
-La méthode ``notNames()`` exclu les fichiers correspondant à un certain critère::
+La méthode ``notNames()`` exclut les fichiers correspondants à un certain
+critère::
 
     $finder->files()->notName('*.rb');
 
@@ -159,28 +162,28 @@ Les opérateurs de comparaison valables sont ``>``, ``>=``, ``<``, ``<=`` et
 
 La valeur cible peut utiliser des grandeurs de kilobytes (``k``, ``ki``),
 megabytes (``m``, ``mi``), ou gigabytes (``g``, ``gi``). Ceux suffixés par un
-``i`` utilise la version appropriée ``2**n`` conformément au `standard IEC`_.
+``i`` utilisent la version appropriée ``2**n`` conformément au `standard IEC`_.
 
 Date de Fichier
 ~~~~~~~~~~~~~~~
 
-Restreingnez les fichiers par leur date de dernière modification à l'aide de la
+Restreignez les fichiers par leur date de dernière modification à l'aide de la
 méthode :method:`Symfony\\Component\\Finder\\Finder::date`::
 
     $finder->date('since yesterday');
 
-Les opérateurs de comparaison valables sont ``>``, ``>=``, ``<``, '<=' et '=='.
+Les opérateurs de comparaison valables sont ``>``, ``>=``, ``<``, ``<=`` et ``==``.
 Vous pouvez aussi utiliser ``since`` ou  ``after`` comme alias de ``>`` et
 ``until`` ou ``before`` comme alias de ``<``.
 
-La valeur cible peut être n'importe quelle date supportée par la fonction
+La valeur cible peut être n'importe quelle date supportée par la fonction PHP
 `strtotime`_.
 
 Niveaux de Répertoires
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Par défaut, le Finder sonde les répertoires récursivement. Restreignez la
-profondeur de sondage à l'aide de la méthode
+profondeur du sondage à l'aide de la méthode
 :method:`Symfony\\Component\\Finder\\Finder::depth`::
 
     $finder->depth('== 0');
@@ -204,7 +207,7 @@ méthode
 
 La méthode ``filter()`` prend un Closure comme argument. A chaque fichier
 correspondant, il est appelé avec le fichier comme instance de
-:phpclass:`SplFileInfo`. Le fichier est exclu du lot de résultats si le Closure
+:phpclass:`SplFileInfo`. Le fichier est exclut du lot de résultats si le Closure
 retourne ``false``.
 
 .. _strtotime:    http://www.php.net/manual/en/datetime.formats.php

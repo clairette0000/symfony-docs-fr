@@ -1,17 +1,19 @@
-.. index::
-   single: Profiling; Data Collector
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
 
-Comment créer un Data Collector personnalisé
-============================================
+.. index::
+   single: Profiling; Profilage; Data Collector; Collecteur de données
+
+Comment créer un Collecteur de Données personnalisé
+===================================================
 
 Le :doc:`Profiler </book/internals/profiler>` de Symfony2 délègue la collection
-de données aux Data Collectors. Symfony2 est livré avec des Bundles avec peu
+de données aux collecteurs de données. Symfony2 est livré avec des Bundles avec peu
 d'entre eux, mais vous pouvez facilement créer le vôtre.
 
-Création d'un Data Collector personnalisé
------------------------------------------
+Création d'un Collecteur de Données personnalisé
+------------------------------------------------
 
-La création d'un Data Collector personnalisé est aussi simple que d'implémenter le
+La création d'un collecteur de données personnalisé est aussi simple que d'implémenter le
 :class:`Symfony\\Component\\HttpKernel\\DataCollector\\DataCollectorInterface`::
 
     interface DataCollectorInterface
@@ -37,19 +39,19 @@ La méthode ``getName()`` doit retourner un nom unique. Il est utilisé pour
 accéder aux informations ultérieurement collectées (voir la section à propos
 des tests fonctionnels ci-dessous par exemple).
 
-La méthode ``collect()`` est responsable du stockage des données qu'elle
-souhaite donner accès aux propriétés locales.
+La méthode ``collect()`` est responsable du stockage des données auxquelles elle
+souhaite offrir l'accès aux propriétés locales.
 
 .. caution::
     
-    Comme le Profiler sérialise les instances de Data Collector, vous ne devriez
+    Comme le Profiler sérialise les instances du collecteur de données, vous ne devriez
     pas stocker des objets qui n'auraient pas été sérialisés (comme des PDO (PHP
     Data Objects) ou sinon vous devez fournir votre propre méthode ``serialize()``).
 
 La plupart du temps, il est plus opportun d'étendre
 :class:`Symfony\\Component\\HttpKernel\\DataCollector\\DataCollector` et de
 peupler la propriété ``$this->data`` (il prend soin de sérialiser la propriété
-``$this->data`` property)::
+``$this->data``)::
 
     class MemoryDataCollector extends DataCollector
     {
@@ -73,11 +75,11 @@ peupler la propriété ``$this->data`` (il prend soin de sérialiser la proprié
 
 .. _data_collector_tag:
 
-Activation de Data Collectors personnalisés
--------------------------------------------
+Activation de Collecteurs de Données personnalisés
+--------------------------------------------------
 
-Pour activer un Data Collector, ajoutez-le comme un service habituel dans une
-vos configurations et taguez-le avec ``data_collector``:
+Pour activer un collecteur de données, ajoutez-le comme un service habituel dans
+une de vos configurations puis taguez-le avec ``data_collector``:
 
 .. configuration-block::
 
@@ -102,11 +104,11 @@ vos configurations et taguez-le avec ``data_collector``:
             ->addTag('data_collector')
         ;
 
-Ajout de Templates de Web Profiler
+Ajout de Templates au Web Profiler
 ----------------------------------
 
-Quand vous voulez afficher les données collectées par votre Data Collector sur
-la barre de debug ou votre Web Profiler, créez un template Twig suivant ce
+Quand vous voulez afficher les données collectées par votre collecteur de données
+sur la barre de debug ou votre Web Profiler, créez un template Twig suivant ce
 gabarit:
 
 .. code-block:: jinja
@@ -137,8 +139,8 @@ Tous les blocs ont accès à l'objet ``collector``.
 
 .. tip::
 
-    Les templates intégrés utilisent une image encodée en base64 pour la barre à
-    outil (``<img src="data:image/png;base64,..."``). Vous pouvez facilement
+    Les templates intégrés utilisent une image encodée en base64 pour la barre
+    d'outils (``<img src="data:image/png;base64,..."``). Vous pouvez facilement
     calculer la valeur en base64 d'une image à l'aide de ce petit script:
     ``echo base64_encode(file_get_contents($_SERVER['argv'][1]));``.
 

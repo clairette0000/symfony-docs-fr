@@ -1,3 +1,5 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Comment personnaliser vos pages d'erreur
 ========================================
 
@@ -62,6 +64,6 @@ d'exception JSON.
     le répertoire ``Resources/views/Exception`` du ``FrameworkBundle``. Dans une
     installation de Symfony2 standard, le ``FrameworkBundle`` peut être retrouvé
     dans ``vendor/symfony/src/Symfony/Bundle/FrameworkBundle``. Souvent, la
-    façon la plus enfantine de personnaliser une page d'erreur est de copier
-    le ``FrameworkBundle`` dans ``app/views/FrameworkBundle/Exception`` puis d'en
-    modifier le contenu.
+    façon la plus déconcertante de facilité pour personnaliser une page d'erreur
+    est de copier le ``FrameworkBundle`` dans ``app/views/FrameworkBundle/Exception``
+    puis d'en modifier le contenu.

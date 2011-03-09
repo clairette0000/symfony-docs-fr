@@ -1,3 +1,5 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
    pair: Autoloader; Configuration
 
@@ -71,7 +73,7 @@ ou
 
 Les classes provenant d'un sous-namespace ou d'une sous-hiérarchie des classes
 PEAR peuvent être recherchées dans une liste d'emplacements pour faciliter
-l'usage d'un lot de classes plus spécifiques de larges projets::
+l'usage d'un lot de classes plus spécifiques de projets volumineux::
 
     $loader->registerNamespaces(array(
         'Doctrine\\Common'           => __DIR__.'/vendor/doctrine-common/lib',

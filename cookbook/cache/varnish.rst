@@ -1,3 +1,5 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
     single: Cache; Varnish
 
@@ -30,7 +32,7 @@ n'utilisez pas Symfony2.
     attributs ``onerror`` et ``alt`` sont ignorés).
 
 Tout d'abord, configurez Varnish pour qu'il annonce son support d'ESI en ajoutant
-un en-tête de ``Surrogate-Capability`` aux requêtes renvoyés à l'application
+un en-tête de ``Surrogate-Capability`` aux requêtes renvoyées à l'application
 backend:
 
 .. code-block:: text

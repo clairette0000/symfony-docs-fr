@@ -1,6 +1,8 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
-   single: Controller
-   single: MVC; Controller
+   single: Contrôleur
+   single: MVC; Contrôleur
 
 Le Contrôleur
 =============
@@ -11,12 +13,13 @@ contrôleurs peuvent faire pour vous.
 
 .. index::
    single: Formats
-   single: Controller; Formats
-   single: Routing; Formats
-   single: View; Formats
+   single: Contrôleur; Formats
+   single: Routage; Formats
+   single: Vue; Formats
 
-Usage des Formats
------------------
+Mosaïque des Formats
+--------------------
+
 De nos jours, une application Web doit être en mesure de livrer plus que de
 simples fichiers HTML. Du XML pour les flux RSS ou des Web Services, du JSON
 pour les requêtes Ajax,... Bref, il y a beaucoup de formats différents à choisir.
@@ -116,6 +119,7 @@ car il ne correspond pas à l'exigence ``_format``.
 
 .. index::
    single: Response
+   single: Réponse
 
 L'Objet Response
 ----------------
@@ -129,8 +133,8 @@ Retournons maintenant à notre contrôleur ``Hello``::
         return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
     }
 
-La méthode ``render()`` produit un template et retourne un objet ``Response``.
-La réponse peut être modifié avant d'être envoyé au navigateur, par exemple
+La méthode ``render()`` transforme un template et retourne un objet ``Response``.
+La réponse peut être modifiée avant d'être renvoyée au navigateur, par exemple,
 nous allons changer le ``Content-Type``::
 
     public function indexAction($name)
@@ -177,8 +181,8 @@ invoquant une véritable exception HTTP::
 Le ``NotFoundHttpException`` retournera une réponse HTTP 404 au navigateur.
 
 .. index::
-   single: Controller; Redirect
-   single: Controller; Forward
+   single: Contrôleur; Redirection
+   single: Contrôleur; Renvoi
 
 Redirections et Renvois
 -----------------------
@@ -204,6 +208,7 @@ modifications::
 
 .. index::
    single: Request
+   single: Requête
 
 L'Objet Request
 ---------------
@@ -240,7 +245,7 @@ Symfony2 stocke les attributs dans un cookie en utilisant les sessions natives
 de PHP.
 
 Stocker et récupérer des informations depuis une session peut être facilement
-réalisé à partir de n'importe quel contrôleur::
+réalisés à partir de n'importe quel contrôleur::
 
     $session = $this->get('request')->getSession();
 
@@ -265,10 +270,11 @@ durant la toute prochaine requête::
 Réflexions finales
 ------------------
 
-C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous avons passé
+C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous ayons passé
 les 10 minutes qu'on s'était alloué. Nous avons brièvement présenté les Bundles
 dans la première partie et toutes les caractéristiques que nous avons appris
 jusqu'à maintenant font partie du "core framework Bundle".
 
 Mais grâce aux Bundles, tout peut être prolongé ou remplacé dans Symfony2.
-C'est le thème de la prochaine partie de ce tutoriel. Explorons :doc:`the_architecture`!
+C'est le thème de la prochaine partie de ce tutoriel. Explorons à présent
+:doc:`the_architecture`!

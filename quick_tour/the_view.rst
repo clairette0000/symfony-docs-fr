@@ -1,3 +1,5 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 La Vue
 ======
 
@@ -5,7 +7,7 @@ Après avoir lu la première partie de ce tutoriel, vous avez considéré que
 Symfony2 valait encore 10 minutes. Je partage votre avis! Dans cette seconde
 partie, vous en apprendrez plus sur le moteur de template Symfony2, `Twig`_.
 Twig est un moteur de template pour PHP flexible, rapide et sécurisé. Il rend
-vos templates plus lisibles et concis, il les rend aussi plus conviviaux pour
+vos templates plus lisibles et concis. Il les rend aussi plus conviviaux pour
 les concepteurs de sites Web.
 
 .. note::
@@ -15,7 +17,7 @@ les concepteurs de sites Web.
 
 .. index::
    single: Twig
-   single: View; Twig
+   single: Vue; Twig
 
 Twig, un aperçu rapide
 ----------------------
@@ -89,9 +91,9 @@ Enrobage des templates
 ----------------------
 
 Les templates d'un projet partagent des éléments communs plus souvent qu'on le
-croit, comme le traditionnel binôme header/footer. Dans Symfony2, nous aimons
+croit, comme le traditionnel binôme en-tête/pied de page. Dans Symfony2, nous aimons
 considérer ce problème différemment: un template peut être enrobé par un autre.
-De la même manière que des classes PHP: l'héritage de template vous permet de
+De la même manière que des classes PHP: l'héritage de templates vous permet de
 construire un "layout" de base qui contient tous les éléments communs de votre
 site et définit les "blocs" que les templates enfants peuvent surcharger.
 
@@ -106,7 +108,7 @@ Le template ``index.html.twig`` hérite de ``layout.html.twig``, grâce au tag `
         Hello {{ name }}!
     {% endblock %}
 
-``HelloBundle::layout.html.twig`` semble familier, n'est-ce pas? C'est la même disposition utilisée que pour un template régulier. Le ``::`` signifie simplement que l'élément contrôleur est vide, donc le fichier correspondant est directement stocké dans ``views/``.
+``HelloBundle::layout.html.twig`` semble familier, n'est-ce pas? C'est la même disposition utilisée que pour un template habituel. Le ``::`` signifie simplement que l'élément contrôleur est vide, donc le fichier correspondant est directement stocké dans ``views/``.
 
 Maintenant, jetons un coup d'œil au fichier ``layout.html.twig``:
 
@@ -143,11 +145,11 @@ pour votre projet entier:
         </body>
     </html>
 
-Tags, Filtres, et Fonctions
----------------------------
+Tags, Filtres et Fonctions
+--------------------------
 
 Une des meilleures caractéristiques de Twig est son extensibilité via des tags,
-des filtres et des fonctions; Symfony2 en est livré avec de nombreux préintégrés
+des filtres et des fonctions. Symfony2 en est livré avec de nombreux préintégrés
 pour faciliter le travail des concepteurs de sites Web.
 
 Inclusion d'autres templates
@@ -179,18 +181,18 @@ Embarquement d'autres contrôleurs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quid si vous voulez intégrer le résultat d'un autre contrôleur dans un template?
-Cela est vraiment utile quand on travaille avec Ajax, ou quand le template
+Cela est vraiment utile quand on travaille avec Ajax ou quand le template
 embarqué nécessite quelques variables non disponibles dans le template général.
 
-Si vous créez une action ``fancy``, et que vous souhaitez y inclure le template ``index``, utilisez le tag ``render``:
+Si vous créez une action ``fancy`` et que vous souhaitez y inclure le template ``index``, utilisez le tag ``render``:
 
 .. code-block:: jinja
 
     {# src/Sensio/HelloBundle/Resources/views/Hello/index.html.twig #}
     {% render "HelloBundle:Hello:fancy" with { 'name': name, 'color': 'green' } %}
 
-Ici, le ``HelloBundle:Hello:fancy`` réfère à l'action ``fancy`` du contrôleur
-``Hello``, et l'argument est utilisé comme valeurs d'un chemin de requête
+Ici, le ``HelloBundle:Hello:fancy`` se réfère à l'action ``fancy`` du contrôleur
+``Hello`` et l'argument est utilisé comme valeurs d'un chemin de requête
 simulée::
 
     // src/Sensio/HelloBundle/Controller/HelloController.php
@@ -208,13 +210,13 @@ simulée::
         // ...
     }
 
-Créations de liens entre les pages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Concernant les applications Web, créer des liens entre les pages est un must. Au
-lieu de coder en dur les URL dans les templates, la fonction ``path`` sait
-comment générer des URL en fonction de la configuration du routage. De cette
-façon, toutes les URLs peuvent être facilement mis à jour en changeant juste
-la configuration:
+Création de liens entre les pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Concernant les applications Web, créer des liens entre les pages est
+incontournable. Au lieu de coder en dur les URL dans les templates, la fonction
+``path`` sait comment générer des URL en fonction de la configuration du routage.
+De cette façon, toutes les URLs peuvent être facilement mises à jour en changeant
+uniquement la configuration:
 
 .. code-block:: jinja
 
@@ -237,8 +239,8 @@ pattern de routage:
     La fonction ``url`` génère des URLs *absolus* : ``{{ url('hello', {
     'name': 'Thomas' }) }}``.
 
-Inclusion d'Assets: images, javascripts et feuilles de styles
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Inclusion d'«Assets»: images, javascripts et feuilles de styles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Que serait internet sans images, javascripts, et feuilles de styles? Symfony2
 fournit une fonction ``asset`` pour les manipuler aisément:
@@ -251,8 +253,8 @@ fournit une fonction ``asset`` pour les manipuler aisément:
 
 Le but principal de la fonction ``asset`` est de rendre votre application plus
 portable. Grâce à cette fonction, vous pouvez déplacer le répertoire racine de
-l'application partout dans votre répertoire racine web sans rien changer dans le
-code de votre modèle.
+l'application partout dans votre répertoire racine web sans plus rien changer
+dans le code de votre template.
 
 Output Escaping
 ---------------
@@ -264,14 +266,15 @@ Escaping et son extension dédiée.
 Réflexions finales
 ------------------
 
-Twig est simple mais puissant. Grâce à la mise en page, aux blocs, aux modèles
-et aux inclusions d'action, il est très facile d'organiser vos modèles de
+Twig est simple mais puissant. Grâce à la mise en page, aux blocs, aux templates
+et aux inclusions d'action, il est ainsi enfantin d'organiser vos templates de
 manière logique et extensible.
 
-Vous avez seulement travaillé avec Symfony2 pendant environ 20 minutes, et vous
-pouvez déjà faire des choses assez incroyables avec lui. C'est la puissance de
-Symfony2. Apprendre les bases est facile, et vous allez bientôt apprendre que
-cette simplicité se cache sous une architecture très flexible.
+Vous avez seulement travaillé avec Symfony2 pendant environ 20 minutes et vous
+pouvez d'ores et déjà faire des choses assez incroyables avec ce framework.
+C'est la puissance de Symfony2. Apprendre les bases est facile et vous allez
+bientôt apprendre que cette simplicité se cache sous une architecture très
+flexible.
 
 Mais je m'avance. Tout d'abord, vous devez en savoir plus sur le contrôleur et
 c'est exactement le sujet de la prochaine partie de ce tutoriel. Prêt pour 10

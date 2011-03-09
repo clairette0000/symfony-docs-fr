@@ -1,5 +1,5 @@
-Visite éclair
-==========
+Découverte éclair
+=================
 
 .. toctree::
    :maxdepth: 1

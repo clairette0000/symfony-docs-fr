@@ -1,5 +1,7 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
-   single: Tests; Profiling
+   single: Tests; Profilage
 
 Comment utiliser le Profiler lors d'un Test Fonctionnel
 =======================================================
@@ -11,7 +13,7 @@ qui vous donne une façon rassurante de vérifier de nombreuses choses et
 d'appliquer certaines mesures.
 
 Le :doc:`Profiler </book/internals/profiler>` de Symfony2 rassemble de nombreuses
-informations pour chaque requête. Utilisez ces information pour vérifier le
+informations pour chaque requête. Utilisez ces informations pour vérifier le
 nombre d'appels à la base de données, le temps de sollicitation du framework,...
 Mais avant l'écriture d'assertions, vérifiez toujours que votre Profiler est en
 réalité disponible (il est activé par défaut dans l'environnement de ``test``)::

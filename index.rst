@@ -1,10 +1,10 @@
 Documentation de Symfony2
-======================
+=========================
 
-Visite éclair
-----------
+Découverte éclair
+-----------------
 
-Soyez rapidement opérationnel avec Symfony2 :doc:`Visite éclair <quick_tour/index>`:
+Devenez complice avec Symfony2 ! :doc:`Découverte éclair <quick_tour/index>`:
 
 .. toctree::
     :hidden:
@@ -17,9 +17,9 @@ Soyez rapidement opérationnel avec Symfony2 :doc:`Visite éclair <quick_tour/in
 * :doc:`quick_tour/the_architecture`
 
 Manuel
-----
+------
 
-Plongez dans Symfony2 parmi les guides thématiques:
+Plongez dans Symfony2 parmi nos guides thématiques:
 
 .. toctree::
     :hidden:
@@ -29,17 +29,17 @@ Plongez dans Symfony2 parmi les guides thématiques:
 .. include:: book/map.rst.inc
 
 Vadémécum
---------
+---------
 
 .. toctree::
     :hidden:
 
     cookbook/index
 
-Explorez nos :doc:`fiches </cookbook/index>`.
+Explorez nos différentes :doc:`fiches </cookbook/index>`.
 
 Documents de référence
--------------------
+----------------------
 
 Obtenez rapidement des réponses grâce à nos documents de référence:
 

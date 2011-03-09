@@ -1,5 +1,7 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
-   single: Controller; As Services
+   single: Contrôleur; Services
 
 Comment définir des Contrôleurs en tant que Services
 ====================================================
@@ -10,7 +12,7 @@ quand il étend la classe de base
 fonctionne bien, les contrôleurs peuvent aussi être spécifiés en tant que services.
 
 Pour invoquer un contrôleur qui jouerait le rôle de service, utilisez la
-ponctuation double-point (:). Par exemple, supposons que nous avons définit un
+ponctuation double-point (:). Par exemple, supposons que nous avons défini un
 service nommé ``my_controller`` et que nous avons renvoyé une méthode nommée
 ``indexAction()`` à l'intérieur du service::
 

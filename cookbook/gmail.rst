@@ -1,5 +1,8 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
-   single: Emails; Gmail
+   single: E-mails; Gmail
+   single: Courriels; Gmail
 
 Comment utiliser Gmail pour l'envoi d'e-mails
 =============================================
@@ -56,5 +59,5 @@ Le tour est joué!
 .. note::
 
     Le transport ``gmail`` est uniquement un raccourci qui utilise le transport
-    ``smtp`` et qui intègre directement les ``encryption``, ``auth_mode`` et
-    ``host`` requis par Gmail.
+    ``smtp`` et qui intègre directement les valeurs adéquates des options
+    ``encryption``, ``auth_mode`` et  ``host`` requis par Gmail.

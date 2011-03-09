@@ -1,9 +1,11 @@
-.. index::
-   single: Configuration; Semantic
-   single: Bundle; Extension Configuration
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
 
-Comment exposer une Configuration Sémantique d'un Bundle
-========================================================
+.. index::
+   single: Configuration; Sémantique
+   single: Bundle; Configuration Extension
+
+Comment entreprendre la Configuration Sémantique d'un Bundle
+============================================================
 
 Une configuration sémantique fournit un moyen encore plus souple de fournir une
 configuration pour un Bundle avec les avantages suivants pour de simples
@@ -21,7 +23,7 @@ paramètres:
 
 .. index::
    single: Bundles; Extension
-   single: Dependency Injection, Extension
+   single: Injection de dépendances, Extension
 
 Création d'une Extention
 ------------------------
@@ -98,8 +100,8 @@ Analyse d'une Configuration
 ---------------------------
 
 Chaque fois qu'un utilisateur inclut le namespace ``hello`` dans le fichier de
-configuration, il est ajouté à un tableau de configurations et transmis à la
-méthode ``load()`` de votre extension (Symfony2 converti automatiquement XML et
+configuration, il est ajouté à un tableau de configurations et est transmis à la
+méthode ``load()`` de votre extension (Symfony2 convertit automatiquement XML et
 YAML en tableau).
 
 Donc, compte tenu de la configuration suivante:
@@ -165,8 +167,8 @@ Les paramètres globaux sont les suivants:
 .. caution::
 
     Tous les paramètres et noms de services préfixés par ``_`` (underscore) sont
-    réservés pour le framework et aucun autre supplémentaire ne doit être
-    définit par les Bundles.
+    la chasse gardée du framework et aucun autre supplémentaire ne doit être
+    défini par des Bundles.
 
 .. index::
    pair: Convention; Configuration

@@ -1,5 +1,8 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
    single: Tests
+   pair: Isolation; Clients
 
 Comment tester l'Interaction de plusieurs Clients
 =================================================

@@ -26,6 +26,9 @@ Glossaire
         répertoire web de votre projet. En règle générale, *toutes* les requêtes
         sont traitées par l'exécution du même Contrôleur Frontal, dont la mission
         est d'amorcer votre application Symfony.
+        
+   Environnement
+        {bientôt une définition }
 
    Service
         Un *Service* est un terme générique désignant tout objet PHP qui effectue

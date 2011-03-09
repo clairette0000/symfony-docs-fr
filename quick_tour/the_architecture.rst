@@ -1,3 +1,5 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 L'Architecture
 ==============
 
@@ -9,7 +11,7 @@ framework. Comme Symfony2 se distingue de la nuée des frameworks, nous allons
 nous y atteler dès maintenant.
 
 .. index::
-   single: Directory Structure
+   single: Arborescence
 
 L'Arborescence
 --------------
@@ -39,7 +41,7 @@ ici que se situeront les :term:`contrôleurs frontaux`::
     $kernel = new AppKernel('prod', false);
     $kernel->handle(Request::createFromGlobals())->send();
 
-Le noyau (kernel) requiert d'abord le fichier ``bootstrap.php``, qui amorce le
+Le noyau (kernel) requiert d'abord le fichier ``bootstrap.php`` qui amorce le
 framework et l'autoloader (voir ci-bas).
 
 Comme tout contrôleur frontal, ``app.php`` utilise une classe Kernel ``AppKernel``
@@ -47,6 +49,7 @@ pour amorcer une application.
 
 .. index::
    single: Kernel
+   single: Noyau
 
 Le répertoire Application
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,13 +57,13 @@ Le répertoire Application
 La classe ``AppKernel`` est le point d'entrée principal de la configuration de
 l'application et en tant que tel, il est stocké dans le répertoire ``app/``.
 
-Cette classe doit implémenter quatre méthodes:
+Cette classe doit implémenter trois méthodes:
 
-* ``registerRootDir()``: Retourne la configuration du répertoire racine;
+* ``registerRootDir()``: retourne la configuration du répertoire racine;
 
-* ``registerBundles()``: Retourne un tableau de tous les Bundles nécessaires au fonctionnement de l'application (rappelez vous de ``Sensio\HelloBundle\HelloBundle``);
+* ``registerBundles()``: retourne un tableau de tous les Bundles nécessaires au fonctionnement de l'application (rappelez vous de ``Sensio\HelloBundle\HelloBundle``);
 
-* ``registerContainerConfiguration()``: Charge la configuration (sera détaillée ultérieurement);
+* ``registerContainerConfiguration()``: charge la configuration (sera détaillée ultérieurement);
 
 Jetons un coup d'œil à l'implémentation par défaut de ces méthodes pour une
 meilleure compréhension de la flexibilité du framework.
@@ -146,7 +149,7 @@ Une application est constituée de Bundles comme définis dans la méthode
 
 Mis à part le ``HelloBundle`` que nous avons déjà traité dans ce tutoriel,
 remarquez que le noyau active aussi ``FrameworkBundle``, ``DoctrineBundle``,
-``SwiftmailerBundle``, and ``ZendBundle``. Ils sont tous fournis avec le noyau
+``SwiftmailerBundle`` et ``ZendBundle``. Ils sont tous fournis avec le noyau
 du framework.
 
 Chaque Bundle peut être personnalisé via des fichiers de configuration écrits en
@@ -290,9 +293,9 @@ YAML, XML ou PHP. Regardons la configuration par défaut:
         ));
         */
 
-Each entry like ``framework`` defines the configuration for a bundle.
+Chaque entrée encadrée définit la configuration d'un Bundle.
 
-Chaque :term:`environment` peut surcharger la configuration par défaut en
+Chaque :term:`environnement` peut surcharger la configuration par défaut en
 apportant un fichier spécifique de configuration:
 
 .. configuration-block::
@@ -365,6 +368,7 @@ qui décidez.
 
 .. index::
    single: Vendors
+   single: Librairies tierces
 
 Utilisation de solution externes (Vendors)
 ------------------------------------------
@@ -389,7 +393,7 @@ système de cache. La configuration de l'application est uniquement analysée
 lors de la première demande, puis compilé en un pur code PHP dans le répertoire
 ``cache/`` de l'application. Dans l'environnement de développement, Symfony2 est
 assez intelligent pour vider le cache lorsque vous modifiez un fichier. Mais
-dans l'environnement de production, il est de votre responsabilité d'effacer le
+dans l'environnement de production, il est de votre ressort d'effacer le
 cache lorsque vous mettez à jour votre code ou modifier sa configuration.
 
 Quand vous développez une application Web, de nombreuses choses peuvent faillir
@@ -399,7 +403,7 @@ votre souci rapidement.
 
 .. index::
    single: CLI
-   single: Command Line
+   single: Ligne de commande
 
 L'Interface en Ligne de Commande (CLI)
 --------------------------------------
@@ -415,7 +419,7 @@ Lancez-le sans aucun argument pour en apprendre plus sur ses possibilités:
 
     $ php app/console
 
-L'option ``--help`` vous fera découvrir l'usage d'une commande:
+L'option ``--help`` vous dévoilera le synopsis et les options d'une commande donnée:
 
 .. code-block:: bash
 
@@ -430,10 +434,10 @@ Symfony2 travailler pour vous. Tout est fait dans Symfony2 pour que vous traciez
 votre voie. Alors, n'hésitez pas à renommer et déplacer des répertoires comme
 bon vous semble.
 
-C'en est tout pour cette visite éclair. De l'essai à l'envoi d'e-mails, vous
+C'en est tout pour cette découverte éclair. De l'essai à l'envoi d'e-mails, vous
 avez encore besoin d'en apprendre beaucoup pour devenir un maître Symfony2. Prêt à
 plonger dans ces thèmes maintenant? Ne cherchez plus : consultez le `Manuel`_ et
-approfondissez vos connaissances dans les domaines que vous souhaitez.
+approfondissez vos connaissances dans les domaines qui vous attirent.
 
 .. _standards:    http://groups.google.com/group/php-standards/web/psr-0-final-proposal
 .. _convention:   http://pear.php.net/

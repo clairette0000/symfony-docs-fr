@@ -1,5 +1,8 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 .. index::
-   single: Emails
+   single: Courriels
+   single: E-mails
 
 Comment envoyer un e-mail ?
 ===========================
