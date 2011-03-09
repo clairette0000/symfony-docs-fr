@@ -1,5 +1,5 @@
 Vadémécum
-========
+=========
 
 .. toctree::
     :hidden:
@@ -13,7 +13,7 @@ Vadémécum
     tools/autoloader
     tools/finder
     cache/varnish
-    testing/http_authentication
+    testing/http_authorization
     testing/insulating_clients
     testing/profiling
     event_dispatcher/class_extension
