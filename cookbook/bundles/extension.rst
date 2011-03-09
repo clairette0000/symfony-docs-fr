@@ -2,33 +2,32 @@
    single: Configuration; Semantic
    single: Bundle; Extension Configuration
 
-How to expose a Semantic Configuration for a Bundle
-===================================================
+Comment exposer une Configuration Sémantique d'un Bundle
+========================================================
 
-Semantic configuration provides an even more flexible way to provide
-configuration for a bundle with the following advantages over simple
-parameters:
+Une configuration sémantique fournit un moyen encore plus souple de fournir une
+configuration pour un Bundle avec les avantages suivants pour de simples
+paramètres:
 
-* Possibility to define more than just parameters (services for instance);
+* Possibilité de définir plus que de simples paramètres (des services par exemple);
 
-* Better hierarchy in the configuration (you can define nested configurations);
+* Meilleure hiérarchie dans la configuration (vous pouvez définir des configurations imbriquées);
 
-* Smart merging when several configuration files override an existing
-  configuration;
+* Fusion intelligente quand plusieurs fichiers de configuration surchargent une configuration existante;
 
-* Configuration validation (if you define an XSD file and use XML);
+* Validation de configurations (si vous définissez un fichier XSD et utilisez XML);
 
-* Completion when you use XSD and XML.
+* Auto-complétion quand vous utilisez XSD et XML.
 
 .. index::
    single: Bundles; Extension
    single: Dependency Injection, Extension
 
-Creating an Extension
----------------------
+Création d'une Extention
+------------------------
 
-To define a semantic configuration, create a Dependency Injection extension
-that extends
+Pour définir une configuration sémantique, créez une extension d'Injection de
+Dépendances pour étendre
 :class:`Symfony\\Component\\DependencyInjection\\Extension\\Extension`::
 
     // HelloBundle/DependencyInjection/HelloExtension.php
@@ -58,8 +57,8 @@ that extends
         }
     }
 
-The previous class defines a ``hello`` namespace, usable in any configuration
-file:
+La classe précédente définit un namespace ``hello``, utilisable dans un
+quelconque fichier de configuration:
 
 .. configuration-block::
 
@@ -90,18 +89,20 @@ file:
 
 .. tip::
 
-    Your extension code is always called, even if the user does not provide
-    any configuration. In that case, the array of configurations will be empty
-    and you can still provide some sensible defaults if you want.
+    Votre extension de code est toujours appelé, même si l'utilisateur ne
+    fournit aucune configuration. Dans ce cas, le tableau de configuration sera
+    vide et vous pouvez toujours fournir des valeurs par défaut raisonnables si
+    vous le souhaitez.
 
-Parsing a Configuration
------------------------
+Analyse d'une Configuration
+---------------------------
 
-Whenever a user includes the ``hello`` namespace in a configuration file, it
-is added to an array of configurations and passed to the ``load()`` method of
-your extension (Symfony2 automatically converts XML and YAML to an array).
+Chaque fois qu'un utilisateur inclut le namespace ``hello`` dans le fichier de
+configuration, il est ajouté à un tableau de configurations et transmis à la
+méthode ``load()`` de votre extension (Symfony2 converti automatiquement XML et
+YAML en tableau).
 
-So, given the following configuration:
+Donc, compte tenu de la configuration suivante:
 
 .. configuration-block::
 
@@ -136,7 +137,7 @@ So, given the following configuration:
             'bar' => 'bar',
         ));
 
-The array passed to your method looks like the following::
+Le tableau transmis à votre méthode ressemble à ce qui suit::
 
     array(
         array(
@@ -145,11 +146,11 @@ The array passed to your method looks like the following::
         )
     )
 
-Within ``load()``, the ``$container`` variable refers to a container that only
-knows about this namespace configuration. You can manipulate it the way you
-want to add services and parameters.
+Au sein de ``load()``, la variable ``$container`` réfère à un conteneur qui
+connaît seulement le namespace de cette configuration. Vous pouvez manipuler cela
+de la manière que vous voulez et ajouter des services et des paramètres.
 
-The global parameters are the following:
+Les paramètres globaux sont les suivants:
 
 * ``kernel.name``
 * ``kernel.environment``
@@ -163,30 +164,29 @@ The global parameters are the following:
 
 .. caution::
 
-    All parameter and service names starting with a ``_`` are reserved for the
-    framework, and new ones must not be defined by bundles.
+    Tous les paramètres et noms de services préfixés par ``_`` (underscore) sont
+    réservés pour le framework et aucun autre supplémentaire ne doit être
+    définit par les Bundles.
 
 .. index::
    pair: Convention; Configuration
 
-Extension Conventions
----------------------
+Conventions d'Extension
+-----------------------
 
-When creating an extension, follow these simple conventions:
+Quand vous créez une extension, suivez simplement ces conventions:
 
-* The extension must be stored in the ``DependencyInjection`` sub-namespace;
+* L'extension doit être stockée dans le sous-namespace ``DependencyInjection``;
 
-* The extension must be named after the bundle name and suffixed with
-  ``Extension`` (``SensioHelloExtension`` for ``SensioHelloBundle``);
+* L'extension doit être nommée après le nom de Bundle et suffixée avec ``Extension`` (``SensionHelloExtension`` pour ``SensioHelloBundle``);
 
-* The alias must be unique and named after the bundle name (``sensio_blog``
-  for ``SensioBlogBundle``);
+* L'alias doit être unique et nommé après le nom du Bundle (``sensio_blog`` pour ``SensioBlogBundle``);
 
-* The extension should provide an XSD schema.
+* L'extension devrait être accompagnée d'un schéma XSD.
 
-If you follow these simple conventions, your extensions will be registered
-automatically by Symfony2. If not, override the Bundle
-:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build` method::
+Si vous suivez ces simples conventions, vos extensions seront enregistrées
+automatiquement par Symfony2. Si non, surchargez la méthode Bundle
+:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build`::
 
     class HelloBundle extends Bundle
     {
