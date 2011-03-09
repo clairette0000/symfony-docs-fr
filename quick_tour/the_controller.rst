@@ -271,4 +271,4 @@ dans la première partie et toutes les caractéristiques que nous avons appris
 jusqu'à maintenant font partie du "core framework Bundle".
 
 Mais grâce aux Bundles, tout peut être prolongé ou remplacé dans Symfony2.
-C'est le thème de la prochaine partie de ce tutoriel.
+C'est le thème de la prochaine partie de ce tutoriel. Explorons :doc:`the_architecture`!

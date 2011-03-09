@@ -275,7 +275,7 @@ cette simplicité se cache sous une architecture très flexible.
 
 Mais je m'avance. Tout d'abord, vous devez en savoir plus sur le contrôleur et
 c'est exactement le sujet de la prochaine partie de ce tutoriel. Prêt pour 10
-minutes supplémentaires avec Symfony2?
+minutes supplémentaires avec Symfony2 pour explorer :doc:`the_controller`?
 
 .. _Twig:          http://www.twig-project.org/
 .. _documentation: http://www.twig-project.org/documentation
