@@ -1,11 +1,12 @@
 .. index::
    single: Event Dispatcher
 
-How to extend a Class without using Inheritance
-===============================================
+Comment faire pour étendre une Classe sans utiliser d'Héritage
+==============================================================
 
-To allow multiple classes to add methods to another one, you can define the
-magic ``__call()`` method in the class you want to be extended like this::
+Pour autoriser plusieurs classes à ajouter des méthodes à une autre classe, vous
+devez définir la méthode magique ``__call()`` dans la classe que vous voulez
+étendre de la façon suivante::
 
     class Foo
     {
@@ -30,7 +31,7 @@ magic ``__call()`` method in the class you want to be extended like this::
         }
     }
 
-Then, create a class that will host the listener::
+Puis, créez une classe qui hébergera le point d'écoute::
 
     class Bar
     {
@@ -59,6 +60,6 @@ Then, create a class that will host the listener::
         }
     }
 
-Eventually, add the new ``bar`` method to the ``Foo`` class::
+Eventuellement, ajoutez une nouvelle méthode ``bar`` à la classe ``Foo``::
 
     $dispatcher->connect('foo.method_is_not_found', array($bar, 'addBarMethodToFoo'));
