@@ -2,11 +2,12 @@
    single: Controller
    single: MVC; Controller
 
-The Controller
-==============
+Le Contrôleur
+=============
 
-Still with us after the first two parts? You are already becoming a Symfony2
-addict! Without further ado, let's discover what controllers can do for you.
+Toujours avec nous après ces deux premières parties? Vous êtes déjà un
+inconditionnel de Symfony2! Sans plus tarder, nous allons voir ce que les
+contrôleurs peuvent faire pour vous.
 
 .. index::
    single: Formats
@@ -14,14 +15,13 @@ addict! Without further ado, let's discover what controllers can do for you.
    single: Routing; Formats
    single: View; Formats
 
-Using Formats
--------------
-
-Nowadays, a web application should be able to deliver more than just HTML
-pages. From XML for RSS feeds or Web Services, to JSON for Ajax requests,
-there are plenty of different formats to choose from. Supporting those formats
-in Symfony2 is straightforward. Edit ``routing.yml`` and add a ``_format``
-with a value of ``xml``:
+Usage des Formats
+-----------------
+De nos jours, une application Web doit être en mesure de livrer plus que de
+simples fichiers HTML. Du XML pour les flux RSS ou des Web Services, du JSON
+pour les requêtes Ajax,... Bref, il y a beaucoup de formats différents à choisir.
+Manipuler ces formats dans Symfony2 est simple. Modifiez ``routing.yml`` et
+ajoutez un ``_format`` avec une valeur d'attribut ``xml``:
 
 .. configuration-block::
 
@@ -48,7 +48,8 @@ with a value of ``xml``:
             '_format'     => 'xml',
         )));
 
-Then, add an ``index.xml.twig`` template along side ``index.html.twig``:
+Puis, ajoutez un template ``index.xml.twig`` aux côtés de
+``index.html.twig``:
 
 .. code-block:: xml+php
 
@@ -57,8 +58,8 @@ Then, add an ``index.xml.twig`` template along side ``index.html.twig``:
         <name>{{ name }}</name>
     </hello>
 
-Finally, as the template needs to be selected according to the format, make
-the following changes to the controller:
+Enfin, comme le modèle doit être choisi en fonction du format, effectuez les
+changements suivants dans le contrôleur:
 
 .. code-block:: php
 
@@ -71,10 +72,10 @@ the following changes to the controller:
         );
     }
 
-That's all there is to it. For standard formats, Symfony2 will automatically
-choose the best ``Content-Type`` header for the response. If you want to
-support different formats for a single action, use the ``{_format}``
-placeholder in the pattern instead:
+C'est tout ce qu'il y a à faire. Pour les formats standards, Symfony2 choisira
+automatiquement le meilleur en-tête ``Content-Type`` pour la réponse. Si vous
+voulez prendre en charge des formats différents pour une seule action, utilisez
+l'emplacement ``{_format}`` dans le pattern à la place:
 
 .. configuration-block::
 
@@ -105,21 +106,21 @@ placeholder in the pattern instead:
             '_format' => '(html|xml|json)',
         )));
 
-The controller will now be called for URLs like ``/hello/Fabien.xml`` or
+Le contrôleur sera désormais appelé par des URLs comme ``/hello/Fabien.xml`` ou
 ``/hello/Fabien.json``.
 
-The ``requirements`` entry defines regular expressions that placeholders must
-match. In this example, if you try to request the ``/hello/Fabien.js``
-resource, you will get a 404 HTTP error, as it does not match the ``_format``
-requirement.
+L'entrée ``requirements`` définit les expressions régulières qui doivent
+correspondre à des emplacements réservés. Dans cet exemple, si vous essayez de
+demander la ressource ``/hello/Fabien.js``, vous obtiendrez une erreur HTTP 404,
+car il ne correspond pas à l'exigence ``_format``.
 
 .. index::
    single: Response
 
-The Response Object
--------------------
+L'Objet Response
+----------------
 
-Now, let's get back to the ``Hello`` controller::
+Retournons maintenant à notre contrôleur ``Hello``::
 
     // src/Sensio/HelloBundle/Controller/HelloController.php
 
@@ -128,9 +129,9 @@ Now, let's get back to the ``Hello`` controller::
         return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
     }
 
-The ``render()`` method renders a template and returns a ``Response`` object.
-The response can be tweaked before it is sent to the browser, for instance
-let's change the ``Content-Type``::
+La méthode ``render()`` produit un template et retourne un objet ``Response``.
+La réponse peut être modifié avant d'être envoyé au navigateur, par exemple
+nous allons changer le ``Content-Type``::
 
     public function indexAction($name)
     {
@@ -140,26 +141,26 @@ let's change the ``Content-Type``::
         return $response;
     }
 
-For simple templates, you can even create a ``Response`` object by hand and save
-some milliseconds::
+Pour des templates simples, vous pouvez même créer un objet ``Response`` à la
+main et sauver quelques millisecondes::
 
     public function indexAction($name)
     {
         return new Response('Hello '.$name);
     }
 
-This is really useful when a controller needs to send back a JSON response for
-an Ajax request.
+Cela est vraiment utile quand le contrôleur nécessite le retour d'une réponse
+JSON pour une requête AJAX.
 
 .. index::
    single: Exceptions
 
-Managing Errors
----------------
+Gestion des Erreurs
+-------------------
 
-When things are not found, you should play well with the HTTP protocol and
-return a 404 response. This is easily done by throwing a built-in HTTP
-exception::
+Quand une ressource n'est pas trouvée, vous devriez tirer pleinement parti du
+protocole HTTP et retourner une réponse 404. Cela se fait facilement en
+invoquant une véritable exception HTTP::
 
     use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -173,28 +174,29 @@ exception::
         return $this->render(...);
     }
 
-The ``NotFoundHttpException`` will return a 404 HTTP response back to the
-browser.
+Le ``NotFoundHttpException`` retournera une réponse HTTP 404 au navigateur.
 
 .. index::
    single: Controller; Redirect
    single: Controller; Forward
 
-Redirecting and Forwarding
---------------------------
+Redirections et Renvois
+-----------------------
 
-If you want to redirect the user to another page, use the ``RedirectResponse``
-class::
+Si vous voulez rediriger un utilisateur vers une autre page, utilisez la classe
+``RedirectResponse``::
 
     return new RedirectResponse($this->generateUrl('hello', array('name' => 'Lucas')));
 
-The ``generateUrl()`` is the same method as the ``generate()`` method we used
-on the ``router`` helper before. It takes the route name and an array of
-parameters as arguments and returns the associated friendly URL.
+Le ``generateUrl()`` est la même méthode que la méthode ``generate()`` que nous
+avions utilisé avec le helper ``router`` auparavant. Il prend le nom de la route
+et un tableau de paramètres comme arguments et retourne la jolie adresse qui
+convient.
 
-You can also easily forward the action to another one with the ``forward()``
-method. As for the ``actions`` helper, it makes an internal sub-request, but
-it returns the ``Response`` object to allow for further modification::
+Vous pouvez facilement renvoyer une action vers une autre avec la méthode
+``forward()``. Tout comme le helper ``actions``, il réalise une sous-requête
+interne mais il retourne un objet ``Response`` pour permettre de prochaines
+modifications::
 
     $response = $this->forward('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
 
@@ -203,11 +205,11 @@ it returns the ``Response`` object to allow for further modification::
 .. index::
    single: Request
 
-The Request Object
-------------------
+L'Objet Request
+---------------
 
-Besides the values of the routing placeholders, the controller also has access
-to the ``Request`` object::
+Outre les valeurs des paramètres du routage, le contrôleur a également accès à
+l'objet ``Request``::
 
     $request = $this->get('request');
 
@@ -219,8 +221,8 @@ to the ``Request`` object::
 
     $request->request->get('page'); // get a $_POST parameter
 
-In a template, you can also access the ``Request`` object via the
-``app.request`` variable:
+Dans un template, vous pouvez aussi accéder à l'objet ``Request`` via une
+variable ``app.request``:
 
 .. code-block:: html+php
 
@@ -228,16 +230,17 @@ In a template, you can also access the ``Request`` object via the
 
     {{ app.request.parameter('page') }}
 
-The Session
------------
+La Session
+----------
 
-Even if the HTTP protocol is stateless, Symfony2 provides a nice session object
-that represents the client (be it a real person using a browser, a bot, or a
-web service). Between two requests, Symfony2 stores the attributes in a cookie
-by using the native PHP sessions.
+Même si le protocole HTTP est sans états, Symfony2 fournit un objet sympathique
+de sessions qui représente le client (qu'il s'agisse d'une personne réelle à
+l'aide d'un navigateur, d'un bot ou d'un web service). Entre deux demandes,
+Symfony2 stocke les attributs dans un cookie en utilisant les sessions natives
+de PHP.
 
-Storing and retrieving information from the session can be easily achieved
-from any controller::
+Stocker et récupérer des informations depuis une session peut être facilement
+réalisé à partir de n'importe quel contrôleur::
 
     $session = $this->get('request')->getSession();
 
@@ -250,20 +253,22 @@ from any controller::
     // set the user locale
     $session->setLocale('fr');
 
-You can also store small messages that will only be available for the very
-next request::
+Vous pouvez même stocker de courts messages qui seront seulement disponibles
+durant la toute prochaine requête::
 
     // store a message for the very next request (in a controller)
-    $session->setFlash('notice', 'Congratulations, your action succeeded!');
+    $session->setFlash('notice', 'Bravo, votre action a été accomplie !');
 
     // display the message back in the next request (in a template)
     {{ app.session.flash('notice') }}
 
-Final Thoughts
---------------
+Réflexions finales
+------------------
 
-That's all there is to it, and I'm not even sure we have spent the allocated
-10 minutes. We briefly introduced bundles in the first part; and all the
-features we've learned about until now are part of the core framework bundle.
-But thanks to bundles, everything can be extended or replaced in Symfony2.
-That's the topic of the next part of this tutorial.
+C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous avons passé
+les 10 minutes qu'on s'était alloué. Nous avons brièvement présenté les Bundles
+dans la première partie et toutes les caractéristiques que nous avons appris
+jusqu'à maintenant font partie du "core framework Bundle".
+
+Mais grâce aux Bundles, tout peut être prolongé ou remplacé dans Symfony2.
+C'est le thème de la prochaine partie de ce tutoriel.
