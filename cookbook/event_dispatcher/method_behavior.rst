@@ -1,15 +1,15 @@
 .. index::
    single: Event Dispatcher
 
-How to customize a Method Behavior without using Inheritance
-============================================================
+Comment personnaliser une Méthode Comportementale sans utiliser d'Héritage
+==========================================================================
 
-Doing something before or after a Method Call
----------------------------------------------
+Faire quelque chose avant ou après un Appel à une Méthode
+---------------------------------------------------------
 
-If you want to do something just before, or just after a method is called, you
-can notify respectively an event at the beginning or at the end of the
-method::
+Si vous voulez faire quelque chose juste avant ou juste après qu'une méthode
+soit invoquée, vous pouvez incorporer respectivement un évènement au tout début
+ou à la toute fin de cette méthode::
 
     class Foo
     {
@@ -32,12 +32,12 @@ method::
         }
     }
 
-Modifying Method Arguments
---------------------------
+Modification des Arguments d'une Méthode
+----------------------------------------
 
-If you want to allow third party classes to modify arguments passed to a method
-just before that method is executed, add a ``filter`` event at the beginning of
-the method::
+Si vous voulez autoriser une classe tierce à modifier des arguments passés à une
+méthode juste avant que celle-ci soit exécutée, ajoutez un évènement ``filter``
+au tout début de cette méthode::
 
     class Foo
     {
@@ -55,7 +55,7 @@ the method::
         }
     }
 
-And here is a filter example::
+Et ici un exemple de filtre::
 
     class Bar
     {
