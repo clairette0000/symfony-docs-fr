@@ -334,7 +334,7 @@ Merci d'essayer Symfony2! A l'heure actuelle, vous devriez être en mesure de
 vous exercer sur vos propres routages, contrôleurs et templates. Comme exercice,
 essayez de construire quelque chose de plus utile que l'application Hello! Si
 vous êtes désireux d'en apprendre plus sur Symfony2, plongez dans la section
-suivante: "La Vue".
+suivante: ":doc:`the_view`".
 
 .. _sandbox: http://symfony-reloaded.org/code#sandbox
 .. _YAML:    http://www.yaml.org/
