@@ -1,11 +1,11 @@
 .. index::
    single: Tests
 
-How to test the Interaction of several Clients
-==============================================
+Comment tester l'Interaction de plusieurs Clients
+=================================================
 
-If you need to simulate an interaction between different Clients (think of a
-chat for instance), create several Clients::
+Si vous devez simuler une interaction entre différents Clients (dans le cadre
+d'un chat par exemple), créez plusieurs Clients::
 
     $harry = $this->createClient();
     $sally = $this->createClient();
@@ -16,9 +16,9 @@ chat for instance), create several Clients::
     $this->assertEquals(201, $harry->getResponse()->getStatusCode());
     $this->assertRegExp('/Hello/', $sally->getResponse()->getContent());
 
-This works except when your code maintains a global state or if it depends on
-third-party libraries that has some kind of global state. In such a case, you
-can insulate your clients::
+Cela fonctionne sauf quand votre code maintient un état global ou s'il dépend
+d'une librairie tierce qui aurait une sorte d'état global. Dans un tel cas, vous
+pouvez isoler vos clients::
 
     $harry = $this->createClient();
     $sally = $this->createClient();
@@ -32,10 +32,10 @@ can insulate your clients::
     $this->assertEquals(201, $harry->getResponse()->getStatusCode());
     $this->assertRegExp('/Hello/', $sally->getResponse()->getContent());
 
-Insulated clients transparently execute their requests in a dedicated and
-clean PHP process, thus avoiding any side-effects.
+Les clients isolés exécutent de façon transparente leurs requêtes dans un
+processus PHP dédié et propre, donc en évitant tout effet secondaire.
 
 .. tip::
-
-    As an insulated client is slower, you can keep one client in the main
-    process, and insulate the other ones.
+    
+    Puisqu'un client isolé est plus lent, vous pouvez conserver un client dans le
+    processus principal et isoler les autres.
