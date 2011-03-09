@@ -1,5 +1,5 @@
-The Big Picture
-===============
+Préliminaires
+=============
 
 Commencez à utiliser Symfony2 en 10 minutes! Ce tutoriel vous guide à travers
 quelques-uns des concepts les plus importants derrière Symfony2. Il explique
