@@ -4,7 +4,7 @@ La Vue
 ======
 
 Après avoir lu la première partie de ce tutoriel, vous avez considéré que
-Symfony2 valait encore 10 minutes. Je partage votre avis! Dans cette seconde
+Symfony2 valait encore 10 minutes. Je n'en pense pas moins! Dans cette seconde
 partie, vous en apprendrez plus sur le moteur de template Symfony2, `Twig`_.
 Twig est un moteur de template pour PHP flexible, rapide et sécurisé. Il rend
 vos templates plus lisibles et concis. Il les rend aussi plus conviviaux pour

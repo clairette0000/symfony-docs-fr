@@ -1,3 +1,5 @@
+:orphan:
+
 Dépôt de la documentation française de Symfony2
 ===============================================
 
