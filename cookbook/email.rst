@@ -1,17 +1,18 @@
 .. index::
    single: Emails
 
-How to send an Email
-====================
+Comment envoyer un e-mail ?
+===========================
 
-Sending emails is a classic task for any web application and one that has
-special complications and potential pitfalls. Instead of recreating the wheel,
-one solution to send emails is to use the ``SwiftmailerBundle``, which leverages
-the power of the `Swiftmailer`_ library.
+L'envoi de courriels est une tâche classique pour toute application web et peut
+être source de complications spécifiques et d'éventuels écueils.
+
+Au lieu de réinventer la roue, une des solutions consiste à utiliser le
+``SwiftmailerBundle`` qui met à profit la puissance de la librairie `Swiftmailer`_.
 
 .. note::
 
-    Don't forget to enable the bundle in your kernel before using it::
+    N'omettez pas d'activer ce Bundle dans votre kernel avant de l'utiliser::
 
         public function registerBundles()
         {
@@ -28,8 +29,8 @@ the power of the `Swiftmailer`_ library.
 Configuration
 -------------
 
-Before using Swiftmailer, be sure to include its configuration. The only
-mandatory configuration parameter is ``transport``:
+Avant d'employer Swiftmailer, assurez vous d'y inclure sa configuration. Le seul
+paramètre de configuration indispensable est ``transport``:
 
 .. configuration-block::
 
@@ -73,32 +74,32 @@ mandatory configuration parameter is ``transport``:
             'password'   => "your_password",
         ));
 
-The majority of the Swiftmailer configuration deals with how the messages
-themselves should be delivered.
+Les principaux paramètres de configuration de Swiftmailer indiquent comment les
+messages seront expédiés.
 
-The following configuration attribute are available:
+Les attributs de configuration suivants sont disponibles:
 
-* ``transport``         (``smtp``, ``mail``, ``sendmail``, or ``gmail``)
+* ``transport``         (``smtp``, ``mail``, ``sendmail``, ou ``gmail``)
 * ``username``
 * ``password``
 * ``host``
 * ``port``
-* ``encryption``        (``tls``, or ``ssl``)
-* ``auth_mode``         (``plain``, ``login``, or ``cram-md5``)
+* ``encryption``        (``tls``, ou ``ssl``)
+* ``auth_mode``         (``plain``, ``login``, ou ``cram-md5``)
 * ``spool``
 
-  * ``type`` (how to queue the messages, only ``file`` is supported currently)
-  * ``path`` (where to store the messages)
-* ``delivery_address``  (an email address where to send ALL emails)
-* ``disable_delivery``  (set to true to disable delivery completely)
+  * ``type`` (quelle règle d'enchaînement doit être supportée ; seul ``file`` est actuellement proposé)
+  * ``path`` (où stocker les messages)
+* ``delivery_address``  (une adresse e-mail qui collectera TOUS les e-mails sortants)
+* ``disable_delivery``  (indiquez true pour empêcher complètement toute expédition)
 
-Sending Emails
---------------
+L'envoi d'e-mails
+-----------------
 
-The Swiftmailer library works by creating, configuring and then sending
-``Swift_Message`` objects. The "mailer" is responsible for the actual delivery
-of the message and is accessible via the ``mailer`` service. Overall, sending
-an email is pretty straightforward::
+La librairie Swiftmailer assure la création, la configuration puis l'envoi
+d'objets ``Swift_Message``. Le "mailer" est responsable de livraison effective
+du message et est accessible via le service ``mailer``. Dans l'ensemble,
+l'envoi d'e-mails est assez simple::
 
     public function indexAction($name)
     {
@@ -116,17 +117,18 @@ an email is pretty straightforward::
         return $this->render(...);
     }
 
-To keep things decoupled, the email body has been stored in a template and
-rendered with the ``renderView()`` method.
+Pour conserver le découplage, le corps de l'e-mail a été stocké dans un template
+et est converti par la méthode ``renderView()``.
 
-The ``$message`` object supports many more options, such as including attachments,
-adding HTML content, and much more. Fortunately, Swiftmailer covers the topic
-of `Creating Messages`_ in great detail in its documentation.
+L'objet ``$message`` supporte une kyrielle d'options, comme l'inclusion de
+pièces-jointes, le format HTML dans le corps du message, etc... Heureusement,
+Swiftmailer couvre le sujet de la `Création de messages`_ en détail dans sa
+documentation.
 
 .. tip::
 
-    Read the ":doc:`gmail`" recipe if you want to use Gmail as a transport in
-    the development environment.
+    Lisez la fiche ":doc:`gmail`" si vous souhaitez utiliser Gmail en tant que
+    ``transport`` dans un environnement de développement.
 
 .. _`Swiftmailer`: http://www.swiftmailer.org/
-.. _`Creating Messages`: http://swiftmailer.org/docs/messages
+.. _`Création de messages`: http://swiftmailer.org/docs/messages

@@ -1,20 +1,22 @@
 .. index::
    single: Emails; Gmail
 
-How to use Gmail to send Emails
-===============================
+Comment utiliser Gmail pour l'envoi d'e-mails
+=============================================
 
-During development, instead of using a regular SMTP server to send emails, you
-might find using Gmail easier and more practical. The Swiftmailer bundle makes
-it really easy.
+Durant la phase de développement, au lieu d'utiliser le traditionnel serveur
+SMTP pour envoyer des courriels, vous considérez peut-être que Gmail est plus
+simple et plus pratique. Le Bundle Swiftmailer est parfaitement rôdé pour ça.
 
 .. tip::
 
-    Instead of using your regular Gmail account, it's of course recommended
-    that you create a special account.
+    Au lieu d'utiliser votre compte Gmail final, il est bien sûr recommandé d'en
+    créer un spécialement dédié à cet effet.
 
-In the development configuration file, change the ``transport`` setting to
-``gmail`` and set the ``username`` and ``password`` to the Google credentials:
+Dans le fichier de configuration de votre environnement de développement, changez
+l'option de ``transport`` par ``gmail`` puis mentionnez le binôme ``username``
+et ``password`` qui vous permettra de vous identifier avec succès au compte en
+question:
 
 .. configuration-block::
 
@@ -49,9 +51,10 @@ In the development configuration file, change the ``transport`` setting to
             'password'  => "your_gmail_password",
         ));
 
-You're done!
+Le tour est joué!
 
 .. note::
 
-    The ``gmail`` transport is simply a shortcut that uses the ``smtp`` transport
-    and sets ``encryption``, ``auth_mode`` and ``host`` to work with Gmail.
+    Le transport ``gmail`` est uniquement un raccourci qui utilise le transport
+    ``smtp`` et qui intègre directement les ``encryption``, ``auth_mode`` et
+    ``host`` requis par Gmail.
