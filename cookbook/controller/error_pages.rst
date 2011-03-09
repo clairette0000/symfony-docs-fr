@@ -1,26 +1,27 @@
-How to customize Error Pages
-============================
+Comment personnaliser vos pages d'erreur
+========================================
 
-When any exception is thrown in Symfony2, the exception is caught inside the
-``Kernel`` class and eventually forwarded to a special controller,
-``FrameworkBundle:Exception:show`` for handling. This controller, which lives
-inside the core ``FrameworkBundle``, determines which error template to
-display and the status code that should be set for the given exception.
+Quand une exception est capturée par Symfony2, celle-ci est traitée à l'intérieur
+de la classe ``Kernel`` et éventuellement renvoyée vers un contrôleur
+spécial, ``FrameworkBundle:Exception:show`` pour être manipulée. Le contrôleur,
+qui se situe dans le core ``FrameworkBundle``, détermine quel template d'erreur
+sera affiché et le code de statuts qui devrait être attribué à une exception donnée.
 
 .. tip::
 
-    The customization of exception handling is actually much more powerful
-    than what's written here. An internal event, ``core.exception``, is thrown
-    which allows complete control over exception handling. For more information,
-    see ``events-core.exception``.
+    La personnalisation d'une exception en cours de traitement est normalement
+    bien plus puissante que ce qui est écrit ici même. Un évènement interne,
+    ``core.exception``, est déclenché ce qui autorise une prise en main au-delà
+    de la simple capture de l'exception. Pour plus d'informations, intéressez
+    vous à ``events-core.exception``.
 
-All of the error templates live inside ``FrameworkBundle``. To override the
-templates, we simply rely on the standard method for overriding templates that
-live inside a bundle. For more information, see
-:ref:`overiding-bundle-templates`.
+Tous les templates d'erreur se situent à l'intérieur du ``FrameworkBundle``.
+Pour surcharger un template, nous devons nous fier à la méthode standard pour
+surcharger des templates qui résident dans un Bundle. Pour plus d'informations,
+consultez :ref:`overiding-bundle-templates`.
 
-For example, to override the default error template that's shown to the
-end-user, create a new template located at
+Par exemple, pour surcharger le template d'erreur par défaut qui est dévoilé au
+visiteur, créez un nouveau template localisé dans
 ``app/views/FrameworkBundle/Exception/error.html.twig``:
 
 .. code-block:: html+jinja
@@ -31,34 +32,36 @@ end-user, create a new template located at
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         </head>
         <body>
-            <h1>Oops! An Error Occurred</h1>
-            <h2>The server returned a "{{ exception.statuscode }} {{ exception.statustext }}".</h2>
+            <h1>Oops! Un problème est survenu !</h1>
+            <h2>Le serveur nous indique : "{{ exception.statuscode }} {{ exception.statustext }}".</h2>
         </body>
     </html>
 
 .. tip::
+    
+    Si vous n'êtes pas encore tout à fait familier avec Twig, ne vous tracassez
+    pas pour autant. Twig est simple, puissant et est un moteur de template
+    optionnel bien qu'il soit déjà intégré à ``Symfony2`` par défaut.
 
-    If you're not familiar with Twig, don't worry. Twig is simple, powerful
-    and optional templating engine that integrates with ``Symfony2``.
+En plus de l'affichage HTML standard de la page d'erreur, Symfony2 dispose de
+multitudes de pages d'erreur par défaut pour les formats de réponses les plus
+répandus, comme JSON (``error.json.twig``), XML (``error.xml.twig``) et même
+javascript (``error.js.twig``) pour ne citer que ceux-là. Pour surcharger
+n'importe quel de ces templates, il suffit juste de créer un nouveau fichier avec
+le même nom dans votre répertoire ``app/views/FrameworkBundle/Exception``. C'est
+la façon classique de surcharger un quelconque template situé dans un Bundle.
 
-In addition to the standard HTML error page, Symfony provides a default error
-page for the many of the most common response formats, including JSON
-(``error.json.twig``), XML, (``error.xml.twig``), and even Javascript
-(``error.js.twig``), to name a few. To override any of these templates, just
-create a new file with the same name in the
-``app/views/FrameworkBundle/Exception`` directory. This is the standard way of
-overriding any template that lives inside a bundle.
-
-The debug-friendly exception pages shown to the developer can even be
-customized in the same way by creating templates such as
-``exception.html.twig`` for the standard HTML exception page or
-``exception.json.twig`` for the JSON exception page.
+Les pages d'exception "debug-friendly" dévoilées au développeur peuvent même être
+personnalisées de la même façon en créant des templates comme ``exception.html.twig``
+pour une page classique d'exception HTML ou ``exception.json.twig`` pour une page
+d'exception JSON.
 
 .. tip::
 
-    To see the full list of default error templates, see the
-    ``Resources/views/Exception`` directory of the ``FrameworkBundle``. In a
-    standard Symfony2 installation, the ``FrameworkBundle`` can be found at
-    ``vendor/symfony/src/Symfony/Bundle/FrameworkBundle``. Often, the easiest
-    way to customize an error page is to copy it from the ``FrameworkBundle``
-    into ``app/views/FrameworkBundle/Exception`` and then modify it.
+    Pour découvrir la liste complète de templates d'erreurs par défaut, explorez
+    le répertoire ``Resources/views/Exception`` du ``FrameworkBundle``. Dans une
+    installation de Symfony2 standard, le ``FrameworkBundle`` peut être retrouvé
+    dans ``vendor/symfony/src/Symfony/Bundle/FrameworkBundle``. Souvent, la
+    façon la plus enfantine de personnaliser une page d'erreur est de copier
+    le ``FrameworkBundle`` dans ``app/views/FrameworkBundle/Exception`` puis d'en
+    modifier le contenu.
