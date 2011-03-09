@@ -159,15 +159,15 @@ pour notre application:
 
 Les toutes premières lignes du fichier de configuration du routage définit le
 code qui sera exécuté quand l'utilisateur demandera la ressource "``/``" (par
-exemple, la page d'accueil).
+exemple, la page d'accueil). Ici, on exécute la méthode ``index`` du contrôleur
+``Default`` à l'intérieur du ``FrameworkBundle``.
 
-Si vous êtes à l'aise avec le routage, jetez un oeil à la dernière directive du
-fichier de configuration. Symfony2 peut inclure des informations de routage
-d'autres fichiers de configuration de routage en utilisant la directive
-d'importation. Dans ce cas, nous voulons importer la configuration de routage de
-HelloBundle. Un Bundle est comme un plugin qui aurait des pouvoirs décuplés mais
-nous en reparlerons plus tard. Pour l'instant, regardons la configuration de
-routage que nous avons importé:
+Jetons un œil à la dernière directive du fichier de configuration. Symfony2 peut
+inclure des informations de routage d'autres fichiers de configuration de routage
+en utilisant la directive ``import``. Dans ce cas, nous voulons importer la
+configuration de routage provenant de ``HelloBundle``. Un Bundle est comme un
+plugin qui aurait des pouvoirs décuplés mais nous en reparlerons plus tard. Pour
+l'instant, regardons la configuration de routage que nous avons importé:
 
 .. configuration-block::
 
@@ -205,9 +205,10 @@ routage que nous avons importé:
 
         return $collection;
 
-Comme vous pouvez le voir, le gabarit de ressources "``/hello/{name}``" (une
-chaîne de caractères entre accolades comme ``{name}`` est un espace réservé) est
-associé à un contrôleur, référencé par la valeur ``_controller``.
+Comme vous pouvez le voir, le gabarit de ressources "``/hello/{name}``"  est
+associé à un contrôleur, référencé par la valeur ``_controller``. Une chaîne de
+caractères entre accolades (``{name}``) est un espace réservé et définit un
+argument qui sera communiqué au contrôleur.
 
 .. index::
    single: Controller
@@ -243,15 +244,16 @@ Le code est assez simple à comprendre mais nous allons quand même l'expliquer
 ligne par ligne:
 
 * *ligne 3*: Symfony2 tire profit de la nouvelle fonctionnalité de PHP 5.3
-  (*namespace*) et tous les contrôleurs devraient être proprement "namespacées"
-  (si ce n'est pas obligatoire). Dans cet exemple, le contrôleur se situe dans
-  le Bundle intitulé HelloBundle, qui forme la première partie de la valeur du
-  routage ``_controller``.
+  (*namespace*) et tous les contrôleurs devraient être proprement "namespacées".
+  Dans cet exemple, le contrôleur se situe dans le Bundle intitulé ``HelloBundle``,
+  qui forme la première partie de la valeur du routage ``_controller``.
   
 * *ligne 7*: Le nom du contôleur est une combinaison de la seconde partie de la
   valeur ``_controller`` du routage (``Hello``) et du mot ``Controller``. Elle
   étend le classe intégrée ``Controller``, qui offre des racourcis utiles (comme
-  nous le verrons un peu plus tard dans ce tutoriel).
+  nous le verrons un peu plus tard dans ce tutoriel). Ce ``Controller`` est situé
+  dans ``Symfony\Bundle\FrameworkBundle\Controller\Controller`` que nous avons
+  défini ligne 5.
   
 * *ligne 9*: Chaque contrôleur est constitué de plusieurs actions. Selon la
   configuration du routage, la page hello est gérée par l'action ``index`` (la
@@ -260,7 +262,11 @@ ligne par ligne:
   
 * *ligne 11*: La méthode ``render()`` charge et transforme un fichier template
   (``HelloBundle:Hello:index.html.twig``) avec les variables passées comme
-  second argument.
+  second argument. Dans notre exemple, cela correspond au fichier
+  ``src\Sensio\HelloBundle\Resources\views\Hello\index.html.twig``.
+
+Bundles
+~~~~~~~
   
 Mais qu'est-ce qu'un :term:`Bundle` ? Tout le code que vous écrivez dans un
 projet Symfony2 est organisée en Bundles. Dans le jargon Symfony2, un Bundle est

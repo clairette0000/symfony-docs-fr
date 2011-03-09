@@ -40,7 +40,7 @@ visiteur, créez un nouveau template localisé dans
 .. tip::
     
     Si vous n'êtes pas encore tout à fait familier avec Twig, ne vous tracassez
-    pas pour autant. Twig est simple, puissant et est un moteur de template
+    pas pour autant. Twig est un simple et puissant moteur de template
     optionnel bien qu'il soit déjà intégré à ``Symfony2`` par défaut.
 
 En plus de l'affichage HTML standard de la page d'erreur, Symfony2 dispose de
