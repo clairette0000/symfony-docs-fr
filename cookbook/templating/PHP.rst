@@ -1,20 +1,18 @@
 .. index::
    single: PHP Templates
 
-How to use PHP instead of Twig for Templates
+Comment utiliser PHP plutôt que Twig dans vos templates?
 ============================================
 
-Even if Symfony2 defaults to Twig for its template engine, you can still use
-plain PHP code if you want. Both templating engine are supported equally in
-Symfony2. Symfony2 adds some nice features on top of PHP to make writing
-templates with PHP more powerful.
+Même si Symfony2 utilise Twig comme moteur de template par défaut,vous pouvez toujours utiliser du pur code PHP si vous le voulez.
+Les deux moteurs de templates sont pleinement supportés par Symfony2.
+Symfony2 ajoute quelques fonctionnalités par dessus PHP pour que rendre l'écriture de templates en PHP encore plus puissante.
 
-Rendering PHP Templates
+Rendre des templates en PHP
 -----------------------
 
-To render a PHP template instead of a Twig one, use ``.php`` in the
-template name instead of ``.twig``. The controller below renders the
-``index.html.php`` template::
+Pour rendre un template PHP au lieu d'un template Twig, utilisez l'extension ``.php`` dans le nom du template au lieu de ``.twig``.
+Dans l'exemple ci-dessous, le controller rendra le template ``index.html.php``::
 
     // src/Sensio/HelloBundle/Controller/HelloController.php
 
@@ -27,14 +25,13 @@ template name instead of ``.twig``. The controller below renders the
   single: Templating; Layout
   single: Layout
 
-Decorating Templates
+Templates de décoration
 --------------------
 
-More often than not, templates in a project share common elements, like the
-well-known header and footer. In Symfony2, we like to think about this problem
-differently: a template can be decorated by another one.
+Bien souvent, dans un projet, les templates partagent des éléments communs, comme par exemple les bien connus header et footer.
+Dans Symfony2, nous préférons aborder cette problématique différemment : un template peut être décoré par un autre.
 
-The ``index.html.php`` template is decorated by ``layout.html.php``, thanks to
+Le template ``index.html.php`` template is decorated by ``layout.html.php``, thanks to
 the ``extend()`` call:
 
 .. code-block:: html+php
@@ -45,9 +42,8 @@ the ``extend()`` call:
     Hello <?php echo $name ?>!
 
 The ``HelloBundle::layout.html.php`` notation sounds familiar, doesn't it? It
-is the same notation used to reference a template. The ``::`` part simply
-means that the controller element is empty, so the corresponding file is
-directly stored under ``views/``.
+is the same notation used to reference a template. La partie ``::`` signifie simplement que le controller est vide.
+En conséquence, le fichier correspondant est directement stocké dans ``views/``.
 
 Now, let's have a look at the ``layout.html.php`` file:
 
