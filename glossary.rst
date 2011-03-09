@@ -17,9 +17,9 @@ Glossaire
 
    Bundle
         Un *Bundle* est un ensemble structuré de fichiers (scripts PHP, feuilles
-        de style CSS, javascripts, images,...) qui mettent en œuvre une fonction
-        unique (un blog, un forum,...) et qui peuvent être aisément partagés
-        avec d'autres développeurs.
+        de style CSS, javascripts, images,...) qui *implémente* une fonction
+        unique (un blog, un forum, etc...). Dans Symfony2, tout (*ou presque*)
+        réside dans un bundle. (voir :ref:`page-creation-bundles`)
         
    Contrôleur Frontal
         Un Contrôleur Frontal est un fichier PHP laconique qui se situe dans le
