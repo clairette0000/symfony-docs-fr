@@ -15,7 +15,7 @@ L'Arborescence
 --------------
 
 L'arborescence d'une :term:`application` Symfony2 est plutôt flexible mais
-celui du sandbox reflète la structure typique et recommandée d'une
+celle du sandbox reflète la structure typique et recommandée d'une
 application Symfony2:
 
 * ``app/``: La configuration de l'application;
@@ -26,7 +26,7 @@ application Symfony2:
 Le répertoire Web
 ~~~~~~~~~~~~~~~~~
 
-Le répertoire Web racine est la source de tous les fichiers statics et publics
+Le répertoire Web racine est la source de tous les fichiers statiques et publics
 comme les images, les feuilles de styles et les fichiers javascript. C'est aussi
 ici que se situeront les :term:`contrôleurs frontaux`::
 
@@ -40,7 +40,7 @@ ici que se situeront les :term:`contrôleurs frontaux`::
     $kernel->handle(Request::createFromGlobals())->send();
 
 Le noyau (kernel) requiert d'abord le fichier ``bootstrap.php``, qui amorce le
-framework et l'autoloader (voir ci-bas).
+framework et l'autoloader (voir ci-dessous).
 
 Comme tout contrôleur frontal, ``app.php`` utilise une classe Kernel ``AppKernel``
 pour amorcer une application.
@@ -60,7 +60,7 @@ Cette classe doit implémenter quatre méthodes:
 
 * ``registerBundles()``: Retourne un tableau de tous les Bundles nécessaires au fonctionnement de l'application (rappelez vous de ``Sensio\HelloBundle\HelloBundle``);
 
-* ``registerContainerConfiguration()``: Charge la configuration (sera détaillée ultérieurement);
+* ``registerContainerConfiguration()``: Charge la configuration (cette partie sera détaillée ultérieurement);
 
 Jetons un coup d'œil à l'implémentation par défaut de ces méthodes pour une
 meilleure compréhension de la flexibilité du framework.
@@ -91,11 +91,11 @@ L'autoloading PHP peut être configuré via ``autoload.php``::
     $loader->register();
 
 Le ``UniversalClassLoader`` de Symfony2 est utilisé pour autocharger les
-fichiers qui respectent chaque techniques d'interopérabilité des `standards`_
-de PHP 5.3 concernant la directive namespace ou la `convention`_ de nommage PEAR
-concernant les classes. Comme vous pouvez le voir ici, toutes les dépendances
+fichiers qui respectent les `standards`_ d'interopérabilité technique
+concernant la directive namespace de PHP 5.3, ou les `conventions`_ de nommage PEAR
+pour les classes. Comme vous pouvez le voir ici, toutes les dépendances
 sont stockées dans le répertoire ``vendor/``, mais ce n'est juste qu'une
-convention. Vous pouvez les stocker n'importe où vous souhaitez, généralement,
+convention. Vous pouvez les stocker où vous le souhaitez, généralement,
 sur votre serveur ou au sein même de vos projets.
 
 .. index::
@@ -107,13 +107,13 @@ Le système de Bundles
 Cette section présente une des plus géniales et puissantes fonctionnalités de
 Symfony2, le système de :term:`Bundles`.
 
-Un Bundle est une sorte de plugin chez les autres logiciels. Alors pourquoi
-l'a-t-on nommé *Bundle* et non pas *Plugin*? Parce que *tout* est un Bundle dans
+Un Bundle est une sorte de plugin comme on en trouve dans d'autres logiciels. Alors pourquoi
+l'a t-on nommé *Bundle* et non pas *Plugin*? Parce que *tout* est un Bundle dans
 Symfony2, des fonctionnalités du noyau du framework au code que vous écrirez
 pour votre application. Les Bundles sont les citoyens de première zone pour
 Symfony2. Ils vous donnent la flexibilité d'utiliser des fonctionnalités
 pré-construites dans des Bundles tiers ou de distribuer vos propres Bundles. Ils
-facilitent le piochage et le choix des fonctionnalités à activer pour
+facilitent la sélection et le choix des fonctionnalités à activer pour
 votre application et les optimisent de la manière que vous désirez.
 
 Une application est constituée de Bundles comme définis dans la méthode
@@ -290,10 +290,10 @@ YAML, XML ou PHP. Regardons la configuration par défaut:
         ));
         */
 
-Each entry like ``framework`` defines the configuration for a bundle.
+Chaque entrée, comme par exemple ``framework``, définit la configuration pour un bundle.
 
 Chaque :term:`environment` peut surcharger la configuration par défaut en
-apportant un fichier spécifique de configuration:
+apportant un fichier de configuration spécifique:
 
 .. configuration-block::
 
@@ -372,7 +372,7 @@ Utilisation de solution externes (Vendors)
 Il y a de fortes probabilités que votre application dépende de bibliothèques
 tierces. Celles-ci doivent être stockées dans le répertoire ``src/vendor/``. Ce
 répertoire contient déjà les librairies de Symfony2, la librairie SwiftMailer,
-l'ORM Doctrine, le système de template Twig et une sélection des classes du
+l'ORM Doctrine, le système de template Twig et une sélection de classes du
 Framework Zend.
 
 .. index::
@@ -392,8 +392,7 @@ assez intelligent pour vider le cache lorsque vous modifiez un fichier. Mais
 dans l'environnement de production, il est de votre responsabilité d'effacer le
 cache lorsque vous mettez à jour votre code ou modifier sa configuration.
 
-Quand vous développez une application Web, de nombreuses choses peuvent faillir
-de nombreuses façons. Le fichier log dans le répertoire ``logs/`` de votre
+Quand vous développez une application Web, les choses peuvent mal tourner, et ce de multiples façons. Le fichier log dans le répertoire ``logs/`` de votre
 application vous dira tout concernant les requêtes et vous aidera à résoudre
 votre souci rapidement.
 
