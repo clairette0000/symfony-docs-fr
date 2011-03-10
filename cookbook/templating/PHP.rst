@@ -28,7 +28,7 @@ Dans l'exemple ci-dessous, le controller rendra le template ``index.html.php``::
 Templates de décoration
 --------------------
 
-Bien souvent, dans un projet, les templates partagent des éléments communs, comme par exemple les bien connus header et footer.
+Bien souvent, dans un projet, les templates partagent des éléments communs, comme le traditionnel binôme header/footer.
 Dans Symfony2, nous préférons aborder cette problématique différemment : un template peut être décoré par un autre.
 
 Le template ``index.html.php`` est décoré par le template ``layout.html.php``grâce à l'appel de la méthode ``extend()`` :
@@ -41,11 +41,11 @@ Le template ``index.html.php`` est décoré par le template ``layout.html.php``g
     Hello <?php echo $name ?>!
 
 La notation ``HelloBundle::layout.html.php`` vous semble familiaire n'est-ce pas?
-Il s'agit de la même notation que celle utilisée pour rendre un template.
-La partie ``::`` signifie simplement que le controller est vide.
+Il s'agit de la même notation que celle utilisée pour un template classique.
+La partie ``::`` signifie simplement que le contrôleur est vide.
 En conséquence, le fichier correspondant est directement stocké dans ``views/``.
 
-Jetons maintenant un oeil au fichier ``layout.html.php`` :
+Maintenant, jetons un coup d'œil au fichier ``layout.html.php`` :
 
 .. code-block:: html+php
 
@@ -124,7 +124,8 @@ Pour les gros slots, il existe une syntaxe étendue:
 Inclure d'autres templates
 -------------------------
 
-La meilleure méthode pour partager un morceau de template est de définir un template qui pourra être inclu dans un autre.
+La meilleure façon de partager un bout de code entre plusieurs templates
+distincts est de définir un template qui pourra être inclu dans un autre.
 
 Créez le template ``hello.html.php`` :
 
@@ -148,10 +149,10 @@ La méthode ``render()`` génère et retourne le contenu du template passé en p
 .. index::
    single: Templating; Embedding Pages
 
-Inclure d'autres controllers
+Inclure d'autres contrôleurs
 ---------------------------
 
-Que faire si vous voulez inclure le résultat d'un autre controller dans un template?
+Que faire si vous voulez inclure le résultat d'un autre contrôleur dans un template?
 C'est très utile par exemple en Ajax, ou lorsque le template inclus a besoin de variables qui ne sont pas disponibles dans le template principal.
 
 Si vous créer l'action ``fancy``, et que vous voulez l'inclure dans le template ``index.html.php``, utilisez simplement le code suivant:
@@ -193,7 +194,7 @@ Créer des liens entre les pages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Créer des liens entre les pages d'une application web est une nécessité.
-Plutôt que créer les liens en dur dans les templates, le helper ``router`` peut générer des URLs basées sur la configuration du routing. De cette manière, toutes vos URLs peuvent être facilement modifiées en changeant le fichier de configuration:
+Au lieu de coder en dur les URL dans les templates, le helper ``router`` peut générer des URLs en fonction de la configuration du routage. De cette manière, toutes vos URLs peuvent être facilement modifiées en changeant juste le fichier de configuration:
 
 .. code-block:: html+php
 
@@ -201,7 +202,8 @@ Plutôt que créer les liens en dur dans les templates, le helper ``router`` peu
         Bonjour Thomas!
     </a>
 
-La méthode ``generate()`` prend en argument le nom de la route et un tableau de paramètres. Le nom de la route est la clé sous laquelle les routes sont référencées et les paramètres sont les variables que la route accepte dans son pattern :
+La méthode ``generate()`` prend en argument le nom de la route et un tableau de paramètres. Le nom de la route est la clé sous laquelle les routes sont référencées et les paramètres sont les valeurs définies dans le
+pattern de routage :
 
 .. code-block:: yaml
 
@@ -210,11 +212,11 @@ La méthode ``generate()`` prend en argument le nom de la route et un tableau de
         pattern:  /hello/{name}
         defaults: { _controller: HelloBundle:Hello:index }
 
-Utilisez les Assets: images, JavaScripts, et feuilles de style
+Inclure des Assets: images, JavaScripts, et feuilles de style
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Que serait internet sans les images, le JavaScript, et les feuilles de style?
-Symfony2 propose le tag ``assets`` pour les gérer très facilement:
+Symfony2 fournit la fonction ``assets`` pour les manipuler très facilement:
 
 .. code-block:: html+php
 
