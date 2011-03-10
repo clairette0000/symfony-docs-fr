@@ -370,8 +370,8 @@ qui décidez.
    single: Vendors
    single: Librairies tierces
 
-Utilisation de solution externes (Vendors)
-------------------------------------------
+Utilisation de solutions externes (Vendors)
+-------------------------------------------
 
 Il y a de fortes probabilités que votre application dépende de bibliothèques
 tierces. Celles-ci doivent être stockées dans le répertoire ``src/vendor/``. Ce
