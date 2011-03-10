@@ -263,8 +263,8 @@ Twig est configuré pour échapper automatiquement toutes les sorties par défau
 Lisez la `documentation`_ de Twig pour en apprendre davantage sur l'Output
 Escaping et son extension dédiée.
 
-Réflexions finales
-------------------
+Le mot de la fin
+----------------
 
 Twig est simple mais puissant. Grâce à la mise en page, aux blocs, aux templates
 et aux inclusions d'action, il est ainsi enfantin d'organiser vos templates de
@@ -278,7 +278,7 @@ flexible.
 
 Mais je m'avance. Tout d'abord, vous devez en savoir plus sur le contrôleur et
 c'est exactement le sujet de la prochaine partie de ce tutoriel. Prêt pour 10
-minutes supplémentaires avec Symfony2 pour explorer :doc:`the_controller`?
+minutes supplémentaires avec Symfony2?
 
 .. _Twig:          http://www.twig-project.org/
 .. _documentation: http://www.twig-project.org/documentation

@@ -267,8 +267,8 @@ durant la toute prochaine requête::
     // display the message back in the next request (in a template)
     {{ app.session.flash('notice') }}
 
-Réflexions finales
-------------------
+Le mot de la fin
+----------------
 
 C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous ayons passé
 les 10 minutes qu'on s'était alloué. Nous avons brièvement présenté les Bundles
@@ -276,5 +276,4 @@ dans la première partie et toutes les caractéristiques que nous avons appris
 jusqu'à maintenant font partie du "core framework Bundle".
 
 Mais grâce aux Bundles, tout peut être prolongé ou remplacé dans Symfony2.
-C'est le thème de la prochaine partie de ce tutoriel. Explorons à présent
-:doc:`the_architecture`!
+C'est le thème de la prochaine partie de ce tutoriel.

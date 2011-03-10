@@ -425,8 +425,8 @@ L'option ``--help`` vous dévoilera le synopsis et les options d'une commande do
 
     $ php app/console router:debug --help
 
-Réflexions finales
-------------------
+Le mot de la fin
+----------------
 
 Vous pouvez trouver ça extravagant mais après avoir lu cette partie, vous
 devriez être suffisament à l'aise pour faire vos premières griffes et laisser

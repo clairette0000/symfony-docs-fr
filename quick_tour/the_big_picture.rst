@@ -81,7 +81,7 @@ ci-dessous pour être accueilli par Symfony2 (remplacez Fabien par votre prénom
 
 Que se passe-t-il ici? Disséquons cette URL:
 
-.. index:: Contrôleur Frontal
+.. index:: Contrôleur frontal
 
 * ``app_dev.php``: Il s'agit du :term:`contrôleur frontal`. C'est le point d'entrée unique de l'application et il répond à toutes les demandes des utilisateurs;
 
@@ -336,14 +336,14 @@ utiliser le contrôleur frontal de développement (``app_dev.php``) qui n'utilis
 pas le cache. Lorsque vous utilisez le contrôleur frontal de développement, vos
 modifications apparaissent immédiatement.
 
-Réflexions finales
-------------------
+Le mot de la fin
+----------------
 
 Merci d'essayer Symfony2! A l'heure actuelle, vous devriez être en mesure de
 vous exercer sur vos propres routages, contrôleurs et templates. Comme exercice,
 essayez de construire quelque chose de plus utile que l'application Hello! Si
 vous êtes désireux d'en apprendre plus sur Symfony2, plongez dans la section
-suivante: ":doc:`the_view`".
+suivante: "La Vue".
 
 .. _sandbox: http://symfony-reloaded.org/code#sandbox
 .. _YAML:    http://www.yaml.org/
