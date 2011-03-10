@@ -41,7 +41,7 @@ Explorez nos différentes :doc:`fiches </cookbook/index>`.
 Documents de référence
 ----------------------
 
-Obtenez rapidement des réponses grâce à nos documents de référence:
+Renseignez vous efficacement en parcourant nos documents de référence:
 
 .. toctree::
     :hidden:
