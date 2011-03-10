@@ -1,5 +1,5 @@
-The Dependency Injection Tags
-=============================
+Les tags d'injection de dépendances
+===================================
 
 Tags:
 
@@ -10,148 +10,148 @@ Tags:
 * ``routing.loader``
 * ``twig.extension``
 
-Enabling Custom PHP Template Helpers
-------------------------------------
+Activation d'assistants de templates PHP personnels
+---------------------------------------------------
 
-To enable a custom template helper, add it as a regular service in one of your
-configuration, tag it with ``templating.helper`` and define an ``alias``
-attribute (the helper will be accessible via this alias in the templates):
+Pour activer un assistant de templates personnel, ajoutez-le comme service régulier
+dans l'une de vos configurations, taguez-le avec ``templating.helper`` et définissez
+un ``alias`` (l'assistant sera accessible par cet alias dans les templates) :
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            templating.helper.your_helper_name:
-                class: Fully\Qualified\Helper\Class\Name
+            templating.helper.nom_de_votre_assistant:
+                class: Nom\De\Classe\Complet\De\Votre\Assistant
                 tags:
-                    - { name: templating.helper, alias: alias_name }
+                    - { name: templating.helper, alias: nom_alias }
 
     .. code-block:: xml
 
-        <service id="templating.helper.your_helper_name" class="Fully\Qualified\Helper\Class\Name">
-            <tag name="templating.helper" alias="alias_name" />
+        <service id="templating.helper.nom_de_votre_assistant" class="Nom\De\Classe\Complet\De\Votre\Assistant">
+            <tag name="templating.helper" alias="nom_alias" />
         </service>
 
     .. code-block:: php
 
-        $container
-            ->register('templating.helper.your_helper_name', 'Fully\Qualified\Helper\Class\Name')
-            ->addTag('templating.helper', array('alias' => 'alias_name'))
+        $conteneur
+            ->register('templating.helper.nom_de_votre_assistant', 'Nom\De\Classe\Complet\De\Votre\Assistant')
+            ->addTag('templating.helper', array('alias' => 'nom_alias'))
         ;
 
-Enabling Custom Twig Extensions
--------------------------------
+Activation d'extensions Twig personnelles
+-----------------------------------------
 
-To enable a Twig extension, add it as a regular service in one of your
-configuration, and tag it with ``twig.extension``:
+Pour activer une extension Twig, ajoutez-la comme service régulier
+dans l'une de vos configuration, et taguez-la avec ``twig.extension`` :
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            twig.extension.your_extension_name:
-                class: Fully\Qualified\Extension\Class\Name
+            twig.extension.nom_de_votre_extension:
+                class: Nom\De\Classe\Complet\De\Votre\Extension
                 tags:
                     - { name: twig.extension }
 
     .. code-block:: xml
 
-        <service id="twig.extension.your_extension_name" class="Fully\Qualified\Extension\Class\Name">
+        <service id="twig.extension.nom_de_votre_extension" class="Nom\De\Classe\Complet\De\Votre\Extension">
             <tag name="twig.extension" />
         </service>
 
     .. code-block:: php
 
-        $container
-            ->register('twig.extension.your_extension_name', 'Fully\Qualified\Extension\Class\Name')
+        $conteneur
+            ->register('twig.extension.nom_de_votre_extension', 'Nom\De\Classe\Complet\De\Votre\Extension')
             ->addTag('twig.extension')
         ;
 
-Enabling Custom Listeners
--------------------------
+Activation de listeners personnels
+----------------------------------
 
-To enable a custom listener, add it as a regular service in one of your
-configuration, and tag it with ``kernel.listener``:
+Pour activer un listener personnel, ajoutez-le comme service régulier
+dans l'une de vos configurations, et taguez-le avec ``kernel.listener`` :
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            kernel.listener.your_listener_name:
-                class: Fully\Qualified\Listener\Class\Name
+            kernel.listener.nom_de_votre_listener:
+                class: Nom\De\Classe\Complet\De\Votre\Listener
                 tags:
                     - { name: kernel.listener }
 
     .. code-block:: xml
 
-        <service id="kernel.listener.your_listener_name" class="Fully\Qualified\Listener\Class\Name">
+        <service id="kernel.listener.nom_de_votre_listener" class="Nom\De\Classe\Complet\De\Votre\Listener">
             <tag name="kernel.listener" />
         </service>
 
     .. code-block:: php
 
-        $container
-            ->register('kernel.listener.your_listener_name', 'Fully\Qualified\Listener\Class\Name')
+        $conteneur
+            ->register('kernel.listener.nom_de_votre_listener', 'Nom\De\Classe\Complet\De\Votre\Listener')
             ->addTag('kernel.listener')
         ;
 
-Enabling Custom Template Engines
---------------------------------
+Activation de moteur de templates personnels
+--------------------------------------------
 
-To enable a custom template engine, add it as a regular service in one of your
-configuration, tag it with ``templating.engine``:
+Pour activer un moteur de templates personnel, ajoutez-le comme service régulier
+dans l'une de vos configuration, et taguez-le avec ``templating.engine`` :
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            templating.engine.your_engine_name:
-                class: Fully\Qualified\Engine\Class\Name
+            templating.engine.nom_de_votre_moteur:
+                class: Nom\De\Classe\Complet\De\Votre\Moteur
                 tags:
                     - { name: templating.engine }
 
     .. code-block:: xml
 
-        <service id="templating.engine.your_engine_name" class="Fully\Qualified\Engine\Class\Name">
+        <service id="templating.engine.nom_de_votre_moteur" class="Nom\De\Classe\Complet\De\Votre\Moteur">
             <tag name="templating.engine" />
         </service>
 
     .. code-block:: php
 
-        $container
-            ->register('templating.engine.your_engine_name', 'Fully\Qualified\Engine\Class\Name')
+        $conteneur
+            ->register('templating.engine.nom_de_votre_moteur', 'Nom\De\Classe\Complet\De\Votre\Moteur')
             ->addTag('templating.engine')
         ;
 
-Enabling Custom Routing Loaders
--------------------------------
+Activation de chargeurs de routage personnels
+---------------------------------------------
 
-To enable a custom routing loader, add it as a regular service in one of your
-configuration, and tag it with ``routing.loader``:
+Pour activer un chargeur de routage personnel, ajoutez-le comme service régulier
+dans l'une de vos configuration, et taguez-le avec ``routing.loader`` :
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         services:
-            routing.loader.your_loader_name:
-                class: Fully\Qualified\Loader\Class\Name
+            routing.loader.nom_de_votre_chargeur:
+                class: Nom\De\Classe\Complet\De\Votre\Chargeur
                 tags:
                     - { name: routing.loader }
 
     .. code-block:: xml
 
-        <service id="routing.loader.your_loader_name" class="Fully\Qualified\Loader\Class\Name">
+        <service id="routing.loader.nom_de_votre_chargeur" class="Nom\De\Classe\Complet\De\Votre\Chargeur">
             <tag name="routing.loader" />
         </service>
 
     .. code-block:: php
 
-        $container
-            ->register('routing.loader.your_loader_name', 'Fully\Qualified\Loader\Class\Name')
+        $conteneur
+            ->register('routing.loader.nom_de_votre_chargeur', 'Nom\De\Classe\Complet\De\Votre\Chargeur')
             ->addTag('routing.loader')
         ;
