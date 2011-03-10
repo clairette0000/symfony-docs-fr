@@ -158,7 +158,7 @@ d'``Address`` dans la propriété ``$address``.
             }
         }
 
-Avec cette cartographie, il est possible de valider avec succès un auteur qui a
+Avec ce "mapping", il est possible de valider avec succès un auteur qui a
 une adresse invalide. Pour se prémunir de cela, nous ajoutons une contrainte
 ``Valid`` dans la propriété ``$address``.
 

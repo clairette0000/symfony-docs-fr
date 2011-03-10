@@ -1,11 +1,11 @@
-Constraint Validation
-=====================
+Contrainte de Validation
+========================
 
-Objects with constraints are validated by the
-:class:`Symfony\\Component\\Validator\\Validator` class. If you use Symfony2,
-this class is already registered as a service in the Dependency Injection
-Container. To enable the service, add the following lines to your
-configuration:
+Les objets avec des contraintes sont validées par la classe
+:class:`Symfony\\Component\\Validator\\Validator`. Si vous utilisez Symfony2,
+cette classe est déjà enregistrée en tant que service dans le conteneur
+d'Injection de Dépendances. Pour activer ce service, ajoutez les lignes
+suivantes à votre configuration:
 
 .. code-block:: yaml
 
@@ -14,8 +14,8 @@ configuration:
         validation:
             enabled: true
 
-Then you can get the validator from the container and start validating your
-objects:
+Puis vous pouvez bénéficier de la validation depuis le conteneur et commencer à
+valider vos objets:
 
 .. code-block:: php
 
@@ -24,14 +24,14 @@ objects:
 
     print $validator->validate($author);
 
-The ``validate()`` method returns a
-:class:`Symfony\\Component\\Validator\\ConstraintViolationList` object. This
-object behaves exactly like an array. You can iterate over it and you can even
-print it in a nicely formatted manner. Every element of the list corresponds
-to one validation error. If the list is empty, it's time to dance, because
-then validation succeeded.
+La méthode ``validate()`` retourne un objet
+:class:`Symfony\\Component\\Validator\\ConstraintViolationList`. Cet objet se
+comporte exactement comme un tableau. Vous pouvez le parcourir et vous pouvez
+même l'afficher avec un format tout à fait conforme. Chaque élément de la liste
+correspond à une erreur de validation. Si cette liste est vide, vous pouvez
+extérioriser des cris de joie car la validation s'est déroulée sans encombre.
 
-The above call will output something similar to this:
+L'appel ci-dessus va afficher quelque chose semblable à ceci:
 
 .. code-block:: text
 
@@ -42,4 +42,5 @@ The above call will output something similar to this:
     Sensio\HelloBundle\Author.fullName:
         This value is too short. It should have 10 characters or more
 
-If you fill the object with correct values the validation errors disappear.
+Si vous remplissez l'objet avec uniquement des valeurs conformes, les erreurs de
+valeurs disparaîtront.

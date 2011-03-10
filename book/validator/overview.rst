@@ -1,18 +1,20 @@
-The Validator
+Le Validator
 =============
 
-Validation is a very common task in web applications. Data entered in forms
-needs to be validated. Data also needs to be validated before it is written
-into a database or passed to a web service.
+La validation est une tâche commune aux applications web. Les données saisies
+dans des formulaires nécessitent d'être validées. Les données ont aussi besoin
+d'être validées avant des les enregistrer dans une base de données ou d'être
+transmises à un service web.
 
-Symfony2 ships with a Validator component that makes this task very easy. This
-component is based on the `JSR303 Bean Validation specification`_. What? A
-Java specification in PHP? You heard right, but it's not as bad as it sounds.
-Let's look at how we use it in PHP.
+Symfony2 est livré avec un composant Validator qui rend cette tâche facile. Ce
+composant est basé sur la `spécification JSR303 Bean Validation`_. Kesako? Une
+spécification de Java pour PHP? Vous avez tapé dans le mille mais ce n'est pas
+aussi effroyable que ça ne le paraît. Jetons un coup d'œil sur la manière de
+l'aborder avec PHP.
 
-The validator validates objects against :doc:`constraints <constraints>`.
-Let's start with the simple constraint that the ``$name`` property of a class
-``Author`` must not be empty::
+La Validator valide les objets selon des :doc:`constraintes <constraints>`.
+Démarrons avec une contrainte toute simple qui a une propriété ``$name`` dans la
+classe ``Author`` qui ne doit jamais être laissée vide::
 
     // Sensio/HelloBundle/Author.php
     class Author
@@ -20,8 +22,8 @@ Let's start with the simple constraint that the ``$name`` property of a class
         private $name;
     }
 
-The next listing shows the configuration that connects properties of the class
-with constraints; this process is called the "mapping":
+La liste suivante dévoile la configuration qui relie les propriétés de la classe
+avec des contraintes; ce processus est qualifié de "mapping":
 
 .. configuration-block::
 
@@ -69,9 +71,9 @@ with constraints; this process is called the "mapping":
             }
         }
 
-Finally, we can use the :class:`Symfony\\Component\\Validator\\Validator`
-class for :doc:`validation <validation>`. To use the default Symfony2
-validator, adapt your application configuration as follows:
+Enfin, nous pouvons utiliser la classe :class:`Symfony\\Component\\Validator\\Validator`
+de :doc:`validation <validation>`. Pour utiliser le validateur par défaut de
+Symfony2, adaptez la configuration de votre application ainsi:
 
 .. code-block:: yaml
 
@@ -80,8 +82,8 @@ validator, adapt your application configuration as follows:
         validation:
             enabled: true
 
-Now call the ``validate()`` method on the service, which delivers a list of
-errors if validation fails.
+A présent, appellez la méthode ``validate()`` comme un service ce qui délivrera
+une liste d'erreurs si la validation échoue.
 
 .. code-block:: php
 
@@ -90,14 +92,14 @@ errors if validation fails.
 
     print $validator->validate($author);
 
-Because the ``$name`` property is empty, you will see the following error
-message:
+Puisque la propriété ``$name`` est vide, vous devriez observer le message
+d'erreur suivant:
 
 .. code-block:: text
 
     Sensio\HelloBundle\Author.name:
         This value should not be blank
 
-Insert a value into the property and the error message will disappear.
+Insérez une valeur à cette propriété et le message d'erreur disparaîtra.
 
-.. _JSR303 Bean Validation specification: http://jcp.org/en/jsr/detail?id=303
+.. _spécification JSR303 Bean Validation: http://jcp.org/en/jsr/detail?id=303
