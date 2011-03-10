@@ -2,7 +2,7 @@ Préliminaires
 =============
 
 Commencez à utiliser Symfony2 en 10 minutes! Ce tutoriel vous guide à travers
-quelques-uns des concepts les plus importants derrière Symfony2. Il explique
+quelques-uns des concepts les plus importants de Symfony2. Il explique
 comment démarrer rapidement en vous montrant la structure d'un exemple de
 projet.
 
@@ -20,9 +20,9 @@ Tout d'abord, vérifiez que vous avez installé et configuré un serveur web (co
 Apache) avec PHP 5.3.2 ou supérieur.
 
 Vous êtes prêt? Commençons par télécharger Symfony2. Pour commencer encore plus
-vite, nous allons utiliser la fonction "sandbox Symfony2". Il s'agit d'un projet
-Symfony2 préconfiguré qui comprend certains contrôleurs simples et de leurs
-bibliothèques requises. Le grand avantage du sandbox sur les autres méthodes
+vite, nous allons utiliser le "sandbox Symfony2". Il s'agit d'un projet
+Symfony2 préconfiguré qui comprend certains contrôleurs simples et les
+bibliothèques requises. Le grand avantage de le sandbox sur les autres méthodes
 d'installation est que vous pouvez commencer à expérimenter Symfony2
 immédiatement.
 
@@ -94,8 +94,8 @@ demande de l'utilisateur (``/hello/Fabien``) à la ressource qui lui est associ�
 Configuration
 ~~~~~~~~~~~~~
 
-Les fichiers de configuration de Symfony2 peuvent être aussi bien écrits en PHP,
-XML ou `YAML`_. Ces différents types sont compatibles et peuvent être utilisés
+Les fichiers de configuration de Symfony2 peuvent être aussi bien écrits en PHP qu'en
+XML ou en `YAML`_. Ces différents types sont compatibles et peuvent être utilisés
 de manière interchangeable dans une application.
 
 .. tip::
@@ -157,7 +157,7 @@ pour notre application:
 
         return $collection;
 
-Les toutes premières lignes du fichier de configuration du routage définit le
+Les toutes premières lignes du fichier de configuration du routage définissent le
 code qui sera exécuté quand l'utilisateur demandera la ressource "``/``" (par
 exemple, la page d'accueil).
 
@@ -167,7 +167,7 @@ d'autres fichiers de configuration de routage en utilisant la directive
 d'importation. Dans ce cas, nous voulons importer la configuration de routage de
 HelloBundle. Un Bundle est comme un plugin qui aurait des pouvoirs décuplés mais
 nous en reparlerons plus tard. Pour l'instant, regardons la configuration de
-routage que nous avons importé:
+routage que nous avons importée:
 
 .. configuration-block::
 
@@ -234,7 +234,7 @@ prépare des réponses (souvent en HTML).
         {
             return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
 
-            // render a PHP template instead
+            // rendre un template PHP plutôt qu'un template Twig
             // return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
         }
     }
@@ -243,14 +243,13 @@ Le code est assez simple à comprendre mais nous allons quand même l'expliquer
 ligne par ligne:
 
 * *ligne 3*: Symfony2 tire profit de la nouvelle fonctionnalité de PHP 5.3
-  (*namespace*) et tous les contrôleurs devraient être proprement "namespacées"
-  (si ce n'est pas obligatoire). Dans cet exemple, le contrôleur se situe dans
+  (*namespace*) et tous les contrôleurs devraient être proprement "namespacés". Dans cet exemple, le contrôleur se situe dans
   le Bundle intitulé HelloBundle, qui forme la première partie de la valeur du
   routage ``_controller``.
   
-* *ligne 7*: Le nom du contôleur est une combinaison de la seconde partie de la
+* *ligne 7*: Le nom du contrôleur est une combinaison de la seconde partie de la
   valeur ``_controller`` du routage (``Hello``) et du mot ``Controller``. Elle
-  étend le classe intégrée ``Controller``, qui offre des racourcis utiles (comme
+  étend la classe intégrée ``Controller``, qui offre des raccourcis utiles (comme
   nous le verrons un peu plus tard dans ce tutoriel).
   
 * *ligne 9*: Chaque contrôleur est constitué de plusieurs actions. Selon la
@@ -286,10 +285,10 @@ défaut, le sandbox utilise Twig comme moteur de template, mais vous pouvez
         Hello {{ name }}!
     {% endblock %}
 
-Félicitations! Vous avez eu votre première découverte du code de Symfony2 et
-créé votre première page. Ce n'était pas si éreintant, n'est-ce pas? Il y a
+Félicitations! Vous avez eu votre première approche du code de Symfony2 et
+créé votre première page. Ce n'était pas si terrible, n'est-ce pas? Il y a
 beaucoup plus à explorer, mais vous devriez déjà voir comment Symfony2 permet
-vraiment facilement la mise en œuvre de meilleurs sites plus rapidement.
+vraiment facilement de mettre en œuvre plus rapidement de meilleurs sites.
 
 .. index::
    single: Environment
@@ -301,7 +300,7 @@ Différenciation des environnements
 Maintenant que vous avez une meilleure compréhension de la façon dont Symfony2
 fonctionne, intéressons nous de plus près au bas de la page, vous remarquerez
 une petite barre avec les logos de Symfony2 et PHP. C'est ce qu'on appelle la
-"barre de débug Symfony" et c'est le meilleur ami du développeur. Bien entendu,
+"barre de debug Symfony" et c'est le meilleur ami du développeur. Bien entendu,
 un tel outil ne doit pas être affiché lorsque vous déployez votre application en
 production. C'est pourquoi vous trouverez un autre contrôleur frontal dans le
 répertoire ``web/`` (``app.php``), optimisé pour l'environnement de production:
