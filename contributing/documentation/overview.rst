@@ -1,24 +1,25 @@
-Contributing to the Documentation
-=================================
+Contribution à la Documentation
+===============================
 
-Documentation is as important as code. It follows the exact same principles:
-DRY, tests, ease of maintenance, extensibility, optimization, and refactoring
-just to name a few. And of course, documentation has bugs, typos, hard to read
-tutorials, and more.
+La documentation est aussi importante que le code. Elle suit exactement les mêmes principes :
+DRY (Don't Repeat Yourself), tests, facilité de maintenance, extensibilité, optimisation,
+et refactorisation pour n'en citer que quelques-uns. Et bien sûr, la documentation a des bugs, des fautes,
+des tutoriels difficiles à lire, et plus encore.
 
-Contributing
+Contribution
 ------------
 
-Before contributing, you need to become familiar with the :doc:`markup
-language <format>` used by the documentation.
+Avant
+Before de contribuer, vous avez besoin de vous familiariser avec le :doc:`language de structuration <format>` 
+utilisé dans la documentation.
 
-The Symfony2 documentation is hosted in a Git repository:
+La documentation de Symfony2 est hébergée dans un dépôt Git :
 
 .. code-block:: bash
 
     git://github.com/symfony/symfony-docs.git
 
-If you want to submit a patch, clone the official documentation repository:
+Si vous souhaitez soumettre un patch, clonez le dépôt de la documentation officielle :
 
 .. code-block:: bash
 
@@ -26,22 +27,22 @@ If you want to submit a patch, clone the official documentation repository:
 
 .. note::
 
-    The Symfony2 documentation is licensed under a Creative Commons
-    Attribution-Share Alike 3.0 Unported :doc:`License <license>`.
+    La documentation Symfony2 est sous la licence Creative Commons
+    Paternité - Partage des conditions initiales à l'identique 3.0 Non-localisée :doc:`Licence <license>`.
 
-Reporting an Issue
-------------------
+Rapporter une erreur
+--------------------
 
-The most easy contribution you can make is reporting issues: a typo, a grammar
-mistake, a bug in code example, a missing explanation, and so on.
+La plus simple contribution que vous pouvez faire est de rapporter les erreurs : une faute,
+une erreur grammaticale, un bug dans un code d'exemple, une explication manquante, etc.
 
-Steps:
+Étapes:
 
-* Submit a bug in the bug tracker;
+* Soumettre un bug dans le bug tracker ;
 
-* *(optional)* Submit a patch.
+* *(optionnel)* Soumettre un patch.
 
-Translating
+Traduction
 -----------
 
-Read the dedicated :doc:`document <translations>`.
+Lire le :doc:`document <translations>` dédié.

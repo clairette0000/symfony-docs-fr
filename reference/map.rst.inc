@@ -1,4 +1,4 @@
-* **Bundle Configuration**:
+* **Configuration de paquets**:
 
   * :doc:`FrameworkBundle (framework) </reference/bundle_configuration/FrameworkBundle>`
   * :doc:`DoctrineBundle (doctrine) </reference/bundle_configuration/DoctrineBundle>`

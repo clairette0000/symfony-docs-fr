@@ -5,71 +5,68 @@
 YAML
 ====
 
-`YAML`_ website is "a human friendly data serialization standard for all
-programming languages". YAML is a simple language that describes data. As PHP,
-it has a syntax for simple types like strings, booleans, floats, or integers.
-But unlike PHP, it makes a difference between arrays (sequences) and hashes
-(mappings).
+Le site web `YAML`_ indique qu'il "est un standard de serialisation de données lisible par les humains pour tous les
+langages de programmation". YAML est un langage simple qui décrit des données. Comme PHP,
+il possède une syntaxe pour des types simples tels que les chaînes de caractères, les booléens,
+les flottant, ou les entiers.
+Mais contrairement à PHP, il fait la différence entre les tableaux (séquences) et associations (clé/valeur).
 
-The Symfony2 :namespace:`Symfony\\Component\\Yaml` Component knows how to
-parse YAML and dump a PHP array to YAML.
+Le composant :namespace:`Symfony\\Component\\Yaml` Symfony2 sait comment
+analyser du YAML et traduire un tableau PHP en YAML.
 
 .. note::
 
-    Even if the YAML format can describe complex nested data structure, this
-    chapter only describes the minimum set of features needed to use YAML as a
-    configuration file format.
+    Même si le format YAML permet de décrire de complexes structures de données imbriquées, ce 
+    chapitre présente seulement les fonctionnalités nécessaires pour utiliser YAML
+    comme format de fichier de configuration.  
 
-Reading YAML Files
-------------------
+Lire des fichiers YAML
+----------------------
 
-The :method:`Symfony\\Component\\Yaml\\Parser::parse` method parses a YAML
-string and converts it to a PHP array::
+La méthode :method:`Symfony\\Component\\Yaml\\Parser::parse` analyse une
+chaîne YAML et la convertit en un tableau PHP ::
 
     use Symfony\Component\Yaml\Parser;
 
     $yaml = new Parser();
-    $value = $yaml->parse(file_get_contents('/path/to/file.yaml'));
+    $valeur = $yaml->parse(file_get_contents('/chemin/vers/le/fichier.yml'));
 
-If an error occurs during parsing, the parser throws an exception indicating
-the error type and the line in the original YAML string where the error
-occurred::
+Si une erreur apparaît durant l'analyse, l'analyseur lance une exception indiquant
+le type d'erreur, et la ligne de la chaîne YAML responsable de l'erreur ::
 
     try {
-        $value = $yaml->parse(file_get_contents('/path/to/file.yaml'));
+        $valeur = $yaml->parse(file_get_contents('/chemin/vers/le/fichier.yml'));
     } catch (\InvalidArgumentException $e) {
-        // an error occurred during parsing
-        echo "Unable to parse the YAML string: ".$e->getMessage();
+        // une erreur est apparue durant l'analyse
+        echo "Impossible de parser la chaîne YAML: ".$e->getMessage();
     }
 
 .. tip::
 
-    As the parser is reentrant, you can use the same parser object to load
-    different YAML strings.
+    Comme l'analyseur est réutilisable, vous pouvez utiliser le même objet pour
+    charger différentes chaînes YAML.
 
-When loading a YAML file, it is sometimes better to use the
-:method:`Symfony\\Component\\Yaml\\Yaml::load` wrapper method::
+Lors du chargement de fichiers YAML, il est parfois préférable d'utiliser
+la méthode statique :method:`Symfony\\Component\\Yaml\\Yaml::load` ::
 
     use Symfony\Component\Yaml\Yaml;
 
-    $loader = Yaml::load('/path/to/file.yml');
+    $loader = Yaml::load('/chemin/vers/le/fichier.yml');
 
-The ``Yaml::load()`` static method takes a YAML string or a file containing
-YAML. Internally, it calls the ``Parser::parse()`` method, but with some added
-bonuses:
+La méthode statique ``Yaml::load()`` prend en argument une chaine ou un fichier contenant du
+YAML. En interne, elle appelle la méthode ``Parser::parse()``, mais avec quelques bonus en plus :
 
-* It executes the YAML file as if it was a PHP file, so that you can embed
-  PHP commands in YAML files;
+* Elle exécute les fichiers YAML comme s'il s'agissait de fichiers PHP, afin que
+  vous puissier intégrer des commandes PHP dans les fichiers YAML ;
 
-* When a file cannot be parsed, it automatically adds the file name to the
-  error message, simplifying debugging when your application is loading
-  several YAML files.
+* Quand un fichier ne peut pas être analysé, elle ajoute automatiquement le nom du fichier au
+  message d'erreur, simplifiant le débogage quand votre application charge plusieurs fichiers YAML.
 
-Writing YAML Files
-------------------
+Écrire des fichiers YAML
+------------------------
 
-The :method:`Symfony\\Component\\Yaml\\Dumper::dump` method dumps any PHP array
-to its YAML representation::
+La méthode :method:`Symfony\\Component\\Yaml\\Dumper::dump` traduit n'importe quel tableau PHP
+dans sa représentation YAML ::
 
     use Symfony\Component\Yaml\Dumper;
 
@@ -77,27 +74,27 @@ to its YAML representation::
 
     $dumper = new Dumper();
     $yaml = $dumper->dump($array);
-    file_put_contents('/path/to/file.yaml', $yaml);
+    file_put_contents('/chemin/vers/le/fichier.yml', $yaml);
 
 .. note::
 
-    There are some limitations: the dumper is not able to dump resources and
-    dumping PHP objects is considered an alpha feature.
+    Il y a quelques limitations : le traducteur n'est pas capable de traduire des ressources
+    et la traduction d'objets PHP est condidérée comme une fonctionnalité non stable.
 
-If you only need to dump one array, you can use the
-:method:`Symfony\\Component\\Yaml\\Yaml::dump` static method shortcut::
+Si vous n'avez besoin que de traduire un tableau, vous pouvez utiliser 
+la méthode statique raccourcie :method:`Symfony\\Component\\Yaml\\Yaml::dump` ::
 
     $yaml = Yaml::dump($array, $inline);
 
-The YAML format supports the two YAML array representations. By default, the
-dumper uses the inline representation:
+Le format YAML supporte les tableau en deux dimensions. Par défaut, le
+traducteur utilise la représentation en ligne :
 
 .. code-block:: yaml
 
     { foo: bar, bar: { foo: bar, bar: baz } }
 
-But the second argument of the ``dump()`` method customizes the level at which
-the output switches from the expanded representation to the inline one::
+Mais le second argument de la méthode ``dump()`` permet de personnaliser le niveau
+à partir duquel la sortie passe de la représentation étendue à la représentation en ligne ::
 
     echo $dumper->dump($array, 1);
 
@@ -117,43 +114,44 @@ the output switches from the expanded representation to the inline one::
         foo: bar
         bar: baz
 
-The YAML Syntax
+La syntaxe YAML
 ---------------
 
-Strings
+Chaînes
 ~~~~~~~
 
 .. code-block:: yaml
 
-    A string in YAML
+    Une chaîne en YAML
 
 .. code-block:: yaml
 
-    'A singled-quoted string in YAML'
+    'Une chaîne délimitée par des apostrophes'
 
 .. tip::
-   In a single quoted string, a single quote ``'`` must be doubled:
+   Dans une chaîne délimitée par des apostrophes, une apostrophe doit être doublée :
 
    .. code-block:: yaml
 
-        'A single quote '' in a single-quoted string'
+        'Une apostrophe '' dans une chaîne délimitée par des apostrophes'
 
 .. code-block:: yaml
 
     "A double-quoted string in YAML\n"
+    "Une chaîne délimitée par des guillemets\n"
 
-Quoted styles are useful when a string starts or ends with one or more relevant
-spaces.
+Les syntaxes utilisant des apostrophes ou des guillemets est utile lorsque de chaînes commencent ou se termine avec
+un espace ou plus.
 
 .. tip::
 
-    The double-quoted style provides a way to express arbitrary strings, by
-    using ``\`` escape sequences. It is very useful when you need to embed a
-    ``\n`` or a unicode character in a string.
+    La syntaxe utilisant des guillemets fournit une méthode permettant d'exprimer des chaînes étendues en
+    utilisant le caractère d'échappement ``\``. C'est utile lorsque vous devez incorporer la séquence ``\n``
+    ou des caractères unicode dans une chaîne.
 
-When a string contains line breaks, you can use the literal style, indicated
-by the pipe (``|``), to indicate that the string will span several lines. In
-literals, newlines are preserved:
+Quand une chaîne contient des sauts de ligne, vous pouvez utiliser la méthode littérale, exprimée
+par le *pipe* (``|``), pour indiquer que la chaîne va couvrir plusieurs lignes. Avec cette méthode,
+les sauts de ligne sur des lignes vierges sont préservés :
 
 .. code-block:: yaml
 
@@ -161,69 +159,69 @@ literals, newlines are preserved:
       \/ /| |\/| |
       / / | |  | |__
 
-Alternatively, strings can be written with the folded style, denoted by ``>``,
-where each line break is replaced by a space:
+Alternativement, les chaînes peuvent être écrites avec le style compact, dénoté par le chevron ``>``,
+où chaque saut de ligne est remplacé par un espace :
 
 .. code-block:: yaml
 
     >
-      This is a very long sentence
-      that spans several lines in the YAML
-      but which will be rendered as a string
-      without carriage returns.
+      Ceci est une très longue phrase
+      qui couvre plusieurs lignes en YAML,
+      mais chacune d'elles sera représentée
+      comme une chaîne sans saut de lignes.
 
 .. note::
 
-    Notice the two spaces before each line in the previous examples. They won't
-    appear in the resulting PHP strings.
+    Notez les deux espaces avant chaque ligne dans les précédents exemples. Ils
+    n'apparaîtront pas dans les chaînes PHP résultantes.
 
-Numbers
+Nombres
 ~~~~~~~
 
 .. code-block:: yaml
 
-    # an integer
+    # un entier
     12
 
 .. code-block:: yaml
 
-    # an octal
+    # un octal
     014
 
 .. code-block:: yaml
 
-    # an hexadecimal
+    # un héxadécimal
     0xC
 
 .. code-block:: yaml
 
-    # a float
+    # un flottant
     13.4
 
 .. code-block:: yaml
 
-    # an exponential number
+    # un nombre exponentiel
     1.2e+34
 
 .. code-block:: yaml
 
-    # infinity
+    # l'infini
     .inf
 
-Nulls
-~~~~~
+Valeurs nulles
+~~~~~~~~~~~~~~
 
-Nulls in YAML can be expressed with ``null`` or ``~``.
+La valeur nulle en YAML peut être exprimée avec ``null`` ou ``~``.
 
-Booleans
+Booléens
 ~~~~~~~~
 
-Booleans in YAML are expressed with ``true`` and ``false``.
+Les booléens en YAML sont exprimés avec ``true`` et ``false``.
 
 Dates
 ~~~~~
 
-YAML uses the ISO-8601 standard to express dates:
+YAML utilise le standard ISO-8601 pour exprimer des dates :
 
 .. code-block:: yaml
 
@@ -231,17 +229,17 @@ YAML uses the ISO-8601 standard to express dates:
 
 .. code-block:: yaml
 
-    # simple date
+    # date simple
     2002-12-14
 
 Collections
 ~~~~~~~~~~~
 
-A YAML file is rarely used to describe a simple scalar. Most of the time, it
-describes a collection. A collection can be a sequence or a mapping of
-elements. Both sequences and mappings are converted to PHP arrays.
+Un fichier YAML est rarement utilisé pour décrire une donnée simple. La plupart du temps,
+il décrit une collection. Une collection peut être une séquence ou une association d'élements.
+Les deux sont converties en tableau PHP.
 
-Sequences use a dash followed by a space (``-`` ):
+Les séquences utilisent un tiret suivi d'un espace (``-`` ) :
 
 .. code-block:: yaml
 
@@ -249,11 +247,11 @@ Sequences use a dash followed by a space (``-`` ):
     - Perl
     - Python
 
-The previous YAML file is equivalent to the following PHP code::
+Le code YAML précédent est équivalent au code PHP suivant ::
 
     array('PHP', 'Perl', 'Python');
 
-Mappings use a colon followed by a space (``:`` ) to mark each key/value pair:
+Les associations utilisent les deux-points suivi d'un espace (``:`` ) pour marquer chaque paire de clé/valeur :
 
 .. code-block:: yaml
 
@@ -261,15 +259,15 @@ Mappings use a colon followed by a space (``:`` ) to mark each key/value pair:
     MySQL: 5.1
     Apache: 2.2.20
 
-which is equivalent to this PHP code::
+Ce qui est équivalent à ce code PHP ::
 
     array('PHP' => 5.2, 'MySQL' => 5.1, 'Apache' => '2.2.20');
 
 .. note::
 
-    In a mapping, a key can be any valid scalar.
+    Dans une association, une clé peut être n'importe donnée.
 
-The number of spaces between the colon and the value does not matter:
+Le nombre d'espace entre les deux-points et la valeur ne pose aucun problème :
 
 .. code-block:: yaml
 
@@ -277,7 +275,7 @@ The number of spaces between the colon and the value does not matter:
     MySQL:  5.1
     Apache: 2.2.20
 
-YAML uses indentation with one or more spaces to describe nested collections:
+YAML utilise l'indentation avec un espace ou plus pour décrire les collections imbriquées :
 
 .. code-block:: yaml
 
@@ -288,7 +286,7 @@ YAML uses indentation with one or more spaces to describe nested collections:
         PHP:      5.3
         Doctrine: 2.0
 
-The following YAML is equivalent to the following PHP code::
+Ce code YAML est équivalent au code PHP suivant ::
 
     array(
         'symfony 1.4' => array(
@@ -301,70 +299,71 @@ The following YAML is equivalent to the following PHP code::
         ),
     );
 
-There is one important thing you need to remember when using indentation in a
-YAML file: *Indentation must be done with one or more spaces, but never with
-tabulations*.
+Il ya une chose importante à retenir lorsque vous utilisez l'indentation dans un
+fichier YAML: *L'indentation doit être réalisée avec un ou plusieurs espaces, mais jamais
+avec des tabulations*.
 
-You can nest sequences and mappings as you like:
+Vous pouvez imbriquer des séquences et des associations comme vous le souhaitez :
 
 .. code-block:: yaml
 
-    'Chapter 1':
+    'Chapitre 1':
         - Introduction
-        - Event Types
-    'Chapter 2':
+        - Types d'évènements
+    'Chapitre 2':
         - Introduction
-        - Helpers
+        - Assistants
 
+YAML peut également utiliser 
 YAML can also use flow styles for collections, using explicit indicators
 rather than indentation to denote scope.
 
-A sequence can be written as a comma separated list within square brackets
-(``[]``):
+Une séquence peut être écrite comme une liste séparée par des virgules
+au sein de crochets (``[]``) :
 
 .. code-block:: yaml
 
     [PHP, Perl, Python]
 
-A mapping can be written as a comma separated list of key/values within curly
-braces (``{}``):
+Une association peut être écrite comme une liste de clé/valeur séparées par une virgule
+au sein d'accolades (``{}``) :
 
 .. code-block:: yaml
 
     { PHP: 5.2, MySQL: 5.1, Apache: 2.2.20 }
 
-You can mix and match styles to achieve a better readability:
+Vous pouvez alterner les styles pour obtenir une meilleure lisibilité :
 
 .. code-block:: yaml
 
-    'Chapter 1': [Introduction, Event Types]
-    'Chapter 2': [Introduction, Helpers]
+    'Chapter 1': [Introduction, Types d'évènements]
+    'Chapter 2': [Introduction, Assistants]
 
 .. code-block:: yaml
 
     "symfony 1.4": { PHP: 5.2, Doctrine: 1.2 }
     "Symfony2":    { PHP: 5.3, Doctrine: 2.0 }
 
-Comments
-~~~~~~~~
+Commentaires
+~~~~~~~~~~~~
 
-Comments can be added in YAML by prefixing them with a hash mark (``#``):
+Des commentaires peuvent être ajoutés en YAML en les préfixant d'un dièse (``#``) :
 
 .. code-block:: yaml
 
-    # Comment on a line
-    "Symfony2": { PHP: 5.3, Doctrine: 2.0 } # Comment at the end of a line
+    # Commentaire sur une ligne
+    "Symfony2": { PHP: 5.3, Doctrine: 2.0 } # Commentaire en fin de ligne
 
 .. note::
 
-    Comments are simply ignored by the YAML parser and do not need to be
-    indented according to the current level of nesting in a collection.
+	Les commentaires sont simplement ignorés par l'analyseur YAML et ne
+	nécessitent pas d'être indentés au niveau de l'imbrication dans une collection.
 
-Dynamic YAML files
-~~~~~~~~~~~~~~~~~~
+Fichiers YAML dynamiques
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-In Symfony2, a YAML file can contain PHP code that is evaluated just before the
-parsing occurs:
+Dans Symfony2, un fichier YAML peut contenir du code PHP qui est évalué juste
+avant que l'analyse syntaxique se produise :
 
 .. code-block:: yaml
 
@@ -373,13 +372,13 @@ parsing occurs:
     1.1:
         version: "<?php echo file_get_contents('1.1/VERSION') ?>"
 
-Be careful to not mess up with the indentation. Keep in mind the following
-simple tips when adding PHP code to a YAML file:
+Faites attention à ne pas déformer l'indentation. Gardez à l'esprit les simples
+astuces suivantes lorsque vous ajoutez du code PHP dans un fichier YAML :
 
-* The ``<?php ?>`` statements must always start the line or be embedded in a
-  value.
+* Les balises ``<?php ?>`` doivent toujours commencer la ligne où être
+  incorporées dans une valeur.
 
-* If a ``<?php ?>`` statement ends a line, you need to explicitly output a new
-  line ("\n").
+* Si les balises ``<?php ?>`` terminent une ligne, vous devez explicitement
+  indiquer une nouvelle ligne ("\n").
 
 .. _YAML: http://yaml.org/

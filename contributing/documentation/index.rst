@@ -1,10 +1,10 @@
-Contributing Documentation
-==========================
+Contribution à la documentation
+===============================
 
 .. toctree::
     :maxdepth: 2
 
-    overview
+    Vue d'ensemble <overview>
     format
-    translations
-    license
+    Traductions <translations>
+    Licence <license>
