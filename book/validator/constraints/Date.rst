@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Date
 ====
 
-Validates that a value is a valid date string with format "YYYY-MM-DD".
+S'assure que la valeur est une date valide épousant le format "YYYY-MM-DD".
 
 .. code-block:: yaml
 
@@ -12,4 +14,4 @@ Validates that a value is a valid date string with format "YYYY-MM-DD".
 Options
 -------
 
-* ``message``: The error message if the validation fails
+* ``message``: le message d'erreur lorque la validation échoue

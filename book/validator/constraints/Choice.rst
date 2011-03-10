@@ -1,7 +1,10 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Choice
 ======
 
-Validates that a value is one or more of a list of choices.
+S'assure que la valeur figure bel et bien parmi un ou plusieurs choix d'une
+liste donnée.
 
 .. code-block:: yaml
 
@@ -12,22 +15,20 @@ Validates that a value is one or more of a list of choices.
 Options
 -------
 
-* ``choices`` (**default**, required): The available choices
-* ``callback``: Can be used instead of ``choices``. A static callback method
-  returning the choices. If you pass a string, it is expected to be
-  the name of a static method in the validated class.
-* ``multiple``: Whether multiple choices are allowed. Default: ``false``
-* ``min``: The minimum amount of selected choices
-* ``max``: The maximum amount of selected choices
-* ``message``: The error message if validation fails
-* ``minMessage``: The error message if ``min`` validation fails
-* ``maxMessage``: The error message if ``max`` validation fails
+* ``choices`` (**par défaut**, required): les choix disponibles
+* ``callback``: peut être utilisée au lieu de ``choices``. La méthode statique callback retourne les choix. Si vous mentionnez une chaine de caractères, il est attendu que le nom de la méthode statique soit une classe de validation.
+* ``multiple``: autorise les choix multiples. Par défaut: ``false``
+* ``min``: le nombre mininum de choix sélectionnables
+* ``max``: le nombre maximum de choix sélectionnables
+* ``message``: le message d'erreur lorsque la validation échoue
+* ``minMessage``: le message d'erreur si la validation ``min`` échoue
+* ``maxMessage``: le message d'erreur si la validation ``max`` échoue
 
-Example 1: Choices as static array
-----------------------------------
+Exemple 1: Choix en tant que tableau statique
+---------------------------------------------
 
-If the choices are few and easy to determine, they can be passed to the
-constraint definition as array.
+Si les choix sont peu nombreux et faciles à déterminer, ils peuvent être
+communiqués à la définition de contraintes comme un tableau.
 
 .. configuration-block::
 
@@ -78,12 +79,12 @@ constraint definition as array.
             }
         }
 
-Example 2: Choices from a callback
-----------------------------------
+Exemple 2: Choix depuis un callback
+-----------------------------------
 
-When you also need the choices in other contexts (such as a drop-down box in
-a form), it is more flexible to bind them to your domain model using a static
-callback method.
+Quand vous avez aussi besoin de choix dans d'autres contextes (tels qu'une
+balise ``select`` dans un formulaire), il est plus flexible de les lier à votre
+modèle de domaine en utilisant une méthode statique callback.
 
 .. code-block:: php
 
@@ -96,8 +97,8 @@ callback method.
         }
     }
 
-You can pass the name of this method to the ``callback`` option of the ``Choice``
-constraint.
+Vous pouvez mentionner le nom de cette méthode à l'option ``callback`` de votre
+contrainte ``Choice``.
 
 .. configuration-block::
 
@@ -131,8 +132,9 @@ constraint.
             protected $gender;
         }
 
-If the static callback is stored in a different class, for example ``Util``,
-you can pass the class name and the method as array.
+Si le callback statique est stocké dans une classe différente, par exemple
+``Util``, vous pouvez mentionner le nom de la classe et la méthode en tant que
+tableau.
 
 .. configuration-block::
 

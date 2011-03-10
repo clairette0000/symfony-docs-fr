@@ -1,7 +1,10 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Collection
 ==========
 
-Validates array entries against different constraints.
+S'assure que des entrées d'un tableau répondent favorablement à différentes
+contraintes.
 
 .. code-block:: yaml
 
@@ -15,24 +18,19 @@ Validates array entries against different constraints.
 Options
 -------
 
-* ``fields`` (required): An associative array of array keys and one or more
-  constraints
-* ``allowMissingFields``: Whether some of the keys may not be present in the
-  array. Default: ``false``
-* ``allowExtraFields``: Whether the array may contain keys not present in the
-  ``fields`` option. Default: ``false``
-* ``missingFieldsMessage``: The error message if the ``allowMissingFields``
-  validation fails
-* ``allowExtraFields``: The error message if the ``allowExtraFields`` validation
-  fails
+* ``fields`` (obligatoire): un tableau associatif de clés avec une ou plusieurs contraintes
+* ``allowMissingFields``: autorise ou non que certaines clés soient absentes du tableau. Par défaut: ``false``
+* ``allowExtraFields``: autorise ou non que le tableau dispose de certaines clés absentes de l'option ``fields``. Par défaut: ``false``
+* ``missingFieldsMessage``: le message d'erreur lorsque la validation de ``allowMissingFields`` échoue
+* ``allowExtraFields``: le message d'erreur lorsque la validation de ``allowExtraFields`` échoue
 
-Example:
+Exemple:
 --------
 
-Let's validate an array with two indexes ``firstName`` and ``lastName``. The 
-value of ``firstName`` must not be blank, while the value of ``lastName`` must 
-not be blank with a minimum length of four characters. Furthermore, both keys
-may not exist in the array.
+Validons ensemble un tableau avec deux indexes ``firstName`` et ``lastName``. La
+valeur de ``firstName`` ne peut être vide puisque la valeur de ``lastName`` ne
+doit pas être vide avec une longueur de chaine mininum de quatre caractères. En
+outre, ce lot de clés peut être absent dans un tableau.
 
 .. configuration-block::
 
@@ -113,7 +111,7 @@ may not exist in the array.
             }
         }
 
-The following object would fail the validation.
+L'object suivant échouera lors de la validation:
 
 .. code-block:: php
 
@@ -123,7 +121,7 @@ The following object would fail the validation.
 
     print $validator->validate($author);
 
-You should see the following error messages:
+Vous devriez voir les messages d'erreurs suivants:
 
 .. code-block:: text
 

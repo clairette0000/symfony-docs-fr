@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 File
 ====
 
-Validates that a value is the path to an existing file.
+S'assure que la valeur correspond au chemin d'un fichier existant.
 
 .. code-block:: yaml
 
@@ -12,19 +14,19 @@ Validates that a value is the path to an existing file.
 Options
 -------
 
-* ``maxSize``: The maximum allowed file size. Can be provided in bytes, kilobytes
-  (with the suffix "k") or megabytes (with the suffix "M")
-* ``mimeTypes``: One or more allowed mime types
-* ``notFoundMessage``: The error message if the file was not found
-* ``notReadableMessage``: The error message if the file could not be read
-* ``maxSizeMessage``: The error message if ``maxSize`` validation fails
-* ``mimeTypesMessage``: The error message if ``mimeTypes`` validation fails
+* ``maxSize``: la poids maximum toléré du fichier. Peut être défini en bytes, en kilobytes (avec le suffixe "k") ou en megabytes (avec le suffixe "M")
+* ``mimeTypes``: un ou plusieurs types MIME autorisés
+* ``notFoundMessage``: le message d'erreur lorsque le fichier n'a pas été trouvé
+* ``notReadableMessage``: le message d'erreur lorsque le fichier n'a pu être lu
+* ``maxSizeMessage``: le message d'erreur lorsque l'option de validation ``maxSize`` échoue
+* ``mimeTypesMessage``: le message d'erreur lorsque l'option de validation ``mimeTypes`` échoue
 
-Example: Validating the file size and mime type
------------------------------------------------
+Example: Validation du poids et du type MIME d'un fichier
+---------------------------------------------------------
 
-In this example we use the ``File`` constraint to verify that the file does
-not exceed a maximum size of 128 kilobytes and is a PDF document.
+Dans cet exemple, nous allons utiliser la contrainte ``File`` pour vérifier que
+ce fichier n'excède pas le poids de 128 kilobytes et qu'il s'agit bien d'un
+document PDF.
 
 .. configuration-block::
 
@@ -85,8 +87,8 @@ not exceed a maximum size of 128 kilobytes and is a PDF document.
             }
         }
 
-When you validate the object with a file that doesn't satisfy one of these
-constraints, a proper error message is returned by the validator:
+Lorsque vous validez l'objet avec un fichier qui n'a pas satisfait à une de ces
+exigences, un messages d'erreur approprié est retourné au validateur:
 
 .. code-block:: text
 

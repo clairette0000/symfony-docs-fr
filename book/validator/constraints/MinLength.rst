@@ -1,7 +1,10 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 MinLength
 =========
 
-Validates that the string length of a value is not smaller than the given limit.
+S'assure que la longueur de la chaine de caractères n'est pas inférieure à la
+limite imposée.
 
 .. code-block:: yaml
 
@@ -12,5 +15,5 @@ Validates that the string length of a value is not smaller than the given limit.
 Options
 -------
 
-* ``limit`` (**default**, required): The limit
-* ``message``: The error message if validation fails
+* ``limit`` (**par défaut**, required): la valeur minimum
+* ``message``: le message d'erreur lorsque la validation échoue

@@ -1,8 +1,10 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 NotBlank
 ========
 
-Validates that a value is not empty (as determined by the `empty
-<http://php.net/empty>`_ construct).
+S'assure que la valeur n'est pas vide (tel que déterminé par le constructeur 
+`empty <http://php.net/empty>`).
 
 .. code-block:: yaml
 
@@ -13,4 +15,4 @@ Validates that a value is not empty (as determined by the `empty
 Options
 -------
 
-* ``message``: The error message if validation fails
+* ``message``: le message d'erreur lorsque la validation échoue

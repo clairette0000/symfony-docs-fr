@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Valid
 =====
 
-Marks an associated object to be validated itself.
+S'assure qu'un objet associé est lui-même validé.
 
 .. code-block:: yaml
 
@@ -9,13 +11,13 @@ Marks an associated object to be validated itself.
         address:
             - Valid: ~
 
-Example: Validate object graphs
--------------------------------
+Exemple: Validation d'un ObjectGraph
+------------------------------------
 
-This constraint helps to validate whole object graphs. In the following example,
-we create two classes ``Author`` and ``Address`` that both have constraints on
-their properties. Furthermore, ``Author`` stores an ``Address`` instance in the
-``$address`` property.
+Cette contrainte aide à valider un ObjectGraph entier. Dans l'exemple suivant,
+nous avons créé deux classes ``Author`` et ``Address`` qui ont toutes deux des
+contraintes sur leurs propriétés. En outre, ``Author`` stocke une instance
+d'``Address`` dans la propriété ``$address``.
 
 .. code-block:: php
 
@@ -156,9 +158,9 @@ their properties. Furthermore, ``Author`` stores an ``Address`` instance in the
             }
         }
 
-With this mapping it is possible to successfully validate an author with an
-invalid address. To prevent that, we add the ``Valid`` constraint to the
-``$address`` property.
+Avec cette cartographie, il est possible de valider avec succès un auteur qui a
+une adresse invalide. Pour se prémunir de cela, nous ajoutons une contrainte
+``Valid`` dans la propriété ``$address``.
 
 .. configuration-block::
 
@@ -208,8 +210,8 @@ invalid address. To prevent that, we add the ``Valid`` constraint to the
             }
         }
 
-If you validate an author with an invalid address now, you can see that the
-validation of the ``Address`` fields failed.
+Si vous validez un auteur qui a une adresse invalide à présent, vous devriez
+observer que la validation du champs ``Address`` échoue.
 
     Sensio\HelloBundle\Author.address.zipCode:
         This value is too long. It should have 5 characters or less

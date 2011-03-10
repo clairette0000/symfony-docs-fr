@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Time
 ====
 
-Validates that a value is a valid time string with format "HH:MM:SS".
+S'assure que la valeur est une chaine de caractères épousant le format "HH:MM:SS".
 
 .. code-block:: yaml
 
@@ -12,4 +14,4 @@ Validates that a value is a valid time string with format "HH:MM:SS".
 Options
 -------
 
-* ``message``: The error message if the validation fails
+* ``message``: le message d'erreur lorsque la validation échoue

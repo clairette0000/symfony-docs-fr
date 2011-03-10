@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 AssertFalse
 ===========
 
-Validates that a value is ``false``.
+S'assure qu'une valeur est ``false``.
 
 .. code-block:: yaml
 
@@ -12,6 +14,6 @@ Validates that a value is ``false``.
 Options
 -------
 
-* ``message``: The error message if validation fails
+* ``message``: le message d'erreur lorsque la validation échoue
 
-See :doc:`AssertTrue <AssertTrue>`.
+Voir aussi :doc:`AssertTrue <AssertTrue>`.

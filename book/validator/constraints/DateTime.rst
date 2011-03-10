@@ -1,7 +1,10 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 DateTime
 ========
 
-Validates that a value is a valid datetime string with format "YYYY-MM-DD HH:MM:SS".
+S'assure que la valeur est une chaine de caratères datetime épousant le format
+"YYYY-MM-DD HH:MM:SS".
 
 .. code-block:: yaml
 
@@ -12,4 +15,4 @@ Validates that a value is a valid datetime string with format "YYYY-MM-DD HH:MM:
 Options
 -------
 
-* ``message``: The error message if the validation fails
+* ``message``: le message d'erreur lorsque la validation échoue

@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Regex
 =====
 
-Validates that a value matches a regular expression.
+S'assure que la valeur corresponde à une expression rationnelle.
 
 .. code-block:: yaml
 
@@ -12,7 +14,6 @@ Validates that a value matches a regular expression.
 Options
 -------
 
-* ``pattern`` (**default**, required): The regular expression pattern
-* ``match``: Whether the pattern must be matched or must not be matched.
-  Default: ``true``
-* ``message``: The error message if validation fails
+* ``pattern`` (**par défaut**, required): le motif de l'expression rationnelle
+* ``match``: détermine si le motif doit correspondre ou non. Par défaut: ``true``
+* ``message``: le message d'erreur lorsque la validation échoue

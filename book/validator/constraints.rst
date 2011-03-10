@@ -1,15 +1,17 @@
-Constraints
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
+Contraintes
 ===========
 
-The Validator is designed to validate objects against *constraints*.
-In real life, a constraint could be: "The cake must not be burned". In
-Symfony2, constraints are similar: They are assertions that a condition is 
-true.
+Le Validator est conçu pour valider des objets selon des *contraintes*.
+Dans la vie quotidienne, une contrainte peut être: "Le gâteau ne doit pas être
+carbonisé". Dans Symfony2, les contraintes sont similaires: ce sont des
+affirmations selon lesquelles une condition est vraie.
 
-Supported Constraints
----------------------
+Contraintes supportées
+----------------------
 
-The following constraints are natively available in Symfony2:
+Les contraintes suivantes sont disponibles nativement dans Symfony2:
 
 .. toctree::
     :hidden:
@@ -36,20 +38,22 @@ The following constraints are natively available in Symfony2:
 * :doc:`Url <constraints/Url>`
 * :doc:`Valid <constraints/Valid>`
 
-Constraint Targets
-------------------
+La raison d'être des Contraintes
+--------------------------------
 
-Constraints can be put on properties of a class, on public getters and on the
-class itself. The benefit of class constraints is that they can validate
-the whole state of an object at once, with all of its properties and methods.
+Les contraintes peut être insérées dans les propriétés de votre classe, dans les
+getters publics ou au sein même d'une classe. L'avantage des contraintes de
+classe est qu'ils peuvent valider l'état global d'un objet en une seule fois
+avec toutes les propriétés et méthodes.
 
-Properties
+Propriétés
 ~~~~~~~~~~
 
-Validating class properties is the most basic validation technique. Symfony2
-allows you to validate private, protected or public properties. The next
-listing shows how to configure the properties ``$firstName`` and ``$lastName``
-of a class ``Author`` to have at least 3 characters.
+La validation des propriétés d'une classe est la technique de validation
+élémentaire. Symfony2 vous autorise à valider les propriétés privées, protégées
+ou publiques. La liste suivante vous dévoile comment configurer les propriétés
+``$firstName`` et ``$lastName`` d'une classe ``Author`` qui a au moins 3
+caractres.
 
 .. configuration-block::
 
@@ -122,17 +126,18 @@ of a class ``Author`` to have at least 3 characters.
 Getters
 ~~~~~~~
 
-The next validation technique is to constrain the return value of a method.
-Symfony2 allows you to constrain any public method whose name starts with
-"get" or "is". In this chapter, this is commonly referred to as "getter".
+La technique de validation suivante est de restreindre la valeur retournée par
+une méthode. Symfony2 vous autorise à contraindre toute méthode publique dont le
+nom commence par "get" ou "is". Dans ce chapitre, ils sont communément surnommés
+"getters".
 
-The benefit of this technique is that it allows you to validate your object
-dynamically. Depending on the state of your object, the method may return
-different values which are then validated.
+L'avantage de cette technique est que cela autorise la validation de votre objet
+dynamiquement. Selon l'état de votre objet, la méthode peut retourner
+différentes valeurs qui sont ensuite validées.
 
-The next listing shows you how to use the :doc:`AssertTrue
-<constraints/AssertTrue>` constraint to validate whether a dynamically
-generated token is correct:
+La liste suivante vous dévoile comment utiliser la contrainte :doc:`AssertTrue
+<constraints/AssertTrue>` pour valider si le jeton généré dynamiquement est
+correct:
 
 .. configuration-block::
 
@@ -193,19 +198,19 @@ generated token is correct:
 
 .. note::
 
-    The keen-eyed among you will have noticed that the prefix of the getter 
-    ("get" or "is") is omitted in the mapping. This allows you to move the
-    constraint to a property with the same name later (or vice versa) without
-    changing your validation logic.
+    Les plus chevronnés d'entre vous auront remarqué que le préfixe du getter
+    ("get " ou "is") est omis dans la cartographie. Cela vous permet de déplacer
+    la contrainte à une propriété du même nom plus tard (ou vice versa) sans
+    changer votre logique de validation.
+    
+Contraintes personnalisées
+--------------------------
 
-Custom Constraints
-------------------
-
-You can create a custom constraint by extending the base constraint class,
-:class:`Symfony\\Component\\Validator\\Constraint`. Options for your
-constraint are represented by public properties on the constraint class. For
-example, the ``Url`` constraint includes ``message`` and ``protocols``
-properties:
+Vous pouvez créer une contrainte personnalisée en étendant la classe de base
+``constraint`` :class:`Symfony\\Component\\Validator\\Constraint`. Les options
+de votre contrainte sont représentées par la propriété publique de la classe
+``constraint``. Par exemple, la contrainte ``Url`` inclut les propriétés
+``message`` et ``protocoles``.
 
 .. code-block:: php
 
@@ -217,10 +222,10 @@ properties:
         public $protocols = array('http', 'https', 'ftp', 'ftps');
     }
 
-As you can see, a constraint class is fairly minimal. The actual validation is
-performed by a another "constraint validator" class. Which constraint
-validator is specified by the constraint's ``validatedBy()`` method, which
-includes some simple default logic:
+Comme vous pouvez le constater, une classe de contrainte est étonnemment simple.
+La validation normale est assurée par une autre classe de "validateur de
+contrainte". Celle-ci est spécifiée par la méthode de contrainte
+``validatedBy()`` qui inclut quelques logiques basiques par défaut:
 
 .. code-block:: php
 
@@ -230,13 +235,13 @@ includes some simple default logic:
         return get_class($this).'Validator';
     }
 
-Constraint Validators with Dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Validateur de Contraintes avec Dépendances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If your constraint validator has dependencies, such as a database connection,
-it will need to be configured as a service in the dependency injection
-container. This service must include the ``validator.constraint_validator``
-tag and an ``alias`` attribute:
+Si votre validateur de contraintes détient des dépendances telles qu'une
+connexion à une base de données, vous aurez besoin de configurer comme un
+service le conteneur d'injection de dépendances. Ce service doit contenir le
+tag ``validator.constraint_validator`` et un attribut ``alias``:
 
 .. configuration-block::
 
@@ -262,8 +267,8 @@ tag and an ``alias`` attribute:
             ->addTag('validator.constraint_validator', array('alias' => 'alias_name'))
         ;
 
-Your constraint class may now use this alias to reference the appropriate
-validator::
+Votre classe de contrainte devrait désormais utiliser un alias pour référencer
+le validateur approprié::
 
     public function validatedBy()
     {

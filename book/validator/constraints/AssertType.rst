@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 AssertType
 ==========
 
-Validates that a value has a specific data type
+S'assure que la valeur correspond à un certain type spécifique de données.
 
 .. code-block:: yaml
 
@@ -12,8 +14,7 @@ Validates that a value has a specific data type
 Options
 -------
 
-* ``type`` (**default**, required): A fully qualified class name or one of the
-  PHP datatypes as determined by PHP's ``is_`` functions.
+* ``type`` (**par défaut**, required): un nom de classe ou un de types de données PHP tels que déterminé par les fonctions PHP ``is_``.
 
   * `array <http://php.net/is_array>`_
   * `bool <http://php.net/is_bool>`_
@@ -30,4 +31,4 @@ Options
   * `resource <http://php.net/is_resource>`_
   * `scalar <http://php.net/is_scalar>`_
   * `string <http://php.net/is_string>`_
-* ``message``: The error message in case the validation fails
+* ``message``: le message d'erreur lorsque la validation échoue

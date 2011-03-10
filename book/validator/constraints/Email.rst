@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Email
 =====
 
-Validates that a value is a valid email address.
+S'assure que la valeur est une adresse courrielle conforme.
 
 .. code-block:: yaml
 
@@ -12,5 +14,5 @@ Validates that a value is a valid email address.
 Options
 -------
 
-* ``checkMX``: Whether MX records should be checked for the domain. Default: ``false``
-* ``message``: The error message if the validation fails
+* ``checkMX``: si les enregistrements MX du nom de domaine doivent être vérifiés. Par défaut: ``false``
+* ``message``: le message d'erreur lorsque la validation échoue

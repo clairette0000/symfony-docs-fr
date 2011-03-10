@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Min
 ===
 
-Validates that a value is not smaller than the given limit.
+S'assure que la valeur n'est pas inférieure à la limite imposée.
 
 .. code-block:: yaml
 
@@ -12,5 +14,5 @@ Validates that a value is not smaller than the given limit.
 Options
 -------
 
-* ``limit`` (**default**, required): The limit
-* ``message``: The error message if validation fails
+* ``limit`` (**par défaut**, required): la valeur minimum
+* ``message``: le message d'erreur lorsque la validation échoue

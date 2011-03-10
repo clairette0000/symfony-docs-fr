@@ -1,5 +1,7 @@
-Symfony2 Validator Constraints
-==============================
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
+Contraintes imposées aux Validateurs de Symfony2
+================================================
 
 .. toctree::
    :maxdepth: 1

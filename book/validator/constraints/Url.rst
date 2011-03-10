@@ -1,7 +1,9 @@
+.. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
+
 Url
 ===
 
-Validates that a value is a valid URL string.
+S'assure que la valeur est une URL conforme.
 
 .. code-block:: yaml
 
@@ -12,6 +14,5 @@ Validates that a value is a valid URL string.
 Options
 -------
 
-* ``protocols``: A list of allowed protocols. Default: "http", "https", "ftp"
-  and "ftps".
-* ``message``: The error message if validation fails
+* ``protocols``: une liste de protocoles tolérés. Par défaut: "http", "https", "ftp" et "ftps".
+* ``message``: le message d'erreur lorsque la validation échoue
