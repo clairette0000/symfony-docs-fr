@@ -2,7 +2,7 @@ Contribution à la Documentation
 ===============================
 
 La documentation est aussi importante que le code. Elle suit exactement les
-mêmes principes : DRY (Don't Repeat Yourself), tests, facilité de maintenance,
+mêmes principes: DRY (Don't Repeat Yourself), tests, facilité de maintenance,
 extensibilité, optimisation et refactorisation pour n'en citer que quelques-uns.
 Et bien sûr, la documentation a des bugs, des coquilles, des tutoriels
 difficiles à lire, et plus encore.
@@ -13,14 +13,14 @@ Contribution
 Avant de contribuer, vous avez besoin de vous familiariser avec le
 :doc:`language de structuration <format>` utilisé dans la documentation.
 
-La documentation de Symfony2 est hébergée dans un dépôt Git :
+La documentation de Symfony2 est hébergée dans un dépôt Git:
 
 .. code-block:: bash
 
     git://github.com/symfony/symfony-docs.git
 
 Si vous souhaitez soumettre un patch, clonez le dépôt de la documentation
-officielle :
+officielle:
 
 .. code-block:: bash
 
