@@ -73,8 +73,6 @@ un email à Fabien (fabien.potencier at symfony-project.org).
 Support
 -------
 
-.. todo: cible mouvante à remanier
-
 La traduction ne se termine pas lorsque tout est traduit. La documentation est
 en constante évolution (de nouveaux documents sont ajoutés, des bugs sont corrigés,
 des paragraphes sont réorganisés, etc.). L'équipe de traduction doit suivre de
