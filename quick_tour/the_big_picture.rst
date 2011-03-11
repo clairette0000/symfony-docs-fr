@@ -22,7 +22,7 @@ Apache) avec PHP 5.3.2 ou supérieur.
 Vous êtes prêt? Commençons par télécharger Symfony2. Pour commencer encore plus
 vite, nous allons utiliser le "sandbox Symfony2". Il s'agit d'un projet
 Symfony2 préconfiguré qui comprend certains contrôleurs simples et les
-bibliothèques requises. Le grand avantage de le sandbox sur les autres méthodes
+bibliothèques requises. Le grand avantage du sandbox sur les autres méthodes
 d'installation est que vous pouvez commencer à expérimenter Symfony2
 immédiatement.
 
@@ -80,9 +80,11 @@ Que se passe-t-il ici? Disséquons cette URL:
 
 .. index:: Front Controller
 
-* ``app_dev.php``: Il s'agit du contrôleur frontal. C'est le point d'entrée unique de l'application et il répond à toutes les demandes des utilisateurs;
+* ``app_dev.php``: Il s'agit du contrôleur frontal. C'est le point d'entrée
+unique de l'application et il répond à toutes les demandes des utilisateurs;
 
-* ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel l'utilisateur souhaite accéder.
+* ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel
+l'utilisateur souhaite accéder.
 
 Votre responsabilité en tant que développeur est d'écrire le code qui envoie la
 demande de l'utilisateur (``/hello/Fabien``) à la ressource qui lui est associée
@@ -94,9 +96,9 @@ demande de l'utilisateur (``/hello/Fabien``) à la ressource qui lui est associ�
 Configuration
 ~~~~~~~~~~~~~
 
-Les fichiers de configuration de Symfony2 peuvent être aussi bien écrits en PHP qu'en
-XML ou en `YAML`_. Ces différents types sont compatibles et peuvent être utilisés
-de manière interchangeable dans une application.
+Les fichiers de configuration de Symfony2 peuvent être aussi bien écrits en PHP
+qu'en XML ou en `YAML`_. Ces différents types sont compatibles et peuvent être
+utilisés de manière interchangeable dans une application.
 
 .. tip::
 
@@ -234,7 +236,7 @@ prépare des réponses (souvent en HTML).
         {
             return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
 
-            // rendre un template PHP plutôt qu'un template Twig
+            // render a PHP template instead
             // return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
         }
     }
@@ -243,9 +245,9 @@ Le code est assez simple à comprendre mais nous allons quand même l'expliquer
 ligne par ligne:
 
 * *ligne 3*: Symfony2 tire profit de la nouvelle fonctionnalité de PHP 5.3
-  (*namespace*) et tous les contrôleurs devraient être proprement "namespacés". Dans cet exemple, le contrôleur se situe dans
-  le Bundle intitulé HelloBundle, qui forme la première partie de la valeur du
-  routage ``_controller``.
+  (*namespace*) et tous les contrôleurs devraient être proprement "namespacés".
+  Dans cet exemple, le contrôleur se situe dans le Bundle intitulé HelloBundle,
+  qui forme la première partie de la valeur du routage ``_controller``.
   
 * *ligne 7*: Le nom du contrôleur est une combinaison de la seconde partie de la
   valeur ``_controller`` du routage (``Hello``) et du mot ``Controller``. Elle
@@ -286,7 +288,7 @@ défaut, le sandbox utilise Twig comme moteur de template, mais vous pouvez
     {% endblock %}
 
 Félicitations! Vous avez eu votre première approche du code de Symfony2 et
-créé votre première page. Ce n'était pas si terrible, n'est-ce pas? Il y a
+créé votre première page. Ce n'était pas si éreintant, n'est-ce pas? Il y a
 beaucoup plus à explorer, mais vous devriez déjà voir comment Symfony2 permet
 vraiment facilement de mettre en œuvre plus rapidement de meilleurs sites.
 
