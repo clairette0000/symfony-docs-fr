@@ -10,14 +10,14 @@ lisible par les humains pour tous les langages de programmation". YAML est un
 langage simple qui décrit des données. Comme PHP, il possède une syntaxe pour
 des types simples tels que les chaînes de caractères, les booléens,
 les flottants, ou les entiers. Mais contrairement à PHP, il fait la différence
-entre les tableaux (séquences) et associations (clé/valeur).
+entre les tableaux (séquences) et les associations (clé/valeur).
 
 Le composant :namespace:`Symfony\\Component\\Yaml` Symfony2 sait comment
 analyser du YAML et traduire un tableau PHP en YAML.
 
 .. note::
 
-    Même si le format YAML permet de décrire de complexes structures de données
+    Même si le format YAML permet de décrire des structures complexes de données
     imbriquées, ce chapitre présente seulement les fonctionnalités nécessaires
     pour utiliser YAML comme format de fichier de configuration.  
 
@@ -33,13 +33,13 @@ chaîne YAML et la convertit en un tableau PHP ::
     $valeur = $yaml->parse(file_get_contents('/chemin/vers/le/fichier.yml'));
 
 Si une erreur apparaît durant l'analyse, l'analyseur lance une exception
-indiquant le type d'erreur, et la ligne de la chaîne YAML responsable de
-l'erreur ::
+indiquant le type d'erreur et la ligne de la chaîne YAML responsable de
+l'erreur::
 
     try {
         $valeur = $yaml->parse(file_get_contents('/chemin/vers/le/fichier.yml'));
     } catch (\InvalidArgumentException $e) {
-        // une erreur est apparue durant l'analyse
+        // an error occurred during parsing
         echo "Impossible de parser la chaîne YAML: ".$e->getMessage();
     }
 
@@ -48,7 +48,7 @@ l'erreur ::
     Comme l'analyseur est réutilisable, vous pouvez utiliser le même objet pour
     charger différentes chaînes YAML.
 
-Lors du chargement de fichiers YAML, il est parfois préférable d'utiliser la
+Lors du chargement d'un fichier YAML, il est parfois préférable d'utiliser la
 méthode statique :method:`Symfony\\Component\\Yaml\\Yaml::load` ::
 
     use Symfony\Component\Yaml\Yaml;
@@ -59,7 +59,7 @@ La méthode statique ``Yaml::load()`` prend en argument une chaine ou un fichier
 contenant du YAML. En interne, elle appelle la méthode ``Parser::parse()``, mais
 avec quelques bonus en plus:
 
-* Elle exécute les fichiers YAML comme s'il s'agissait de fichiers PHP, afin que vous puissier intégrer des commandes PHP dans les fichiers YAML ;
+* Elle exécute les fichiers YAML comme s'il s'agissait de fichiers PHP afin que vous puissiez intégrer des commandes PHP dans les fichiers YAML ;
 
 * Quand un fichier ne peut pas être analysé, elle ajoute automatiquement le nom du fichier au message d'erreur, simplifiant le débogage quand votre application charge plusieurs fichiers YAML.
 
@@ -88,7 +88,7 @@ la méthode statique raccourcie :method:`Symfony\\Component\\Yaml\\Yaml::dump` :
 
     $yaml = Yaml::dump($array, $inline);
 
-Le format YAML supporte les tableau en deux dimensions. Par défaut, le
+Le format YAML supporte les tableaux en deux dimensions. Par défaut, le
 traducteur utilise la représentation en ligne:
 
 .. code-block:: yaml
@@ -141,11 +141,11 @@ Chaînes
 
 .. code-block:: yaml
 
-    "A double-quoted string in YAML\n"
+    "Une chaine entre guillemets en YAML\n"
     "Une chaîne délimitée par des guillemets\n"
 
-Les syntaxes utilisant des apostrophes ou des guillemets est utile lorsque de
-chaînes commencent ou se termine avec un espace ou plus.
+Les syntaxes utilisant des apostrophes ou des guillemets sont utiles lorsque des
+chaînes commencent ou se terminent avec un espace ou plus.
 
 .. tip::
 
@@ -154,10 +154,10 @@ chaînes commencent ou se termine avec un espace ou plus.
     ``\``. C'est utile lorsque vous devez incorporer la séquence ``\n`` ou des
     caractères unicode dans une chaîne.
 
-Quand une chaîne contient des sauts de ligne, vous pouvez utiliser la méthode
+Quand une chaîne contient des sauts de lignes, vous pouvez utiliser la méthode
 littérale, exprimée par le *pipe* (``|``), pour indiquer que la chaîne va
-couvrir plusieurs lignes. Avec cette méthode, les sauts de ligne sur des lignes
-vierges sont préservés :
+couvrir plusieurs lignes. Avec cette méthode, les sauts de lignes sur des lignes
+vierges sont préservées :
 
 .. code-block:: yaml
 
@@ -227,7 +227,7 @@ Les booléens en YAML sont exprimés avec ``true`` et ``false``.
 Dates
 ~~~~~
 
-YAML utilise le standard ISO-8601 pour exprimer des dates :
+YAML utilise le standard ISO-8601 pour désigner des dates:
 
 .. code-block:: yaml
 
@@ -307,8 +307,8 @@ Ce code YAML est équivalent au code PHP suivant::
         ),
     );
 
-Il ya une chose importante à retenir lorsque vous utilisez l'indentation dans un
-fichier YAML: *L'indentation doit être réalisée avec un ou plusieurs espaces,
+Il y a une chose importante à retenir lorsque vous utilisez l'indentation dans un
+fichier YAML: *l'indentation doit être réalisée avec un ou plusieurs espaces,
 mais jamais avec des tabulations*.
 
 Vous pouvez imbriquer des séquences et des associations comme vous le souhaitez:
@@ -322,8 +322,10 @@ Vous pouvez imbriquer des séquences et des associations comme vous le souhaitez
         - Introduction
         - Assistants
 
-YAML peut également utiliser flow styles for collections, using explicit
-indicators rather than indentation to denote scope.
+.. todo:: rendre ce paragraphe moins alambiqué
+YAML peut aussi utiliser des dispositions de flux pour les collections, en
+utilisant des indicateurs plutôt que des indentations pour en désigner le champ
+d'application.
 
 Une séquence peut être écrite comme une liste séparée par des virgules au sein
 de crochets (``[]``):

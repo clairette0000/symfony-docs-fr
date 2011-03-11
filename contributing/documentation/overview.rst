@@ -4,8 +4,8 @@ Contribution à la Documentation
 La documentation est aussi importante que le code. Elle suit exactement les
 mêmes principes : DRY (Don't Repeat Yourself), tests, facilité de maintenance,
 extensibilité, optimisation et refactorisation pour n'en citer que quelques-uns.
-Et bien sûr, la documentation a des bugs, des fautes, des tutoriels difficiles
-à lire, et plus encore.
+Et bien sûr, la documentation a des bugs, des coquilles, des tutoriels
+difficiles à lire, et plus encore.
 
 Contribution
 ------------
@@ -36,7 +36,7 @@ Rapporter une erreur
 --------------------
 
 La plus simple contribution que vous pouvez faire est de rapporter les erreurs:
-une faute, une erreur grammaticale, un bug dans un code d'exemple, une
+une coquille, une erreur grammaticale, un bug dans un code d'exemple, une
 explication manquante, etc.
 
 Étapes:
