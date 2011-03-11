@@ -1,4 +1,4 @@
-Les tags d'injection de dépendances
+Les tags d'Injection de Dépendances
 ===================================
 
 Tags:
@@ -44,8 +44,8 @@ templates):
 Activation d'extensions Twig personnelles
 -----------------------------------------
 
-Pour activer une extension Twig, ajoutez-la comme service régulier
-dans l'une de vos configuration, et taguez-la avec ``twig.extension``:
+Pour activer une extension Twig, ajoutez-la comme service habituel dans l'une
+de vos configuration et taguez-la avec ``twig.extension``:
 
 .. configuration-block::
 
@@ -74,7 +74,7 @@ Activation de listeners personnels
 ----------------------------------
 
 Pour activer un listener personnel, ajoutez-le comme service habituel dans l'une
-de vos configurations, et taguez-le avec ``kernel.listener``:
+de vos configurations et taguez-le avec ``kernel.listener``:
 
 .. configuration-block::
 
@@ -103,7 +103,7 @@ Activation de moteur de templates personnels
 --------------------------------------------
 
 Pour activer un moteur de templates personnel, ajoutez-le comme service habituel
-dans l'une de vos configuration, et taguez-le avec ``templating.engine``:
+dans l'une de vos configuration et taguez-le avec ``templating.engine``:
 
 .. configuration-block::
 
