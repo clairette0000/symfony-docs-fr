@@ -10,9 +10,8 @@ Contribution
 Tout d'abord, familiarisez vous avec le  :doc:`langage de structuration <format>`
 utilisé dans la documentation.
 
-.. todo:: À traduire
-Then, subscribe to the `Symfony docs mailing-list`_, as collaboration happens
-there.
+Ensuite, inscrivez-vous à la `mailing-list Symfony docs `_, comme la collaboration
+a lieu là-bas.
 
 Finalement, trouvez le dépôt *maître*  pour la langue à laquelle vous voulez
 contribuer. Voici la liste des dépôts *maître* officiels:
@@ -77,7 +76,7 @@ Support
 .. todo: cible mouvante à remanier
 
 La traduction ne se termine pas lorsque tout est traduit. La documentation est
-une cible mouvante (de nouveaux documents sont ajoutés, des bugs sont corrigés,
+en constante évolution (de nouveaux documents sont ajoutés, des bugs sont corrigés,
 des paragraphes sont réorganisés, etc.). L'équipe de traduction doit suivre de
 très près le dépôt anglais et appliquer les changements le plus tôt possible
 aux documents traduits.
