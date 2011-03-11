@@ -1,84 +1,90 @@
-Translations
-============
+Traductions
+===========
 
-The Symfony2 documentation is written in English and many people are involved
-in the translation process.
+La documentation de Symfony2 est écrite en anglais et de nombreuses personnes
+sont impliquées dans le processus de traduction.
 
-Contributing
+Contribution
 ------------
 
-First, become familiar with the :doc:`markup language <format>` used by the
-documentation.
+Tout d'abord, familiarisez vous avec le  :doc:`langage de structuration <format>`
+utilisé dans la documentation.
 
+.. todo:: À traduire
 Then, subscribe to the `Symfony docs mailing-list`_, as collaboration happens
 there.
 
-Finally, find the *master* repository for the language you want to contribute
-for. Here is the list of the official *master* repositories:
+Finalement, trouvez le dépôt *maître*  pour la langue à laquelle vous voulez
+contribuer. Voici la liste des dépôts *maître* officiels:
 
-* *English*:  http://github.com/symfony/symfony-docs
-* *Russian*:  http://github.com/avalanche123/symfony-docs-ru
-* *Romanian*: http://github.com/sebastian-ionescu/symfony-docs-ro
+.. todo:: peut-être ajouter le dépôt français
+* *Anglais*:  http://github.com/symfony/symfony-docs
+* *Russe*:  http://github.com/avalanche123/symfony-docs-ru
+* *Roumain*: http://github.com/sebastian-ionescu/symfony-docs-ro
 
 .. note::
 
-    If you want to contribute translations for a new language, read the
-    :ref:`dedicated section <translations-adding-a-new-language>`.
+    Si vous voulez contribuer aux traductions dans un nouveau langage,
+    lisez la :ref:`section dédiée <translations-adding-a-new-language>`.
 
-Joining the Translation Team
-----------------------------
+Rejoindre l'équipe de traduction
+--------------------------------
 
-If you want to help translating some documents for your language or fix some
-bugs, consider joining us; it's a very easy process:
+Si vous voulez aidez à traduire quelques documents pour votre langue ou corriger
+quelques bugs, songez à nous rejoindre ; la procédure est très simple:
 
-* Introduce yourself on the `Symfony docs mailing-list`_;
-* *(optional)* Ask which documents you can work on;
-* Fork the *master* repository for your language (click the "Fork" button on
-  the GitHub page);
-* Translate some documents;
-* Ask for a pull request (click on the "Pull Request" from your page on
-  GitHub);
-* The team manager accepts your modifications and merges them into the master
-  repository;
-* The documentation website is updated every other night from the master
-  repository.
+* Présentez-vous sur la `mailing-list deSymfony docs`_;
+* *(Facultatif)* Demandez sur quels documents vous pouvez travailler ;
+* Forkez le dépôt *maître* pour votre langue (cliquez sur le bouton "Fork" sur
+  la page de GitHub) ; 
+* Traduisez quelques documents ;
+* Effectuez une demande de pull (cliquez sur le bouton "Demande de pull" depuis
+  votre dépôt *forké* GitHub) ;
+* Le chef d'équipe accepte vos modifications et les fusionne dans le dépôt
+  maître ;
+* Le site web de la documentation est mis à jour chaque nuit à partir du dépôt
+  maître.
 
 .. _translations-adding-a-new-language:
 
 Adding a new Language
----------------------
+Ajout d'une nouvelle langue
+---------------------------
 
-This section gives some guidelines for starting the translation of the
-Symfony2 documentation for a new language.
+Cette section donne quelques pistes pour commencer la traduction de la
+documentation de Symfony2 dans une nouvelle langue.
 
-As starting a translation is a lot of work, talk about your plan on the
-`Symfony docs mailing-list`_ and try to find motivated people willing to help.
+Comme démarrer une traduction est un travail de grande ampleur, parlez de votre
+projet sur la `mailing-list Symfony docs`_ et essayez de trouver des gens motivés
+et prêts à aider.
 
-When the team is ready, nominate a team manager; he will be responsible for
-the *master* repository.
+Quand l'équipe est prête, nommé un chef d'équipe ; il sera responsable du
+dépôt *maître*.
 
-Create the repository and copy the *English* documents.
+Créez le dépôt et copiez les documents *anglais*.
 
-The team can now start the translation process.
+L'équipe peut maintenant débuter le processus de traduction.
 
-When the team is confident that the repository is in a consistent and stable
-state (everything is translated, or non-translated documents have been removed
-from the toctrees -- files named ``index.rst`` and ``map.rst.inc``), the team
-manager can ask that the repository is added to the list of official *master*
-repositories by sending an email to Fabien (fabien.potencier at
-symfony-project.org).
+Lorsque l'équipe pense que le dépôt est stable et consistant (tout  est traduit,
+ou les documents non traduits ont été retirés des sommaires -- les fichiers
+nommés ``index.rst`` et ``map.rst.inc``), le chef d'équipe peut demander à ce
+que le dépôt soit ajouté à la liste des dépôts *maîtres* officiels en envoyant
+un email à Fabien (fabien.potencier at symfony-project.org).
 
-Maintenance
------------
+Support
+-------
 
-Translation does not end when everything is translated. The documentation is a
-moving target (new documents are added, bugs are fixed, paragraphs are
-reorganized, ...). The translation team need to closely follow the English
-repository and apply changes to the translated documents as soon as possible.
+.. todo: cible mouvante à remanier
+
+La traduction ne se termine pas lorsque tout est traduit. La documentation est
+une cible mouvante (de nouveaux documents sont ajoutés, des bugs sont corrigés,
+des paragraphes sont réorganisés, etc.). L'équipe de traduction doit suivre de
+très près le dépôt anglais et appliquer les changements le plus tôt possible
+aux documents traduits.
 
 .. caution::
 
-    Non maintained languages are removed from the official list of
-    repositories as obsolete documentation is dangerous.
+    Les langues non-maintenues sont retirées de la liste officiel des dépôts,
+    car une documentation obsolète est dangereuse.
 
-.. _Symfony docs mailing-list: http://groups.google.com/group/symfony-docs
+.. _mailing-list Symfony docs: http://groups.google.com/group/symfony-docs
