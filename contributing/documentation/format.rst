@@ -1,8 +1,8 @@
-Documentation Format
-====================
+Format de la documentation
+==========================
 
-The Symfony2 documentation uses `reStructuredText`_ as its markup language and
-`Sphinx`_ for building the output (HTML, PDF, ...).
+La documentation de Symfony2 utilise `reStructuredText`_ comme langage de
+structuration et `Sphinx`_ pour produire le rendu (HTML, PDF, ...).
 
 reStructuredText
 ----------------
@@ -10,28 +10,31 @@ reStructuredText
 reStructuredText "is an easy-to-read, what-you-see-is-what-you-get plaintext
 markup syntax and parser system".
 
-You can learn more about its syntax by reading existing Symfony2 `documents`_
-or by reading the `reStructuredText Primer`_ on the Sphinx website.
+Vous pouvez en apprendre davantage sur sa syntaxe en consultant les `documents`_
+Symfony2 existants ou `reStructuredText Primer`_ sur le site de Sphinx.
 
-If you are familiar with Markdown, be careful as things as sometimes very
-similar but different:
+.. todo: "si vous êtes familiez", à revoir
 
-* Lists starts at the beginning of a line (no indentation is allowed);
+Si vous êtes familiez avec Markdown, faites attention, certaines choses sont
+parfois similaires mais différentes :
 
-* Inline code blocks use double-ticks (````like this````).
+* Les listes commencent en début de ligne (l'indentation n'est pas permise) ;
+
+* Les blocs au sein d'une ligne utilisent les double-coches (````comme cela````).
 
 Sphinx
 ------
 
-Sphinx is a build system that adds some nice tools to create documentation
-from reStructuredText documents. As such, it adds new directives and
-interpreted text roles to standard reST `markup`_.
+Sphinx est un système de construction qui ajoute quelques outils utiles pour
+créer la documentation à partir de documents reStructuredText. Il ajoute par
+exemple de nouvelle directives et des rôles d'interprétations de texte au
+standard de `structuration`_ reST.
 
-Syntax Highlighting
-~~~~~~~~~~~~~~~~~~~
+Coloration syntaxique
+~~~~~~~~~~~~~~~~~~~~~
 
-All code examples uses PHP as the default highlighted language. You can change
-it with the ``code-block`` directive:
+Tous les codes d'exemple utilisent PHP comme langage coloré par défaut. Vous
+pouvez changer cela avec la directive ``code-block``:
 
 .. code-block:: rst
 
@@ -39,8 +42,8 @@ it with the ``code-block`` directive:
 
         { foo: bar, bar: { foo: bar, bar: baz } }
 
-If your PHP code begins with ``<?php``, then you need to use ``html+php`` as
-the highlighted pseudo-language:
+Si votre code PHP commence par ``<?php``, vous devrez utilisez ``html+php``
+en tant que pseudo-langage coloré:
 
 .. code-block:: rst
 
@@ -50,10 +53,10 @@ the highlighted pseudo-language:
 
 .. note::
 
-    A list of supported languages is available on the `Pygments website`_.
+    Une liste des langages supportés est disponible sur le `site de Pygments`_.
 
-Configuration Blocks
-~~~~~~~~~~~~~~~~~~~~
+Blocs de configuration
+~~~~~~~~~~~~~~~~~~~~~~
 
 Whenever you show a configuration, you must use the ``configuration-block``
 directive to show the configuration in all supported configuration formats
