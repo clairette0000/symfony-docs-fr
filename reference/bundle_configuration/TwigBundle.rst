@@ -1,8 +1,10 @@
 .. index::
-   pair: Twig; Configuration Reference
+   pair: Configuration de référence de TwigBundle
 
-TwigBundle Configuration Reference
-==================================
+.. todo:: revoir le titre
+
+Configuration de référence de TwigBundle
+========================================
 
 .. configuration-block::
 
@@ -11,7 +13,7 @@ TwigBundle Configuration Reference
         twig:
             form:
                 resources:
-                    - MyBundle::form.html.twig
+                    - MonPaquet::form.html.twig
             extensions:
                 - twig.extension.debug
                 - twig.extension.text
@@ -37,7 +39,7 @@ TwigBundle Configuration Reference
 
             <twig:config auto-reload="%kernel.debug%" autoescape="true" base-template-class="Twig_Template" cache="%kernel.cache_dir%/twig" cache-warmer="false" charset="%kernel.charset%" debug="%kernel.debug%" strict-variables="false">
                 <twig:form>
-                    <twig:resource>MyBundle::form.html.twig</twig:resource>
+                    <twig:resource>MonPaquet::form.html.twig</twig:resource>
                 </twig:form>
                 <twig:global key="foo" id="bar" type="service" />
                 <twig:global key="pi">3.14</twig:global>
@@ -51,7 +53,7 @@ TwigBundle Configuration Reference
         $container->loadFromExtension('twig', array(
             'form' => array(
                 'resources' => array(
-                    'MyBundle::form.html.twig',
+                    'MonPaquet::form.html.twig',
                 )
              ),
              'extensions' => array(
