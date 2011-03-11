@@ -29,7 +29,7 @@ officielle:
 .. note::
 
     La documentation Symfony2 est sous la licence Creative Commons
-    Paternité - Partage des conditions initiales à l'identique 3.0 Non-localisée
+    Paternité - Partage des conditions initiales à l'identique 3.0 Unported
     :doc:`Licence <license>`.
 
 Rapporter une erreur

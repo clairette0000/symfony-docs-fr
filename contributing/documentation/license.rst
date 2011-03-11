@@ -1,50 +1,55 @@
-Symfony2 Documentation License
-==============================
+Licence de la documentation Symfony2
+====================================
 
-The Symfony2 documentation is licensed under a Creative Commons
-Attribution-Share Alike 3.0 Unported `License`_.
+La documentation Symfony2 est sous licence Creative Commons
+`Licence`_ Paternité - Partage des Conditions Initiales à l'Identique 3.0
+Unported (CC BY-SA 3.0).
 
-**You are free:**
+**Vous êtes libres:**
 
-* to *Share* — to copy, distribute and transmit the work;
+* de *partager* — reproduire, distribuer et communiquer l'oeuvre;
 
-* to *Remix* — to adapt the work.
+* de *remixer* — modifier l'oeuvre.
 
-**Under the following conditions:**
+**Selon les conditions suivantes:**
 
-* *Attribution* — You must attribute the work in the manner specified by
-  the author or licensor (but not in any way that suggests that they
-  endorse you or your use of the work);
+* *Paternité* — Vous devez attribuer l'oeuvre de la manière indiquée par
+  l'auteur de l'oeuvre ou le titulaire des droits (mais pas d'une manière
+  qui suggérerait qu'ils vous soutiennent ou approuvent votre utilisation
+  de l'oeuvre);
 
-* *Share Alike* — If you alter, transform, or build upon this work, you
-  may distribute the resulting work only under the same or similar license
-  to this one.
+* *Partage à l'Identique* — Si vous modifiez, transformez ou adaptez cette
+  oeuvre, vous n'avez le droit de distribuer votre création que sous un contrat
+  identique ou similaire à celui-ci. 
 
-**With the understanding that:**
+**comprenant bien que:**
 
-* *Waiver* — Any of the above conditions can be waived if you get
-  permission from the copyright holder;
+* *Renoncement* — N'importe quelle condition ci-dessus peut être *levée*
+  si vous avez l'autorisation du détenteur des droits;
 
-* *Public Domain* — Where the work or any of its elements is in the public
-  domain under applicable law, that status is in no way affected by the
-  license;
+* *Domaine public* — Là où l'oeuvre ou un quelconque de ses éléments est
+  dans le domaine public selon le droit applicable, ce statut n'est en aucune
+  façon affecté par le contrat;
 
-* *Other Rights* — In no way are any of the following rights affected by the
-  license:
+* *Autres droits* — d'aucune façon ne sont affectés par le contrat les droits
+  suivants:
 
-    * Your fair dealing or fair use rights, or other applicable copyright
-      exceptions and limitations;
+    * Vos droits de ditribution honnête ou d'usage honnête ou autres exceptions
+    et limitations au droit d'auteur applicables;
 
-    * The author's moral rights;
+    * Les droits moraux de l'auteur;
 
-    * Rights other persons may have either in the work itself or in how
-      the work is used, such as publicity or privacy rights.
+    * Droits qu'autrui peut avoir soit sur l'oeuvre elle-même soit sur la
+    façon dont elle est utilisée, comme la publicité ou les droits à la
+    préservation de la vie privée.
 
-* *Notice* — For any reuse or distribution, you must make clear to others
-  the license terms of this work. The best way to do this is with a link
-  to this web page.
+* *Remarque* — A chaque réutilisation ou distribution de cette oeuvre, vous
+  devez faire apparaître clairement au public les conditions contractuelles
+  de sa mise à disposition. La meilleure manière de les indiquer est un lien
+  vers cette page web.
 
+Ceci est le Résumé explicatif du `Code Juridique (la version intégrale du contrat)`_. 
 This is a human-readable summary of the `Legal Code (the full license)`_.
 
-.. _License: http://creativecommons.org/licenses/by-sa/3.0/
-.. _Legal Code (the full license): http://creativecommons.org/licenses/by-sa/3.0/legalcode
+.. _Licence: http://creativecommons.org/licenses/by-sa/3.0/deed.fr
+.. _Code Juridique (la version intégrale du contrat): http://creativecommons.org/licenses/by-sa/3.0/legalcode
