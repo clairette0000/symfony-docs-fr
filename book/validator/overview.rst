@@ -12,7 +12,7 @@ spécification de Java pour PHP? Vous avez tapé dans le mille mais ce n'est pas
 aussi effroyable que ça ne le paraît. Jetons un coup d'œil sur la manière de
 l'aborder avec PHP.
 
-La Validator valide les objets selon des :doc:`constraintes <constraints>`.
+Le Validator valide les objets selon des :doc:`constraintes <constraints>`.
 Démarrons avec une contrainte toute simple qui a une propriété ``$name`` dans la
 classe ``Author`` qui ne doit jamais être laissée vide::
 

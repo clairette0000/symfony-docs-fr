@@ -53,7 +53,7 @@ La validation des propriétés d'une classe est la technique de validation
 élémentaire. Symfony2 vous autorise à valider les propriétés privées, protégées
 ou publiques. La liste suivante vous dévoile comment configurer les propriétés
 ``$firstName`` et ``$lastName`` d'une classe ``Author`` qui a au moins 3
-caractres.
+caractères.
 
 .. configuration-block::
 
@@ -199,7 +199,7 @@ correct:
 .. note::
 
     Les plus chevronnés d'entre vous auront remarqué que le préfixe du getter
-    ("get " ou "is") est omis dans la cartographie. Cela vous permet de déplacer
+    ("get " ou "is") est omis dans le mapping. Cela vous permet de déplacer
     la contrainte à une propriété du même nom plus tard (ou vice versa) sans
     changer votre logique de validation.
     
