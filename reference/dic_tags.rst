@@ -13,9 +13,10 @@ Tags:
 Activation d'assistants de templates PHP personnels
 ---------------------------------------------------
 
-Pour activer un assistant de templates personnel, ajoutez-le comme service régulier
-dans l'une de vos configurations, taguez-le avec ``templating.helper`` et définissez
-un ``alias`` (l'assistant sera accessible par cet alias dans les templates) :
+Pour activer un assistant de templates personnel, ajoutez-le comme service
+habituel dans l'une de vos configurations, taguez-le avec ``templating.helper``
+et définissez un ``alias`` (l'assistant sera accessible par cet alias dans les
+templates):
 
 .. configuration-block::
 
@@ -44,7 +45,7 @@ Activation d'extensions Twig personnelles
 -----------------------------------------
 
 Pour activer une extension Twig, ajoutez-la comme service régulier
-dans l'une de vos configuration, et taguez-la avec ``twig.extension`` :
+dans l'une de vos configuration, et taguez-la avec ``twig.extension``:
 
 .. configuration-block::
 
@@ -72,8 +73,8 @@ dans l'une de vos configuration, et taguez-la avec ``twig.extension`` :
 Activation de listeners personnels
 ----------------------------------
 
-Pour activer un listener personnel, ajoutez-le comme service régulier
-dans l'une de vos configurations, et taguez-le avec ``kernel.listener`` :
+Pour activer un listener personnel, ajoutez-le comme service habituel dans l'une
+de vos configurations, et taguez-le avec ``kernel.listener``:
 
 .. configuration-block::
 
@@ -101,8 +102,8 @@ dans l'une de vos configurations, et taguez-le avec ``kernel.listener`` :
 Activation de moteur de templates personnels
 --------------------------------------------
 
-Pour activer un moteur de templates personnel, ajoutez-le comme service régulier
-dans l'une de vos configuration, et taguez-le avec ``templating.engine`` :
+Pour activer un moteur de templates personnel, ajoutez-le comme service habituel
+dans l'une de vos configuration, et taguez-le avec ``templating.engine``:
 
 .. configuration-block::
 
@@ -130,8 +131,8 @@ dans l'une de vos configuration, et taguez-le avec ``templating.engine`` :
 Activation de chargeurs de routage personnels
 ---------------------------------------------
 
-Pour activer un chargeur de routage personnel, ajoutez-le comme service régulier
-dans l'une de vos configuration, et taguez-le avec ``routing.loader`` :
+Pour activer un chargeur de routage personnel, ajoutez-le comme service habituel
+dans l'une de vos configuration et taguez-le avec ``routing.loader``:
 
 .. configuration-block::
 
