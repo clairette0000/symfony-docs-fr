@@ -4,8 +4,8 @@ Contribution à la Documentation
 La documentation est aussi importante que le code. Elle suit exactement les
 mêmes principes: DRY (Don't Repeat Yourself), tests, facilité de maintenance,
 extensibilité, optimisation et refactorisation pour n'en citer que quelques-uns.
-Et bien sûr, la documentation a des bugs, des coquilles, des tutoriels
-difficiles à lire, et plus encore.
+Et bien sûr, la documentation a des bugs, des fautes, des tutoriels trop
+difficiles, et plus encore.
 
 Contribution
 ------------
@@ -43,7 +43,7 @@ explication manquante, etc.
 
 * Soumettre un bug dans le bug tracker ;
 
-* *(optionnel)* Soumettre un patch.
+* *(Facultatif)* Soumettre un patch.
 
 Traduction
 ----------
