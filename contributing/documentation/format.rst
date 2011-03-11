@@ -25,10 +25,10 @@ parfois similaires mais différentes :
 Sphinx
 ------
 
-Sphinx est un système de construction qui ajoute quelques outils utiles pour
-créer la documentation à partir de documents reStructuredText. Il ajoute par
-exemple de nouvelle directives et des rôles d'interprétations de texte au
-standard de `structuration`_ reST.
+Sphinx est un générateur de rendu qui ajoute quelques outils utiles pour créer
+la documentation à partir de documents reStructuredText. Il ajoute par exemple
+de nouvelle directives et des rôles d'interprétations de texte au standard de
+`structuration`_ reST.
 
 Coloration syntaxique
 ~~~~~~~~~~~~~~~~~~~~~
@@ -58,9 +58,9 @@ en tant que pseudo-langage coloré:
 Blocs de configuration
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Whenever you show a configuration, you must use the ``configuration-block``
-directive to show the configuration in all supported configuration formats
-(``PHP``, ``YAML``, and ``XML``):
+À chaque fois que vous voulez afficher une configuration, vous devez utiliser
+la directive ``configuration-block`` pour afficher la configuration dans tous
+les formats de configuration supportés (``PHP``, ``YAML``, and ``XML``):
 
 .. code-block:: rst
 
@@ -68,36 +68,36 @@ directive to show the configuration in all supported configuration formats
 
         .. code-block:: yaml
 
-            # Configuration in YAML
+            # Configuration en YAML
 
         .. code-block:: xml
 
-            <!-- Configuration in XML //-->
+            <!-- Configuration en XML //-->
 
         .. code-block:: php
 
-            // Configuration in PHP
+            // Configuration en PHP
 
-The previous reST snippet renders as follow:
+Le bout de code reST précedent affiche ce qu'il suit:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # Configuration in YAML
+        # Configuration en YAML
 
     .. code-block:: xml
 
-        <!-- Configuration in XML //-->
+        <!-- Configuration en XML //-->
 
     .. code-block:: php
 
-        // Configuration in PHP
+        // Configuration en PHP
 
-The current list of supported formats are the following:
+La liste actuelle des formats supportés est la suivante:
 
 =============== ===========
-Markup format   Displayed
+Format Markup   Affiché
 =============== ===========
 html            HTML
 xml             XML
@@ -116,5 +116,5 @@ php-annotations Annotations
 .. _Sphinx:                  http://sphinx.pocoo.org/
 .. _documents:               http://github.com/symfony/symfony-docs
 .. _reStructuredText Primer: http://sphinx.pocoo.org/rest.html
-.. _markup:                  http://sphinx.pocoo.org/markup/
-.. _Pygments website:        http://pygments.org/languages/
+.. _structration:            http://sphinx.pocoo.org/markup/
+.. _site de Pygments:        http://pygments.org/languages/
