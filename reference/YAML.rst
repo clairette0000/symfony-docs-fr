@@ -25,7 +25,7 @@ Lire des fichiers YAML
 ----------------------
 
 La méthode :method:`Symfony\\Component\\Yaml\\Parser::parse` analyse une
-chaîne YAML et la convertit en un tableau PHP ::
+chaîne YAML et la convertit en un tableau PHP::
 
     use Symfony\Component\Yaml\Parser;
 
@@ -49,7 +49,7 @@ l'erreur::
     charger différentes chaînes YAML.
 
 Lors du chargement d'un fichier YAML, il est parfois préférable d'utiliser la
-méthode statique :method:`Symfony\\Component\\Yaml\\Yaml::load` ::
+méthode statique :method:`Symfony\\Component\\Yaml\\Yaml::load`::
 
     use Symfony\Component\Yaml\Yaml;
 
@@ -59,9 +59,12 @@ La méthode statique ``Yaml::load()`` prend en argument une chaine ou un fichier
 contenant du YAML. En interne, elle appelle la méthode ``Parser::parse()``, mais
 avec quelques bonus en plus:
 
-* Elle exécute les fichiers YAML comme s'il s'agissait de fichiers PHP afin que vous puissiez intégrer des commandes PHP dans les fichiers YAML ;
+* Elle exécute les fichiers YAML comme s'il s'agissait de fichiers PHP afin que
+  vous puissiez intégrer des commandes PHP dans les fichiers YAML ;
 
-* Quand un fichier ne peut pas être analysé, elle ajoute automatiquement le nom du fichier au message d'erreur, simplifiant le débogage quand votre application charge plusieurs fichiers YAML.
+* Quand un fichier ne peut pas être analysé, elle ajoute automatiquement le nom
+  du fichier au message d'erreur, simplifiant le débogage quand votre application
+  charge plusieurs fichiers YAML.
 
 Écrire des fichiers YAML
 ------------------------
@@ -79,12 +82,12 @@ quel tableau PHP dans sa représentation YAML::
 
 .. note::
 
-    Il y a quelques limitations : le traducteur n'est pas capable de traduire
+    Il y a quelques limitations: le traducteur n'est pas capable de traduire
     des ressources et la traduction d'objets PHP est condidérée comme une
     fonctionnalité non stable.
 
 Si vous n'avez besoin que de traduire un tableau, vous pouvez utiliser 
-la méthode statique raccourcie :method:`Symfony\\Component\\Yaml\\Yaml::dump` ::
+la méthode statique raccourcie :method:`Symfony\\Component\\Yaml\\Yaml::dump`::
 
     $yaml = Yaml::dump($array, $inline);
 
@@ -97,7 +100,7 @@ traducteur utilise la représentation en ligne:
 
 Mais le second argument de la méthode ``dump()`` permet de personnaliser le
 niveau à partir duquel la sortie passe de la représentation étendue à la
-représentation en ligne ::
+représentation en ligne::
 
     echo $dumper->dump($array, 1);
 
@@ -157,7 +160,7 @@ chaînes commencent ou se terminent avec un espace ou plus.
 Quand une chaîne contient des sauts de lignes, vous pouvez utiliser la méthode
 littérale, exprimée par le *pipe* (``|``), pour indiquer que la chaîne va
 couvrir plusieurs lignes. Avec cette méthode, les sauts de lignes sur des lignes
-vierges sont préservées :
+vierges sont préservées:
 
 .. code-block:: yaml
 
@@ -258,7 +261,7 @@ Le code YAML précédent est équivalent au code PHP suivant::
     array('PHP', 'Perl', 'Python');
 
 Les associations utilisent les deux-points suivi d'un espace (``:`` ) pour
-marquer chaque paire de clé/valeur :
+marquer chaque paire de clé/valeur:
 
 .. code-block:: yaml
 
@@ -266,7 +269,7 @@ marquer chaque paire de clé/valeur :
     MySQL: 5.1
     Apache: 2.2.20
 
-Ce qui est équivalent à ce code PHP ::
+Ce qui est équivalent à ce code PHP::
 
     array('PHP' => 5.2, 'MySQL' => 5.1, 'Apache' => '2.2.20');
 
@@ -307,8 +310,8 @@ Ce code YAML est équivalent au code PHP suivant::
         ),
     );
 
-Il y a une chose importante à retenir lorsque vous utilisez l'indentation dans un
-fichier YAML: *l'indentation doit être réalisée avec un ou plusieurs espaces,
+Il y a une chose importante à retenir lorsque vous utilisez l'indentation dans
+un fichier YAML: *l'indentation doit être réalisée avec un ou plusieurs espaces,
 mais jamais avec des tabulations*.
 
 Vous pouvez imbriquer des séquences et des associations comme vous le souhaitez:
@@ -366,14 +369,15 @@ Des commentaires peuvent être ajoutés en YAML en les préfixant d'un dièse
 
 .. note::
 
-	Les commentaires sont simplement ignorés par l'analyseur YAML et ne
-	nécessitent pas d'être indentés au niveau de l'imbrication dans une collection.
+    Les commentaires sont simplement ignorés par l'analyseur YAML et ne
+    nécessitent pas d'être indentés au niveau de l'imbrication dans une
+    collection.
 
 Fichiers YAML dynamiques
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Dans Symfony2, un fichier YAML peut contenir du code PHP qui est évalué juste
-avant que l'analyse syntaxique se produise :
+avant que l'analyse syntaxique se produise:
 
 .. code-block:: yaml
 
@@ -383,7 +387,7 @@ avant que l'analyse syntaxique se produise :
         version: "<?php echo file_get_contents('1.1/VERSION') ?>"
 
 Faites attention à ne pas déformer l'indentation. Gardez à l'esprit les simples
-astuces suivantes lorsque vous ajoutez du code PHP dans un fichier YAML :
+astuces suivantes lorsque vous ajoutez du code PHP dans un fichier YAML:
 
 * Les balises ``<?php ?>`` doivent toujours commencer la ligne où être
   incorporées dans une valeur.
