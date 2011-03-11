@@ -30,7 +30,8 @@ texte (HTML, XML, CSV, LaTeX, ...). Twig définit deux types de séparateurs:
 
 * ``{{ ... }}``: Affiche une variable ou le résultat d'une expression;
 
-* ``{% ... %}``: Un tag qui contrôle la logique d'un template; il exécute les boucles ``for`` ou les déclarations ``if`` par exemple.
+* ``{% ... %}``: Un tag qui contrôle la logique d'un template; il exécute les 
+boucles ``for`` ou les déclarations ``if`` par exemple.
 
 Ci-dessous, nous dévoilons un succinct template qui illustre quelques notions de
 base:
@@ -65,18 +66,18 @@ d'accéder aux "attributs" de la variable grâce à l'usage d'un point (``.``).
     {# array('user' => array('name' => 'Fabien')) #}
     {{ user.name }}
 
-    {# forcer l'appel d'un index #}
+    {# force array lookup #}
     {{ user['name'] }}
 
     {# array('user' => new User('Fabien')) #}
     {{ user.name }}
     {{ user.getName }}
 
-    {# forcer l'appel à une méthode #}
+    {# fforce method name lookup #}
     {{ user.name() }}
     {{ user.getName() }}
 
-    {# passer un argument à une méthode #}
+    {# pass arguments to a method #}
     {{ user.date('Y-m-d') }}
 
 .. note::
@@ -86,15 +87,18 @@ d'accéder aux "attributs" de la variable grâce à l'usage d'un point (``.``).
     autour.
 
 Templates de décoration
-----------------------
+-----------------------
 
-Bien souvent, dans un projet, les templates partagent des éléments communs, comme le traditionnel binôme header/footer.
-Dans Symfony2, nous préférons aborder cette problématique différemment : un template peut être décoré par un autre.
+Bien souvent, dans un projet, les templates partagent des éléments communs, 
+comme le traditionnel binôme header/footer.
+Dans Symfony2, nous préférons aborder cette problématique différemment : un 
+template peut être décoré par un autre.
 De la même manière que des classes PHP: l'héritage de template vous permet de
 construire un "layout" de base qui contient tous les éléments communs de votre
 site et définit les "blocs" que les templates enfants peuvent surcharger.
 
-Le template ``index.html.twig`` est décoré par le template ``layout.html.twig``, grâce au tag ``extends``:
+Le template ``index.html.twig`` est décoré par le template 
+``layout.html.twig``, grâce au tag ``extends``:
 
 .. code-block:: jinja
 
@@ -105,8 +109,10 @@ Le template ``index.html.twig`` est décoré par le template ``layout.html.twig`
         Hello {{ name }}!
     {% endblock %}
 
-La notation ``HelloBundle::layout.html.twig`` vous semble familiaire n'est-ce pas? Il s'agit de la même notation que celle utilisée pour un template classique.
-Le ``::`` signifie simplement que l'élément contrôleur est vide. En conséquence, le fichier correspondant est directement stocké dans ``views/``.
+La notation ``HelloBundle::layout.html.twig`` vous semble familiaire n'est-ce pas? 
+Il s'agit de la même notation que celle utilisée pour un template classique.
+Le ``::`` signifie simplement que l'élément contrôleur est vide. En conséquence, 
+le fichier correspondant est directement stocké dans ``views/``.
 
 Maintenant, jetons un coup d'œil au fichier ``layout.html.twig``:
 
@@ -151,7 +157,7 @@ des filtres et des fonctions; Symfony2 en est livré avec de nombreux préintég
 pour faciliter le travail des concepteurs de sites Web.
 
 Inclure d'autres templates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 La meilleure façon de partager un bout de code entre plusieurs templates
 distincts est de définir un template qui pourra être inclu dans un autre.
@@ -163,7 +169,8 @@ Créez le template ``hello.html.twig``:
     {# src/Sensio/HelloBundle/Resources/views/Hello/hello.html.twig #}
     Hello {{ name }}
 
-Et changez le template ``index.html.twig`` pour inclure celui que vous venez de créer:
+Et changez le template ``index.html.twig`` pour inclure celui que vous venez 
+de créer:
 
 .. code-block:: jinja
 
@@ -176,12 +183,15 @@ Et changez le template ``index.html.twig`` pour inclure celui que vous venez de 
     {% endblock %}
 
 Inclure d'autres contrôleurs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Que faire si vous voulez inclure le résultat d'un autre contrôleur dans un template?
-C'est très utile par exemple en Ajax, ou lorsque le template inclus a besoin de variables qui ne sont pas disponibles dans le template principal.
+Que faire si vous voulez inclure le résultat d'un autre contrôleur dans un 
+template?
+C'est très utile par exemple en Ajax, ou lorsque le template inclus a besoin de 
+variables qui ne sont pas disponibles dans le template principal.
 
-Si vous créez une action ``fancy``, et que vous voulez l'inclure dans le template ``index``, utilisez le tag ``render``:
+Si vous créez une action ``fancy``, et que vous voulez l'inclure dans le 
+template ``index``, utilisez le tag ``render``:
 
 .. code-block:: jinja
 
@@ -209,8 +219,11 @@ simulée::
 
 Créations de liens entre les pages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Créer des liens entre les pages d'une application web est une nécessité. Au
-lieu de coder en dur les URL dans les templates, la fonction ``path`` peut générer des URLs en fonction de la configuration du routage. De cette manière, toutes vos URLs peuvent être facilement modifiées en changeant juste le fichier de configuration:
+Créer des liens entre les pages d'une application web est incontournable. Au
+lieu de coder en dur les URL dans les templates, la fonction ``path`` peut 
+générer des URLs en fonction de la configuration du routage. De cette manière, 
+toutes vos URLs peuvent être facilement modifiées en changeant juste le fichier 
+de configuration:
 
 .. code-block:: jinja
 
@@ -247,7 +260,8 @@ fournit la fonction ``asset`` pour les manipuler très facilement:
 
 Le but principal de la fonction ``asset`` est de rendre votre application plus
 portable. Grâce à cette fonction, vous pouvez déplacer le répertoire racine de
-l'application partout dans votre répertoire racine web, sans changer le moindre code dans les templates.
+l'application partout dans votre répertoire racine web, sans changer le moindre 
+code dans les templates.
 
 Output Escaping
 ---------------
