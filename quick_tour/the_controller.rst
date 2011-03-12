@@ -115,7 +115,7 @@ Le contrôleur sera désormais appelé par des URLs comme ``/hello/Fabien.xml`` 
 L'entrée ``requirements`` définit les expressions régulières qui doivent
 correspondre à des emplacements réservés. Dans cet exemple, si vous essayez de
 demander la ressource ``/hello/Fabien.js``, vous obtiendrez une erreur HTTP 404,
-car il ne correspond pas à l'exigence ``_format``.
+car elle ne correspond pas à l'exigence ``_format``.
 
 .. index::
    single: Response
@@ -133,8 +133,8 @@ Retournons maintenant à notre contrôleur ``Hello``::
         return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
     }
 
-La méthode ``render()`` transforme un template et retourne un objet ``Response``.
-La réponse peut être modifiée avant d'être renvoyée au navigateur, par exemple,
+La méthode ``render()`` produit un template et retourne un objet ``Response``.
+La réponse peut être modifié avant d'être envoyée au navigateur, par exemple,
 nous allons changer le ``Content-Type``::
 
     public function indexAction($name)
@@ -146,7 +146,7 @@ nous allons changer le ``Content-Type``::
     }
 
 Pour des templates simples, vous pouvez même créer un objet ``Response`` à la
-main et sauver quelques millisecondes::
+main et gagner quelques millisecondes::
 
     public function indexAction($name)
     {
@@ -164,7 +164,7 @@ Gestion des Erreurs
 
 Quand une ressource n'est pas trouvée, vous devriez tirer pleinement parti du
 protocole HTTP et retourner une réponse 404. Cela se fait facilement en
-invoquant une véritable exception HTTP::
+envoyant une exception native HTTP::
 
     use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -172,13 +172,14 @@ invoquant une véritable exception HTTP::
     {
         $product = // retrieve the object from database
         if (!$product) {
-            throw new NotFoundHttpException('The product does not exist.');
+            throw new NotFoundHttpException('Ce produit n\'existe pas.');
         }
 
         return $this->render(...);
     }
 
-Le ``NotFoundHttpException`` retournera une réponse HTTP 404 au navigateur.
+Le ``NotFoundHttpException`` retournera une réponse HTTP 404 (page non trouvée) 
+au navigateur.
 
 .. index::
    single: Contrôleur; Redirection
@@ -192,14 +193,14 @@ Si vous voulez rediriger un utilisateur vers une autre page, utilisez la classe
 
     return new RedirectResponse($this->generateUrl('hello', array('name' => 'Lucas')));
 
-Le ``generateUrl()`` est la même méthode que la méthode ``generate()`` que nous
-avions utilisé avec le helper ``router`` auparavant. Il prend le nom de la route
+La méthode ``generateUrl()`` est la même que la méthode ``generate()`` que nous
+avions utilisée avec le helper ``router`` auparavant. Elle prend le nom de la route
 et un tableau de paramètres comme arguments et retourne la jolie adresse qui
 convient.
 
 Vous pouvez facilement renvoyer une action vers une autre avec la méthode
-``forward()``. Tout comme le helper ``actions``, il réalise une sous-requête
-interne mais il retourne un objet ``Response`` pour permettre de prochaines
+``forward()``. Tout comme le helper ``actions``, elle réalise une sous-requête
+interne mais elle retourne un objet ``Response`` pour permettre de prochaines
 modifications::
 
     $response = $this->forward('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
@@ -270,10 +271,10 @@ durant la toute prochaine requête::
 Le mot de la fin
 ----------------
 
-C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous ayons passé
-les 10 minutes qu'on s'était alloué. Nous avons brièvement présenté les Bundles
-dans la première partie et toutes les caractéristiques que nous avons appris
-jusqu'à maintenant font partie du "core framework Bundle".
+C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous avons passé
+les 10 minutes que l'on s'était allouées. Nous avons brièvement présenté les 
+Bundles dans la première partie et toutes les caractéristiques que nous avons 
+apprises jusqu'à maintenant font partie du "core framework Bundle".
 
 Mais grâce aux Bundles, tout peut être prolongé ou remplacé dans Symfony2.
 C'est le thème de la prochaine partie de ce tutoriel.

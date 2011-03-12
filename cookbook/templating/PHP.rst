@@ -1,20 +1,21 @@
 .. index::
    single: PHP Templates
 
-How to use PHP instead of Twig for Templates
-============================================
+Comment utiliser PHP plutôt que Twig dans vos templates?
+========================================================
 
-Even if Symfony2 defaults to Twig for its template engine, you can still use
-plain PHP code if you want. Both templating engine are supported equally in
-Symfony2. Symfony2 adds some nice features on top of PHP to make writing
-templates with PHP more powerful.
+Même si Symfony2 utilise Twig comme moteur de template par défaut,vous pouvez 
+toujours utiliser du pur code PHP si vous le voulez.
+Les deux moteurs de templates sont pleinement supportés par Symfony2.
+Symfony2 ajoute quelques fonctionnalités par dessus PHP pour rendre l'écriture 
+de templates en PHP encore plus puissante.
 
-Rendering PHP Templates
------------------------
+Restituer des templates en PHP
+------------------------------
 
-To render a PHP template instead of a Twig one, use ``.php`` in the
-template name instead of ``.twig``. The controller below renders the
-``index.html.php`` template::
+Pour restituer un template PHP au lieu d'un template Twig, utilisez l'extension 
+``.php`` dans le nom du template au lieu de ``.twig``.
+Dans l'exemple ci-dessous, le contrôleur restituera le template ``index.html.php``::
 
     // src/Sensio/HelloBundle/Controller/HelloController.php
 
@@ -27,15 +28,16 @@ template name instead of ``.twig``. The controller below renders the
   single: Templating; Layout
   single: Layout
 
-Decorating Templates
---------------------
+Templates de décoration
+-----------------------
 
-More often than not, templates in a project share common elements, like the
-well-known header and footer. In Symfony2, we like to think about this problem
-differently: a template can be decorated by another one.
+Bien souvent, dans un projet, les templates partagent des éléments communs, 
+comme le traditionnel binôme header/footer.
+Dans Symfony2, nous préférons aborder cette problématique différemment: un 
+template peut être décoré par un autre.
 
-The ``index.html.php`` template is decorated by ``layout.html.php``, thanks to
-the ``extend()`` call:
+Le template ``index.html.php`` est décoré par le template ``layout.html.php`` 
+grâce à l'appel de la méthode ``extend()``:
 
 .. code-block:: html+php
 
@@ -44,12 +46,12 @@ the ``extend()`` call:
 
     Hello <?php echo $name ?>!
 
-The ``HelloBundle::layout.html.php`` notation sounds familiar, doesn't it? It
-is the same notation used to reference a template. The ``::`` part simply
-means that the controller element is empty, so the corresponding file is
-directly stored under ``views/``.
+La notation ``HelloBundle::layout.html.php`` vous semble familiaire n'est-ce pas?
+Il s'agit de la même notation que celle utilisée pour un template classique.
+La partie ``::`` signifie simplement que le contrôleur est vide.
+En conséquence, le fichier correspondant est directement stocké dans ``views/``.
 
-Now, let's have a look at the ``layout.html.php`` file:
+Maintenant, jetons un coup d'œil au fichier ``layout.html.php``:
 
 .. code-block:: html+php
 
@@ -60,11 +62,11 @@ Now, let's have a look at the ``layout.html.php`` file:
 
     <?php $view['slots']->output('_content') ?>
 
-The layout is itself decorated by another one (``::base.html.php``). Symfony2
-supports multiple decoration levels: a layout can itself be decorated by
-another one. When the bundle part of the template name is empty, views are
-looked for in the ``app/views/`` directory. This directory store global views
-for your entire project:
+Le layout est lui-même décoré par un autre template (``::base.html.php``). Symfony2
+supporte des niveaux de décoration multiples: un layout peut très bien être 
+décoré par un autre. Lorsque le nom du bundle est laissé vide, cela signifie 
+que les templates concernés sont stocké directement dans le dossier 
+``app/views/``. Ce dossier stocke les vues globales de votre projet:
 
 .. code-block:: html+php
 
@@ -80,24 +82,25 @@ for your entire project:
         </body>
     </html>
 
-For both layouts, the ``$view['slots']->output('_content')`` expression is
-replaced by the content of the child template, ``index.html.php`` and
-``layout.html.php`` respectively (more on slots in the next section).
+Pour chacun des layouts, l'expression ``$view['slots']->output('_content')`` 
+est remplacée par les templates fils, respectivement ``index.html.php`` et 
+``layout.html.php`` (nous verrons les slots dans la section suivante).
 
-As you can see, Symfony2 provides methods on a mysterious ``$view`` object. In
-a template, the ``$view`` variable is always available and refers to a special
-object that provides a bunch of methods that makes the template engine tick.
+Comme vous pouvez le voir, Symfony2 permet d'accéder aux méthodes d'un mystérieux 
+objet ``$view``. Dans un template, la variable ``$view`` est toujours disponible 
+et fait référence à un objet qui dispose d'un certain nombre de méthodes qui 
+rendent le moteur de template plus rapide.
 
 .. index::
    single: Templating; Slot
    single: Slot
 
-Working with Slots
-------------------
+Travailler avec les Slots
+-------------------------
 
-A slot is a snippet of code, defined in a template, and reusable in any layout
-decorating the template. In the ``index.html.php`` template, define a
-``title`` slot:
+Un slot est un morceau de code, défini dans un template, et utilisable dans 
+n'importe quel layout qui décore ce template. Dans le fichier 
+``index.html.php``, définissez le slot ``title``:
 
 .. code-block:: html+php
 
@@ -108,7 +111,7 @@ decorating the template. In the ``index.html.php`` template, define a
 
     Hello <?php echo $name ?>!
 
-The base layout already have the code to output the title in the header:
+Le layout possède déjà le code qui affiche le titre dans le header:
 
 .. code-block:: html+php
 
@@ -118,35 +121,35 @@ The base layout already have the code to output the title in the header:
         <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
     </head>
 
-The ``output()`` method inserts the content of a slot and optionally takes a
-default value if the slot is not defined. And ``_content`` is just a special
-slot that contains the rendered child template.
+La méthode ``output()`` affiche le contenu du slot et accepte une valeur par 
+défaut optionnelle au cas où le slot ne serait pas défini. 
+``_content`` est juste un slot spécial qui contient le code du template fils.
 
-For large slots, there is also an extended syntax:
+Pour les gros slots, il existe une syntaxe étendue:
 
 .. code-block:: html+php
 
     <?php $view['slots']->start('title') ?>
-        Some large amount of HTML
+        Beaucoup de code HTML
     <?php $view['slots']->stop() ?>
 
 .. index::
    single: Templating; Include
 
-Including other Templates
--------------------------
+Inclure d'autres templates
+--------------------------
 
-The best way to share a snippet of template code is to define a template that
-can then be included into other templates.
+La meilleure façon de partager un bout de code entre plusieurs templates
+distincts est de définir un template qui pourra être inclu dans un autre.
 
-Create a ``hello.html.php`` template:
+Créez le template ``hello.html.php``:
 
 .. code-block:: html+php
 
     <!-- src/Sensio/HelloBundle/Resources/views/Hello/hello.html.php -->
     Hello <?php echo $name ?>!
 
-And change the ``index.html.php`` template to include it:
+Et changez le template ``index.html.php`` pour inclure celui que vous venez de créer:
 
 .. code-block:: html+php
 
@@ -155,29 +158,27 @@ And change the ``index.html.php`` template to include it:
 
     <?php echo $view->render('HelloBundle:Hello:hello.html.php', array('name' => $name)) ?>
 
-The ``render()`` method evaluates and returns the content of another template
-(this is the exact same method as the one used in the controller).
+La méthode ``render()`` génère et retourne le contenu du template passé en 
+paramètre (c'est exactement la même méthode que celle utilisée dans les contrôleurs).
 
 .. index::
    single: Templating; Embedding Pages
 
-Embedding other Controllers
----------------------------
+Inclure d'autres contrôleurs
+----------------------------
 
-And what if you want to embed the result of another controller in a template?
-That's very useful when working with Ajax, or when the embedded template needs
-some variable not available in the main template.
+Que faire si vous voulez inclure le résultat d'un autre contrôleur dans un template?
+C'est très utile par exemple en Ajax, ou lorsque le template inclus a besoin de 
+variables qui ne sont pas disponibles dans le template principal.
 
-If you create a ``fancy`` action, and want to include it into the
-``index.html.php`` template, simply use the following code:
+Si vous créer l'action ``fancy``, et que vous voulez l'inclure dans le template ``index.html.php``, utilisez simplement le code suivant:
 
 .. code-block:: html+php
 
     <!-- src/Sensio/HelloBundle/Resources/views/Hello/index.html.php -->
     <?php echo $view['actions']->render('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green')) ?>
 
-Here, the ``HelloBundle:Hello:fancy`` string refers to the ``fancy`` action of the
-``Hello`` controller::
+Ici, ``HelloBundle:Hello:fancy`` fait référence à l'action ``fancy`` du contrôleur ``Hello``::
 
     // src/Sensio/HelloBundle/Controller/HelloController.php
 
@@ -194,38 +195,38 @@ Here, the ``HelloBundle:Hello:fancy`` string refers to the ``fancy`` action of t
         // ...
     }
 
-But where is the ``$view['actions']`` array element defined? Like
-``$view['slots']``, it's called a template helper, and the next section tells
-you more about those.
+Mais où l'élément de tableau ``$view['actions']`` est-il défini? Comme dans le 
+cas de ``$view['slots']``, il s'agit d'un helper que nous aborderons dans la 
+section suivante.
 
 .. index::
    single: Templating; Helpers
 
-Using Template Helpers
-----------------------
+Utiliser des helpers dans un template
+-------------------------------------
 
-The Symfony2 templating system can be easily extended via helpers. Helpers are
-PHP objects that provide features useful in a template context. ``actions`` and
-``slots`` are two of the built-in Symfony2 helpers.
+Le système de template de Symfony2 peut être facilement étendu grâce aux helpers.
+Les helpers sont des objets PHP qui proposent des fonctionnalités utiles dans 
+un template. ``actions`` et ``slots`` sont deux des helpers intégrés à Symfony2.
 
-Creating Links between Pages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Créer des liens entre les pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Speaking of web applications, creating links between pages is a must. Instead
-of hardcoding URLs in templates, the ``router`` helper knows how to generate
-URLs based on the routing configuration. That way, all your URLs can be easily
-updated by changing the configuration:
+Créer des liens entre les pages d'une application web est une nécessité.
+Au lieu de coder en dur les URL dans les templates, le helper ``router`` 
+peut générer des URLs en fonction de la configuration du routage. De cette 
+manière, toutes vos URLs peuvent être facilement modifiées en changeant juste 
+le fichier de configuration:
 
 .. code-block:: html+php
 
     <a href="<?php echo $view['router']->generate('hello', array('name' => 'Thomas')) ?>">
-        Greet Thomas!
+        Salut Thomas!
     </a>
 
-The ``generate()`` method takes the route name and an array of parameters as
-arguments. The route name is the main key under which routes are referenced
-and the parameters are the values of the placeholders defined in the route
-pattern:
+La méthode ``generate()`` prend en argument le nom de la route et un tableau de 
+paramètres. Le nom de la route est la clé sous laquelle les routes sont 
+référencées et les paramètres sont les valeurs définies dans le pattern de routage:
 
 .. code-block:: yaml
 
@@ -234,11 +235,11 @@ pattern:
         pattern:  /hello/{name}
         defaults: { _controller: HelloBundle:Hello:index }
 
-Using Assets: images, JavaScripts, and stylesheets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Inclure des Assets: images, JavaScripts, et feuilles de style
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-What would the Internet be without images, JavaScripts, and stylesheets?
-Symfony2 provides the ``assets`` tag to deal with them easily:
+Que serait internet sans les images, le JavaScript, et les feuilles de style?
+Symfony2 fournit la fonction ``assets`` pour les manipuler très facilement:
 
 .. code-block:: html+php
 
@@ -246,21 +247,21 @@ Symfony2 provides the ``assets`` tag to deal with them easily:
 
     <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" />
 
-The ``assets`` helper's main purpose is to make your application more
-portable. Thanks to this helper, you can move the application root directory
-anywhere under your web root directory without changing anything in your
-template's code.
+Le but principal du helper ``assets`` est de rendre votre application encore 
+plus portable. Grâce à ce helper, vous pouvez très facilement déplacer le 
+dossier racine de votre application ou vous voulez dans votre répertoire web, 
+sans changer le moindre code dans les templates.
 
 Output Escaping
 ---------------
 
-When using PHP templates, escape variables whenever they are displayed to the
-user::
+Dans un template PHP, échappez toujours les variables avant de les afficher::
 
     <?php echo $view->escape($var) ?>
 
-By default, the ``escape()`` method assumes that the variable is outputted
-within an HTML context. The second argument lets you change the context. For
-instance, to output something in a JavaScript script, use the ``js`` context::
+Par défaut, la méthode ``escape()`` part du principe qu'une variable est 
+affichée dans une page HTML. Le second argument vous permet de changer ce contexte.
+Par exemple pour afficher une variable dans un fichier javascript, utilisez 
+le contexte ``js``::
 
     <?php echo $view->escape($var, 'js') ?>

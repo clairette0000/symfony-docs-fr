@@ -32,7 +32,8 @@ texte (HTML, XML, CSV, LaTeX, ...). Twig définit deux types de séparateurs:
 
 * ``{{ ... }}``: Affiche une variable ou le résultat d'une expression;
 
-* ``{% ... %}``: Un tag qui contrôle la logique d'un template; il exécute les boucles ``for`` ou les déclarations ``if`` par exemple.
+* ``{% ... %}``: Un tag qui contrôle la logique d'un template; il exécute les 
+boucles ``for`` ou les déclarations ``if`` par exemple.
 
 Ci-dessous, nous dévoilons un succinct template qui illustre quelques notions de
 base:
@@ -87,17 +88,19 @@ d'accéder aux "attributs" de la variable grâce à l'usage d'un point (``.``).
     accédez aux variables à l'intérieur des balises, ne mettez pas d'accolades
     autour.
 
-Enrobage des templates
-----------------------
+Templates de décoration
+-----------------------
 
-Les templates d'un projet partagent des éléments communs plus souvent qu'on le
-croit, comme le traditionnel binôme en-tête/pied de page. Dans Symfony2, nous aimons
-considérer ce problème différemment: un template peut être enrobé par un autre.
-De la même manière que des classes PHP: l'héritage de templates vous permet de
+Bien souvent, dans un projet, les templates partagent des éléments communs, 
+comme le traditionnel binôme header/footer.
+Dans Symfony2, nous préférons aborder cette problématique différemment: un 
+template peut être décoré par un autre.
+De la même manière que des classes PHP: l'héritage de template vous permet de
 construire un "layout" de base qui contient tous les éléments communs de votre
 site et définit les "blocs" que les templates enfants peuvent surcharger.
 
-Le template ``index.html.twig`` hérite de ``layout.html.twig``, grâce au tag ``extends``:
+Le template ``index.html.twig`` est décoré par le template 
+``layout.html.twig``, grâce au tag ``extends``:
 
 .. code-block:: jinja
 
@@ -108,7 +111,10 @@ Le template ``index.html.twig`` hérite de ``layout.html.twig``, grâce au tag `
         Hello {{ name }}!
     {% endblock %}
 
-``HelloBundle::layout.html.twig`` semble familier, n'est-ce pas? C'est la même disposition utilisée que pour un template habituel. Le ``::`` signifie simplement que l'élément contrôleur est vide, donc le fichier correspondant est directement stocké dans ``views/``.
+La notation ``HelloBundle::layout.html.twig`` vous semble familière n'est-ce pas? 
+Il s'agit de la même notation que celle utilisée pour un template classique.
+Le ``::`` signifie simplement que l'élément contrôleur est vide. En conséquence, 
+le fichier correspondant est directement stocké dans ``views/``.
 
 Maintenant, jetons un coup d'œil au fichier ``layout.html.twig``:
 
@@ -152,20 +158,21 @@ Une des meilleures caractéristiques de Twig est son extensibilité via des tags
 des filtres et des fonctions. Symfony2 en est livré avec de nombreux préintégrés
 pour faciliter le travail des concepteurs de sites Web.
 
-Inclusion d'autres templates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Inclure d'autres templates
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 La meilleure façon de partager un bout de code entre plusieurs templates
-distincts est de définir un template qui peut alors être inclus dans un autre.
+distincts est de définir un template qui pourra être inclu dans un autre.
 
-Créez un template ``hello.html.twig``:
+Créez le template ``hello.html.twig``:
 
 .. code-block:: jinja
 
     {# src/Sensio/HelloBundle/Resources/views/Hello/hello.html.twig #}
     Hello {{ name }}
 
-Et changez le template ``index.html.twig`` pour y inclure:
+Et changez le template ``index.html.twig`` pour inclure celui que vous venez 
+de créer:
 
 .. code-block:: jinja
 
@@ -177,14 +184,15 @@ Et changez le template ``index.html.twig`` pour y inclure:
         {% include "HelloBundle:Hello:hello.html.twig" %}
     {% endblock %}
 
-Embarquement d'autres contrôleurs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Inclure d'autres contrôleurs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quid si vous voulez intégrer le résultat d'un autre contrôleur dans un template?
-Cela est vraiment utile quand on travaille avec Ajax ou quand le template
-embarqué nécessite quelques variables non disponibles dans le template général.
+Que faire si vous voulez inclure le résultat d'un autre contrôleur dans un 
+template? C'est très utile par exemple en Ajax ou lorsque le template inclus a
+besoin de variables qui ne sont pas disponibles dans le template principal.
 
-Si vous créez une action ``fancy`` et que vous souhaitez y inclure le template ``index``, utilisez le tag ``render``:
+Si vous créez une action ``fancy`` et que vous voulez l'inclure dans le 
+template ``index``, utilisez le tag ``render``:
 
 .. code-block:: jinja
 
@@ -210,13 +218,13 @@ simulée::
         // ...
     }
 
-Création de liens entre les pages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Concernant les applications Web, créer des liens entre les pages est
-incontournable. Au lieu de coder en dur les URL dans les templates, la fonction
-``path`` sait comment générer des URL en fonction de la configuration du routage.
-De cette façon, toutes les URLs peuvent être facilement mises à jour en changeant
-uniquement la configuration:
+Créations de liens entre les pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Créer des liens entre les pages d'une application web est incontournable. Au 
+lieu de coder en dur les URL dans les templates, la fonction ``path`` peut 
+générer des URLs en fonction de la configuration du routage. De cette manière, 
+toutes vos URLs peuvent être facilement modifiées en changeant juste le fichier 
+de configuration:
 
 .. code-block:: jinja
 
@@ -242,8 +250,8 @@ pattern de routage:
 Inclusion d'«Assets»: images, javascripts et feuilles de styles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Que serait internet sans images, javascripts, et feuilles de styles? Symfony2
-fournit une fonction ``asset`` pour les manipuler aisément:
+Que serait internet sans images, javascripts et feuilles de styles? Symfony2
+fournit la fonction ``asset`` pour les manipuler très facilement:
 
 .. code-block:: jinja
 
@@ -253,8 +261,8 @@ fournit une fonction ``asset`` pour les manipuler aisément:
 
 Le but principal de la fonction ``asset`` est de rendre votre application plus
 portable. Grâce à cette fonction, vous pouvez déplacer le répertoire racine de
-l'application partout dans votre répertoire racine web sans plus rien changer
-dans le code de votre template.
+l'application partout dans votre répertoire racine web, sans changer le moindre 
+code dans les templates.
 
 Output Escaping
 ---------------
