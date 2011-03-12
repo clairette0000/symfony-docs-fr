@@ -208,7 +208,7 @@ simulée::
     {
         public function fancyAction($name, $color)
         {
-            // créez un objet qui a besoin de la variable $color
+            // create some object, based on the $color variable
             $object = ...;
 
             return $this->render('HelloBundle:Hello:fancy.html.twig', array('name' => $name, 'object' => $object));
@@ -219,7 +219,7 @@ simulée::
 
 Créations de liens entre les pages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Créer des liens entre les pages d'une application web est incontournable. Au
+Créer des liens entre les pages d'une application web est incontournable. Au 
 lieu de coder en dur les URL dans les templates, la fonction ``path`` peut 
 générer des URLs en fonction de la configuration du routage. De cette manière, 
 toutes vos URLs peuvent être facilement modifiées en changeant juste le fichier 
