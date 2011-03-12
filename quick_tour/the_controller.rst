@@ -166,7 +166,7 @@ envoyant une exception native HTTP::
 
     public function indexAction()
     {
-        $product = // cherche un objet dans la base de données
+        $product = // retrieve the object from database
         if (!$product) {
             throw new NotFoundHttpException('Ce produit n\'existe pas.');
         }
@@ -174,7 +174,8 @@ envoyant une exception native HTTP::
         return $this->render(...);
     }
 
-Le ``NotFoundHttpException`` retournera une réponse HTTP 404 (page non trouvée) au navigateur.
+Le ``NotFoundHttpException`` retournera une réponse HTTP 404 (page non trouvée) 
+au navigateur.
 
 .. index::
    single: Controller; Redirect
@@ -200,7 +201,7 @@ modifications::
 
     $response = $this->forward('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
 
-    // Faites quelque chose avec la réponse ou retournez-la directement
+    // do something with the response or return it directly
 
 .. index::
    single: Request
@@ -213,7 +214,7 @@ l'objet ``Request``::
 
     $request = $this->get('request');
 
-    $request->isXmlHttpRequest(); // Est-ce une requête Ajax?
+    $request->isXmlHttpRequest(); // is it an Ajax request?
 
     $request->getPreferredLanguage(array('en', 'fr'));
 
@@ -244,31 +245,31 @@ réalisé à partir de n'importe quel contrôleur::
 
     $session = $this->get('request')->getSession();
 
-    // stocke un attribut pour pouvoir l'utiliser dans une requête future
+    // store an attribute for reuse during a later user request
     $session->set('foo', 'bar');
 
-    // dans un autre contrôleur ou une autre requête
+    // in another controller for another request
     $foo = $session->get('foo');
 
-    // définit la localité
+    // set the user locale
     $session->setLocale('fr');
 
 Vous pouvez même stocker de courts messages qui seront seulement disponibles
 durant la toute prochaine requête::
 
-    // stocke un message pour la prochaine requête uniquement (dans un contrôleur)
+    // store a message for the very next request (in a controller)
     $session->setFlash('notice', 'Bravo, votre action a été accomplie !');
 
-    // affiche le message lors de la requête suivante (dans un template)
+    // display the message back in the next request (in a template)
     {{ app.session.flash('notice') }}
 
 Réflexions finales
 ------------------
 
 C'est tout ce qu'il y a à faire et je ne suis même pas sûr que nous avons passé
-les 10 minutes que l'on s'était allouées. Nous avons brièvement présenté les Bundles
-dans la première partie et toutes les caractéristiques que nous avons apprises
-jusqu'à maintenant font partie du "core framework Bundle".
+les 10 minutes que l'on s'était allouées. Nous avons brièvement présenté les 
+Bundles dans la première partie et toutes les caractéristiques que nous avons 
+apprises jusqu'à maintenant font partie du "core framework Bundle".
 
 Mais grâce aux Bundles, tout peut être prolongé ou remplacé dans Symfony2.
 C'est le thème de la prochaine partie de ce tutoriel. Explorons :doc:`the_architecture`!
