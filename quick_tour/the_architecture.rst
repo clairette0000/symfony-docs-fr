@@ -434,7 +434,7 @@ bon vous semble.
 
 C'en est tout pour cette visite éclair. De l'essai à l'envoi d'e-mails, vous
 avez encore besoin d'en apprendre beaucoup pour devenir un maître Symfony2. Prêt à
-plonger dans ces thèmes maintenant? Ne cherchez plus : consultez le `Manuel`_ et
+plonger dans ces thèmes maintenant? Ne cherchez plus: consultez le `Manuel`_ et
 approfondissez vos connaissances dans les domaines que vous souhaitez.
 
 .. _standards:    http://groups.google.com/group/php-standards/web/psr-0-final-proposal

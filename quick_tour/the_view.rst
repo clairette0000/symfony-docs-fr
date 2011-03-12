@@ -91,7 +91,7 @@ Templates de décoration
 
 Bien souvent, dans un projet, les templates partagent des éléments communs, 
 comme le traditionnel binôme header/footer.
-Dans Symfony2, nous préférons aborder cette problématique différemment : un 
+Dans Symfony2, nous préférons aborder cette problématique différemment: un 
 template peut être décoré par un autre.
 De la même manière que des classes PHP: l'héritage de template vous permet de
 construire un "layout" de base qui contient tous les éléments communs de votre

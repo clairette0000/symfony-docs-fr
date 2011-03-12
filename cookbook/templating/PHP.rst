@@ -159,7 +159,7 @@ Et changez le template ``index.html.php`` pour inclure celui que vous venez de c
     <?php echo $view->render('HelloBundle:Hello:hello.html.php', array('name' => $name)) ?>
 
 La méthode ``render()`` génère et retourne le contenu du template passé en 
-paramètre (c'est exactement la même méthode que celle utilisée dans les controllers).
+paramètre (c'est exactement la même méthode que celle utilisée dans les contrôleurs).
 
 .. index::
    single: Templating; Embedding Pages
@@ -178,7 +178,7 @@ Si vous créer l'action ``fancy``, et que vous voulez l'inclure dans le template
     <!-- src/Sensio/HelloBundle/Resources/views/Hello/index.html.php -->
     <?php echo $view['actions']->render('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green')) ?>
 
-Ici, ``HelloBundle:Hello:fancy`` fait référence à l'action ``fancy`` du controller ``Hello``::
+Ici, ``HelloBundle:Hello:fancy`` fait référence à l'action ``fancy`` du contrôleur ``Hello``::
 
     // src/Sensio/HelloBundle/Controller/HelloController.php
 
