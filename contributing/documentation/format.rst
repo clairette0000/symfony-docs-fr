@@ -2,23 +2,21 @@ Format de la documentation
 ==========================
 
 La documentation de Symfony2 utilise `reStructuredText`_ comme langage de
-structuration et `Sphinx`_ pour produire le rendu (HTML, PDF, ...).
+structuration et `Sphinx`_ pour produire le rendu (HTML, PDF,...).
 
 reStructuredText
 ----------------
 
-reStructuredText "is an easy-to-read, what-you-see-is-what-you-get plaintext
-markup syntax and parser system".
+reStructuredText est un fichier texte et un système de compilation dont la
+syntaxe de balisage est facile à lire et "what-you-see-is-what-you-get".
 
 Vous pouvez en apprendre davantage sur sa syntaxe en consultant les `documents`_
-Symfony2 existants ou `reStructuredText Primer`_ sur le site de Sphinx.
+de Symfony2 existants ou `reStructuredText Primer`_ sur le site de Sphinx.
 
-.. todo: "si vous êtes familiez", à revoir
+Si vous êtes un adepte de Markdown, faites attention, certaines choses sont
+parfois similaires mais différentes:
 
-Si vous êtes familiez avec Markdown, faites attention, certaines choses sont
-parfois similaires mais différentes :
-
-* Les listes commencent en début de ligne (l'indentation n'est pas permise) ;
+* Les listes commencent en début de ligne (l'indentation n'est pas permise);
 
 * Les blocs au sein d'une ligne utilisent les double-coches (````comme cela````).
 
@@ -33,7 +31,7 @@ de nouvelle directives et des rôles d'interprétations de texte au standard de
 Coloration syntaxique
 ~~~~~~~~~~~~~~~~~~~~~
 
-Tous les codes d'exemple utilisent PHP comme langage coloré par défaut. Vous
+Tous les codes d'exemples utilisent PHP comme langage coloré par défaut. Vous
 pouvez changer cela avec la directive ``code-block``:
 
 .. code-block:: rst
@@ -78,7 +76,7 @@ les formats de configuration supportés (``PHP``, ``YAML``, and ``XML``):
 
             // Configuration en PHP
 
-Le bout de code reST précedent affiche ce qu'il suit:
+Le bout de code reST précedent affiche ce qui suit:
 
 .. configuration-block::
 

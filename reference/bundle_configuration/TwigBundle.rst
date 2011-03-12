@@ -1,5 +1,5 @@
 .. index::
-   pair: Configuration de référence de TwigBundle
+   pair: Configuration de référence; Twig
 
 .. todo:: revoir le titre
 

@@ -13,18 +13,18 @@ Contribution
 Avant de contribuer, vous avez besoin de vous familiariser avec le
 :doc:`language de structuration <format>` utilisé dans la documentation.
 
-La documentation de Symfony2 est hébergée dans un dépôt Git:
+La documentation française de Symfony2 est hébergée dans un dépôt Git:
 
 .. code-block:: bash
 
-    git://github.com/symfony/symfony-docs.git
+    git://github.com/denis-chartier/symfony-docs-fr.git
 
 Si vous souhaitez soumettre un patch, clonez le dépôt de la documentation
 officielle:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/symfony/symfony-docs.git
+    $ git clone git://github.com/denis-chartier/symfony-docs-fr.git
 
 .. note::
 
