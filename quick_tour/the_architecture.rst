@@ -58,9 +58,11 @@ Cette classe doit implémenter quatre méthodes:
 
 * ``registerRootDir()``: Retourne la configuration du répertoire racine;
 
-* ``registerBundles()``: Retourne un tableau de tous les Bundles nécessaires au fonctionnement de l'application (rappelez vous de ``Sensio\HelloBundle\HelloBundle``);
+* ``registerBundles()``: Retourne un tableau de tous les Bundles nécessaires au 
+fonctionnement de l'application (rappelez vous de ``Sensio\HelloBundle\HelloBundle``);
 
-* ``registerContainerConfiguration()``: Charge la configuration (cette partie sera détaillée ultérieurement);
+* ``registerContainerConfiguration()``: Charge la configuration (cette partie 
+sera détaillée ultérieurement);
 
 Jetons un coup d'œil à l'implémentation par défaut de ces méthodes pour une
 meilleure compréhension de la flexibilité du framework.
@@ -112,9 +114,9 @@ l'a t-on nommé *Bundle* et non pas *Plugin*? Parce que *tout* est un Bundle dan
 Symfony2, des fonctionnalités du noyau du framework au code que vous écrirez
 pour votre application. Les Bundles sont les citoyens de première zone pour
 Symfony2. Ils vous donnent la flexibilité d'utiliser des fonctionnalités
-pré-construites dans des Bundles tiers ou de distribuer vos propres Bundles. Ils
-facilitent la sélection et le choix des fonctionnalités à activer pour
-votre application et les optimisent de la manière que vous désirez.
+pré-construites dans des Bundles tiers ou de distribuer vos propres Bundles. 
+Ils facilitent la synergie et le choix des fonctionnalités à activer pour votre 
+application. et les optimisent de la manière que vous désirez.
 
 Une application est constituée de Bundles comme définis dans la méthode
 ``registerBundles()`` de la classe ``AppKernel``::
@@ -392,8 +394,9 @@ assez intelligent pour vider le cache lorsque vous modifiez un fichier. Mais
 dans l'environnement de production, il est de votre responsabilité d'effacer le
 cache lorsque vous mettez à jour votre code ou modifier sa configuration.
 
-Quand vous développez une application Web, les choses peuvent mal tourner, et ce de multiples façons. Le fichier log dans le répertoire ``logs/`` de votre
-application vous dira tout concernant les requêtes et vous aidera à résoudre
+Quand vous développez une application Web, les choses peuvent mal tourner, et 
+ce de multiples façons. Le fichier log dans le répertoire ``logs/`` de votre 
+application vous dira tout concernant les requêtes et vous aidera à résoudre 
 votre souci rapidement.
 
 .. index::
@@ -435,5 +438,5 @@ plonger dans ces thèmes maintenant? Ne cherchez plus : consultez le `Manuel`_ e
 approfondissez vos connaissances dans les domaines que vous souhaitez.
 
 .. _standards:    http://groups.google.com/group/php-standards/web/psr-0-final-proposal
-.. _convention:   http://pear.php.net/
+.. _conventions:   http://pear.php.net/
 .. _Manuel:       http://www.symfony-reloaded.org/learn
