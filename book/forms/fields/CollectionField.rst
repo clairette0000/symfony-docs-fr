@@ -1,9 +1,10 @@
 CollectionField
 ===============
 
-``CollectionField`` is a special field group for manipulating arrays or objects
-that implements the interface ``Traversable``. To demonstrate this, we will
-extend the ``Customer`` class to store three email addresses::
+``CollectionField`` est un groupe de champs spéciaux pour manipuler des
+tableaux ou des objets qui implémentent l'interface ``Traversable``. Pour faire
+une démonstration, nous allons étendre la classe ``Customer`` pour stocker trois
+adresses courrielles::
 
     class Customer
     {
@@ -12,7 +13,8 @@ extend the ``Customer`` class to store three email addresses::
         public $emails = array('', '', '');
     }
 
-We will now add a ``CollectionField`` to manipulate these addresses::
+Nous allons maintenant ajouter un ``CollectionField`` pour manipuler trois
+adresses::
 
     use Symfony\Component\Form\CollectionField;
 
@@ -20,6 +22,6 @@ We will now add a ``CollectionField`` to manipulate these addresses::
         'prototype' => new EmailField(),
     )));
 
-If you set the option "modifiable" to ``true``, you can even add or remove
-rows in the collection via JavaScript! The ``CollectionField`` will notice it
-and resize the underlying array accordingly.
+Si vous désignez l'option "modifiable" à ``true``, vous pouvez même ajouter ou
+supprimer des colonnes de la collection via javascript! Le ``CollectionField``
+vous avertira et redimensionnera le tableau sous-jacent en conséquence.

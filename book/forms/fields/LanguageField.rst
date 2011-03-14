@@ -1,5 +1,5 @@
 LanguageField
 =============
 
-Documentation for the  :class:`Symfony\\Component\\Form\\LanguageField`
-class is currently only available via the generated API.
+La documentation de la classe :class:`Symfony\\Component\\Form\\LanguageField`
+est actuellement uniquement disponible via l'API générée.

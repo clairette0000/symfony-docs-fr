@@ -1,5 +1,5 @@
 TextareaField
 =============
 
-Documentation for the  :class:`Symfony\\Component\\Form\\TextareaField`
-class is currently only available via the generated API.
+La documentation de la classe :class:`Symfony\\Component\\Form\\TextareaField`
+est actuellement uniquement disponible via l'API générée.

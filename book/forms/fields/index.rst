@@ -1,7 +1,7 @@
-Built-in Fields
-===============
+Champs pré-intégrés
+===================
 
-Symfony2 ships with the following fields:
+Symfony2 est livré avec les champs suivants:
 
 .. toctree::
    :maxdepth: 2

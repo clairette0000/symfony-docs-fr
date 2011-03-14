@@ -1,5 +1,5 @@
 MoneyField
 ==========
 
-Documentation for the  :class:`Symfony\\Component\\Form\\MoneyField`
-class is currently only available via the generated API.
+La documentation de la classe :class:`Symfony\\Component\\Form\\MoneyField`
+est actuellement uniquement disponible via l'API générée.
