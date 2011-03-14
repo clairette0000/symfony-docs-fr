@@ -32,8 +32,7 @@ texte (HTML, XML, CSV, LaTeX, ...). Twig définit deux types de séparateurs:
 
 * ``{{ ... }}``: Affiche une variable ou le résultat d'une expression;
 
-* ``{% ... %}``: Un tag qui contrôle la logique d'un template; il exécute les 
-boucles ``for`` ou les déclarations ``if`` par exemple.
+* ``{% ... %}``: Un tag qui contrôle la logique d'un template; il exécute les boucles ``for`` ou les déclarations ``if`` par exemple.
 
 Ci-dessous, nous dévoilons un succinct template qui illustre quelques notions de
 base:
@@ -162,7 +161,7 @@ Inclure d'autres templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 La meilleure façon de partager un bout de code entre plusieurs templates
-distincts est de définir un template qui pourra être inclu dans un autre.
+distincts est de définir un template qui pourra être inclus dans un autre.
 
 Créez le template ``hello.html.twig``:
 

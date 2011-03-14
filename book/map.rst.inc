@@ -16,7 +16,7 @@
 
 * **Validation**:
 
-  * :doc:`Overview </book/validator/overview>` |
+  * :doc:`Présentation </book/validator/overview>` |
   * :doc:`Validation </book/validator/validation>` |
   * :doc:`/book/validator/constraints`
 

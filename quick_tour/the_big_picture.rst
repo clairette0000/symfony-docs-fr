@@ -83,12 +83,9 @@ Que se passe-t-il ici? Disséquons cette URL:
 
 .. index:: Contrôleur frontal
 
-* ``app_dev.php``: Il s'agit du :term:`contrôleur frontal`. C'est le point
-d'entrée unique de l'application et il répond à toutes les demandes des
-utilisateurs;
+* ``app_dev.php``: Il s'agit du :term:`contrôleur frontal`. C'est le point d'entrée unique de l'application et il répond à toutes les demandes des utilisateurs;
 
-* ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel
-l'utilisateur souhaite accéder.
+* ``/hello/Fabien``: C'est le chemin d'accès virtuel à la ressource auquel l'utilisateur souhaite accéder.
 
 Votre responsabilité en tant que développeur est d'écrire le code qui envoie la
 demande de l'utilisateur (``/hello/Fabien``) à la ressource qui lui est associée
