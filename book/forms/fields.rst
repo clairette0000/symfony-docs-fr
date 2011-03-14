@@ -1,27 +1,30 @@
-Form Fields
-===========
+Champs de Formulaire
+====================
 
-A form consists of one or more form fields. Each field is an object whose
-class implements :class:`Symfony\\Component\\Form\\FormFieldInterface`.
-Fields convert data between normalized and human representations.
+Un formulaire est composé d'un voire plusieurs champs. Chaque champs est un
+objet qui a une implémentation de la classe :class:`Symfony\\Component\\Form\\FormFieldInterface`.
+Les champs convertissent les données entre les représentations humaines et
+normalisées.
 
-Let's look at the ``DateField`` for example. While your application stores
-dates as strings or ``DateTime`` objects, users prefer to choose a date in
-drop downs. ``DateField`` handles the rendering and type conversion for you.
+Intéressons nous à ``DateField`` par exemple. Quand votre application stocke des
+dates comme des chaines de caractères ou des objets ``DateTime``, les
+utilisateurs préfèrent choisir une date dans un calendrier contextuel graphique.
+``DateField`` gère leur affichage et effectue la conversion à votre place.
 
-Core Field Options
-------------------
+Les Options des Champs de base
+------------------------------
 
-All built-in fields accept an array of options in their constructor. For 
-convenience, these core fields are subclasses of 
-:class:`Symfony\\Component\\Form\\Field` which predefines a couple of options.
+Tous les champs intégrés par défaut acceptent un tableau d'options au sein de
+leur constructeur. Par commodité, ces champs de base sont une sous-classe de
+:class:`Symfony\\Component\\Form\\Field` qui prédéfinissent un couple d'options.
 
 ``data``
 ~~~~~~~~
 
-When you create a form, each field initially displays the value of the
-corresponding property of the form's domain object. If you want to override
-this initial value, you can set it in the ``data`` option.
+Quand vous créez un formulaire, chaque champs affiche initialement une valeur
+d'une propriété correspondante d'un objet du formulaire en question. Si vous
+voulez surcharger cette valeur initiale, vous pouvez le définit dans l'option
+``data``.
 
 .. code-block:: php
 
@@ -35,51 +38,52 @@ this initial value, you can set it in the ``data`` option.
 
 .. note::
 
-    When you set the ``data`` option, the field will also not write the the
-    domain object, because the ``property_path`` option will implicitely be
-    ``null``. Read :ref:`form-field-property_path` for more information.
+    Quand vous définissez une option ``data``, le champs n'écrira pas dans
+    l'objet en question parce que l'option ``property_path`` sera implicitement
+    ``null``. Lisez :ref:`form-field-property_path` pour davantage d'informations.
 
 ``required``
 ~~~~~~~~~~~~
 
-By default, each ``Field`` assumes that its value is required, so no empty
-value should be submitted. This setting affects the behaviour and rendering of
-some fields. The ``ChoiceField``, for example, includes an empty choice if
-it is not required.
+Par défaut, chaque ``Field`` considère qu'une valeur soit obligatoire donc
+qu'aucune valeur vide ne peut être soumise. Cette configuration affecte le
+comportement et l'affichage de certains champs. Le ``ChoiceField``, par exemple,
+inclut un choix vide s'il n'est pas requis.
 
 .. code-block:: php
 
     use Symfony\Component\Form\ChoiceField
     
     $field = new ChoiceField('status', array(
-        'choices' => array('tbd' => 'To be done', 'rdy' => 'Ready'),
+        'choices' => array('wait' => 'En cours de traitement', 'ok' => 'Prêt'),
         'required' => false,
     ));
 
 ``disabled``
 ~~~~~~~~~~~~
 
-If you don't want a user to modify the value of a field, you can set the
-``disabled`` option to ``true``. Any submitted value will be ignored.
+Si vous ne souhaitez pas qu'un utilisateur modifie la valeur d'un champs, vous
+pouvez définir l'option ``disabled`` à ``true``. Toute valeur soumise sera
+ignorée.
 
 .. code-block:: php
 
     use Symfony\Component\Form\TextField
     
     $field = new TextField('status', array(
-        'data' => 'Old data',
+        'data' => 'Ancienne données',
         'disabled' => true,
     ));
-    $field->submit('New data');
+    $field->submit('Nouvelles données');
     
-    assert('Old data' === $field->getData());
+    assert('Ancienne données' === $field->getData());
 
 ``trim``
 ~~~~~~~~
 
-Many users accidentally type leading or trailing spaces into input fields.
-The form framework automatically removes these spaces. If you want to keep them,
-set the ``trim`` option to ``false``.
+De nombreux utilisateurs saisissent des espaces superfétatoires dans des champs
+de formulaire. Le framework de formulaire supprime automatiquement ces espaces.
+Si vous souhaitez les conserver, attribuez à l'option ``trim`` la valeur ``false``.
 
 .. code-block:: php
 
@@ -88,17 +92,20 @@ set the ``trim`` option to ``false``.
     $field = new TextField('status', array(
         'trim' => false,
     ));
-    $field->submit('   Data   ');
+    $field->submit('   Quelque chose   ');
     
-    assert('   Data   ' === $field->getData());
+    assert('   Quelque chose   ' === $field->getData());
 
 .. _form-field-property_path:
 
 ``property_path``
 ~~~~~~~~~~~~~~~~~
 
-Fields display a property value of the form's domain object by default. When
-the form is submitted, the submitted value is written back into the object.
+Les champs affichent une valeur de propriété du formulaire de l'objet en
+question par défaut. Quand le formulaire est soumis, la valeur soumise est
+inscrite à l'intérieur de l'objet.
+
+.. todo: Je laisse à quelqu'un d'autre le soin de traduire ce paragraphe 
 
 If you want to override the property that a field reads from and writes to,
 you can set the ``property_path`` option. Its default value is the field's
@@ -110,7 +117,7 @@ name.
     use Symfony\Component\Form\TextField
     
     $author = new Author();
-    $author->setFirstName('Your name...');
+    $author->setFirstName('Votre prénom...');
     
     $form = new Form('author');
     $form->add(new TextField('name', array(
@@ -118,15 +125,16 @@ name.
     )));
     $form->bind($request, $author);
     
-    assert('Your name...' === $form['name']->getData());
+    assert('Votre prénom...' === $form['name']->getData());
 
-For a property path, the class of the domain object needs to have
 
-1. A matching public property, or
-2. A public setter and getter with the prefix "set"/"get", followed by the
-   property path.
+Pour un chemin de propriété, la classe du domaine en question nécessite d'avoir
 
-Property paths can also refer to nested objects by using dots.
+1. Une propriété publique correspondante, ou
+2. Un setter ou un getter public préfixé par "set"/"get", suivi du chemin de la propriété.
+
+Les chemins de propriété peuvent aussi indiquer des objets imbriqués en
+utilisant des points (``.``).
 
 .. code-block:: php
 
@@ -134,7 +142,7 @@ Property paths can also refer to nested objects by using dots.
     use Symfony\Component\Form\TextField
     
     $author = new Author();
-    $author->getEmail()->setAddress('me@example.com');
+    $author->getEmail()->setAddress('moi@exemple.tld');
     
     $form = new Form('author');
     $form->add(new EmailField('email', array(
@@ -142,10 +150,10 @@ Property paths can also refer to nested objects by using dots.
     )));
     $form->bind($request, $author);
     
-    assert('me@example.com' === $form['email']->getData());
+    assert('moi@exemple.tld' === $form['email']->getData());
 
-You can refer to entries of nested arrays or objects implementing 
-``\Traversable`` using squared brackets.
+Vous pouvez aussi indiquer des entrées de tableaux imbriqués ou d'objets en
+implémentant ``\Traversable`` en utilisant des crochets.
 
 .. code-block:: php
 
@@ -153,7 +161,7 @@ You can refer to entries of nested arrays or objects implementing
     use Symfony\Component\Form\TextField
     
     $author = new Author();
-    $author->setEmails(array(0 => 'me@example.com'));
+    $author->setEmails(array(0 => 'moi@exemple.tld'));
     
     $form = new Form('author');
     $form->add(new EmailField('email', array(
@@ -161,11 +169,11 @@ You can refer to entries of nested arrays or objects implementing
     )));
     $form->bind($request, $author);
     
-    assert('me@example.com' === $form['email']->getData());
+    assert('moi@exemple.tld' === $form['email']->getData());
 
-If the property path is ``null``, the field will neither read from nor write
-to the domain object. This is useful if you want to have fields with fixed 
-values.
+Si le chemin de la propriété est ``null``, le champs ne sera ni lu ni écrit par
+l'objet en question. Cela est utile si vous voulez avoir des champs avec des
+valeurs fixes.
 
 .. code-block:: php
 
@@ -175,9 +183,10 @@ values.
         'data' => 'abcdef',
         'property_path' => null,
     ));
-    
-Because this is such a common scenario, ``property_path`` is always ``null``
-if you set the ``data`` option. So the last code example can be simplified to:
+
+Puisqu'il s'agit d'un scénario commun, ``property_path`` est toujours ``null``
+si vous établissez une option ``data``. Le dernier code d'exemple peut ainsi
+être simplifié:
 
 .. code-block:: php
 
@@ -189,25 +198,26 @@ if you set the ``data`` option. So the last code example can be simplified to:
 
 .. note::
 
-    If you want to set a custom default value but still write to the domain 
-    object, you need to pass ``property_path`` manually.
-
+    Si vous voulez définir une valeur par défaut personnalisée mais encore
+    écrite à l'objet en question, vous devez invoquer ``property_path``
+    manuellement.
+    
     .. code-block:: php
 
         use Symfony\Component\Form\TextField
         
         $field = new TextField('name', array(
-            'data' => 'Custom default...',
+            'data' => 'Quelque chose par défault personnalisé...',
             'property_path' => 'token',
         ));
     
-    Usually this is not necessary, because you should rather the default value
-    of the ``token`` property in your domain object.
+    Habituellement cela n'est pas nécessaire car vous devriez plutôt avoir une
+    valeur par défaut dans la propriété ``token`` dans votre objet en question.
 
-Built-in Fields
----------------
+Champs pré-intégrés
+-------------------
 
-Symfony2 ships with the following fields:
+Symfony2 est livré avec les champs suivants:
 
 .. toctree::
     :hidden:
