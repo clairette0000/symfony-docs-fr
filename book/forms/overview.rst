@@ -1,51 +1,55 @@
+.. todo: Se mettre d'accord = classe de domaine / classe en question
+
 .. index::
-   single: Forms
+   single: Formulaires
 
-Working with Forms
-==================
+Travailler avec des Formulaires
+===============================
 
-Symfony2 comes with a built-in form component. It deals with displaying,
-rendering and submitting HTML forms.
+Symfony2 est livré avec des composants de formulaire pré-intégrés. Ils prennent
+en charge l'affichage, le traitement et la soumission des formulaires HTML.
 
-While it is possible to process form submissions with Symfony2's 
-:class:`Symfony\\Component\\HttpFoundation\\Request` class alone, the form 
-component takes care of a number of common form-related tasks, such as:
+Puisqu'il est possible de traiter les soumissions de formulaire avec la simple
+classe :class:`Symfony\\Component\\HttpFoundation\\Request` de Symfony2, le
+composant de formulaires prend en compte un certain nombre de tâche habituelles
+liés aux formulaires, comme:
 
-1. Displaying an HTML form with automatically generated form fields
-2. Converting the submitted data to PHP data types
-3. Reading from and writing data into POPOs (plain old PHP objects)
-4. Validating submitted form data with Symfony2's ``Validator``
-5. Protecting form submissions against CSRF attacks
+1. l'Affichage d'un formulaire HTML avec des champs de formulaires automatiquement générés
+2. la Conversion des données soumises en format PHP
+3. la Lecture et l'Ecriture de données dans des POPOs (plain old PHP objects)
+4. la Validation de données de formulaires soumises avec le ``Validator`` de Symfony2
+5. la Protection des soumissions de formulaires contre les attaques CSRF
 
-Overview
---------
-
-The component deals with these concepts:
-
-*Field*
-  A class that converts submitted data to normalized values.
-
-*Form*
-  A collection of fields that knows how to validate itself.
-
-*Template*
-  A file that renders a form or a field in HTML.
-
-*Domain objects*
-  An object a form uses to populate default values and where submitted
-  data is written.
-
-The form component only relies on the HttpFoundation and Validator
-components to work. If you want to use the internationalization features,
-PHP's intl extension is required as well.
-
-Form Objects
+Présentation
 ------------
 
-A Form object encapsulates a collection of fields that convert submitted
-data to the format used in your application. Form classes are created as
-subclasses of :class:`Symfony\\Component\\Form\\Form`. You should implement the
-method ``configure()`` to initialize the form with a set of fields.
+Le composant couvre ces concepts:
+
+*Field*
+  Une classe qui convertit les données soumises en données normalisées.
+
+*Form*
+  Une collection de champs qui savent comment se valider elles-mêmes.
+
+*Template*
+  Un fichier qui transforme un formulaire ou un champs en HTML.
+
+*Objet en question*
+  Un objet qu'un formulaire utilise pour peupler les valeurs par défaut et où
+  les données soumises sont écrites.
+
+Le composant de formulaire se fie seulement aux composants HttpFoundation et
+Validator pour fonctionner. Si vous voulez utiliser les caractéristiques
+d'internationalisation, l'extension intl de PHP est aussi requise.
+
+les Objets de Formulaire
+------------------------
+
+Un objet de Formulaire encapsule une collection de champs qui convertit les
+données soumises en format utilisé dans votre application. Les classes de
+formulaires sont créées comme des sous-classes de :class:`Symfony\\Component\\Form\\Form`.
+Vous devriez implémenter la méthode ``configure()`` pour initialiser le formulaire
+avec un ensemble de champs.
 
 .. code-block:: php
 
@@ -72,16 +76,16 @@ method ``configure()`` to initialize the form with a set of fields.
         }
     }
 
-A form consists of ``Field`` objects. In this case, our form has the fields
-``subject``, ``message``, ``sender`` and ``ccmyself``. ``TextField``,
-``TextareaField`` and ``CheckboxField`` are only three of the
-available form fields; a full list can be found in :doc:`Form fields
-<fields>`.
+Un formulaire est composé d'objets ``Field``. Dans ce cas, notre formulaire
+recense les champs ``subject``, ``message``, ``sender`` et ``ccmyself``.
+``TextField``, ``TextareaField`` et ``CheckboxField`` sont seulement trois des
+champs de formulaire disponibles; une liste complète peut être consultée dans
+:doc:`Champs de Formulaire <fields>`.
 
-Using a Form in a Controller
-----------------------------
+Emploi d'un Formulaire dans un Contrôleur
+-----------------------------------------
 
-The standard pattern for using a form in a controller looks like this:
+Le motif standard pour utiliser un formulaire dans un contôleur ressemble à ceci:
 
 .. code-block:: php
 
@@ -105,21 +109,24 @@ The standard pattern for using a form in a controller looks like this:
             'form' => $form
         ));
     }
+
+Il y a deux chemins de code ici:
+
+1. Si le formulaire n'a pas été soumis ou est invalide, il est tout simplement
+   transmis au template.
    
-There are two code paths there:
+2. Si le formulaire a été soumis et est valide, la requête contact est envoyée.
 
-1. If the form has not been submitted or is invalid, it is simply passed to
-   the template.
-2. If the form has been submitted and is valid, the contact request is sent.
-
-We created the form with the static ``create()`` method. This method expects
-a form context that contains all default services (for example a ``Validator``)
-and settings that a form needs to work.
+Nous avons créé un formulaire avec la méthode statique ``create()``. Cette
+méthode attend un contexte de formulaire qui contient tous les services par
+défaut (par exemple un ``Validator``) et les configurations que le formulaire
+nécessite pour son bon fonctionnement.
 
 .. note:
 
-    If you don't use Symfony2 or its service container, don't worry. You can
-    easily create a ``FormContext`` and a ``Request`` manually:
+    Si vous n'utilisez pas Symfony2 ou ses conteneurs de service, ne vous
+    inquiétez pas. Vous pouvez aisément créer un ``FormContext`` et un
+    ``Request`` manuellement:
     
     .. code-block:: php
     
@@ -129,13 +136,14 @@ and settings that a form needs to work.
         $context = FormContext::buildDefault();
         $request = Request::createFromGlobals();
 
-Forms and Domain Objects
-------------------------
+Formaires et Objets en question
+-------------------------------
 
-In the last example a ``ContactRequest`` was bound to the form. The property
-values of this object are used to populate the form fields. After binding,
-the submitted values are written into the object again. The ``ContactRequest``
-class could look like this:
+Dans le dernier exemple, un ``ContactRequest`` a été lié au formulaire. Les
+valeurs de propriétés de cet objet sont utilisées pour peupler les champs de
+formulaire. Après liaison, les valeurs soumises sont écrites à l'intérieur de
+l'objet une nouvelle fois. La classe ``ContactRequest`` pourrait ressembler à
+ceci:
 
 .. code-block:: php
 
@@ -144,7 +152,7 @@ class could look like this:
 
     class ContactRequest
     {
-        protected $subject = 'Subject...';
+        protected $subject = 'Sujet...';
         
         protected $message;
         
@@ -178,7 +186,7 @@ class could look like this:
             $message = \Swift_Message::newInstance()
                 ->setSubject($this->subject)
                 ->setFrom($this->sender)
-                ->setTo('me@example.com')
+                ->setTo('moi@exemple.tld')
                 ->setBody($this->message);
                 
             $this->mailer->send($message);
@@ -187,22 +195,24 @@ class could look like this:
     
 .. note::
 
-    See :doc:`Emails </cookbook/email>` for more information on sending mails.
+    Voir :doc:`Emails </cookbook/email>` pour davantage d'informations sur
+    l'envoi de courriels.
 
-For each field in your form, the class of the domain object needs to have
+Pour chaque champs de votre formulaire, la classe de votre objet en question
+nécessite d'avoir
 
-1. A public property with the field's name, or
-2. A public setter and getter with the prefix "set"/"get", followed by the
-   field's name with a first capital letter.
+1. Une propriété publique avec le nom du champs, ou
+2. Un setter et un getter publics préfixés par "set"/"get", suivi du nom du
+   champs avec sa première lettre en majuscule.
    
-Validating Submitted Data
--------------------------
+Validation des Données Soumises
+-------------------------------
 
-The form uses the ``Validator`` component to validate submitted form values.
-All constraints on the domain object, on the form and on its fields will be 
-validated when ``bind()`` is called. We will add a few constraints to
-``ContactRequest`` to make sure that nobody can submit the form with invalid
-data.
+Le formulaire utlise le composant ``Validator`` pour valider les valeurs soumises
+du formulaire. Toutes les contraintes dans l'objet en question, dans le
+formulaire et dans ces champs seront validées quand ``bind()`` sera appelé.
+Nous allons ajouter quelques contraintes à ``ContactRequest`` pour s'assurer que
+personne ne puisse soumettre le formulaire avec des données non conformes.
 
 .. code-block:: php
 
@@ -215,7 +225,7 @@ data.
          * @validation:MaxLength(100)
          * @validation:NotBlank
          */
-        protected $subject = 'Subject...';
+        protected $subject = 'Sujet...';
         
         /**
          * @validation:NotBlank
@@ -236,24 +246,26 @@ data.
         // Other code...
     }
 
-If any constraint fails, the error is displayed next to the corresponding
-form field. You can learn more about constraints in :doc:`Validation 
-Constraints </book/validator/constraints>`.
+Si la moindre contrainte échoue, une erreur est affichée près du champs de
+formulaire correspondant. Vous pouvez en apprendre plus à propos des contraintes
+dans :doc:`Contraintes de Validation </book/validator/constraints>`.
 
-Creating Form Fields Automatically
-----------------------------------
+Création de Champs de Formulaire Automatiquement
+------------------------------------------------
 
-If you use Doctrine2 or Symfony's ``Validator``, Symfony already knows quite
-a lot about your domain classes. It knows which data type is used to persist
-a property in the database, what validation constraints the property has etc.
-The Form component can use this information to "guess" which field type should
-be created with which settings.
+Si vous utilisez Doctrine2 ou le ``Validator`` de Symfony2, Symfony est déjà
+suffisament omniscient concernant vos classes de domaine. Il sait quel type de
+données est utilisé pour persister une propriété dans la base de données, quelles
+contraintes de validation la propriété obéit etc. Le composant de Formulaire
+peut utiliser ces informations pour "deviner" quel type de champs devrait être
+créé avec quelles configurations.
 
-To use this feature, a form needs to know the class of the related domain
-object. You can set this class within the ``configure()`` method of the form
-by using ``setDataClass()`` and passing the fully qualified class name as
-a string. Calling ``add()`` with only the name of the property will then
-automatically create the best-matching field. 
+Pour utiliser cette fonctionnalité, un formulaire nécessite de savoir la classe
+de l'objet en question. Vous pouvez définir cette classe au sein de la méthode
+``configure()`` du formulaire en utilisant ``setDataClass()`` et en fournissant
+le nom de la classe pleinement qualifiée en tant que chaine de caractères.
+L'appel ``add()`` avec uniquement le nom de la propriété créera automatiquement
+par la suite le champs opportun.
 
 .. code-block:: php
 
@@ -271,12 +283,12 @@ automatically create the best-matching field.
         }
     }
 
-These field guesses are obviously not always right. For the property ``message``
-Symfony created a ``TextField``, it couldn't know from the validation constraints
-that you wanted a ``TextareaField`` instead. So you have to create this field
-manually. You can also tweak the options of the generated fields by passing
-them in the second parameter. We will add a ``max_length`` option to the
-``sender`` field to limit its length.
+Ces supputations de champs sont évidemment pas toujours parfaites. Pour la
+propriété ``message``, Symfony créé un ``TextField`` alors qu'un ``TextareaField``
+serait préférable. Donc vous devez modifier ce champs manuellement. Vous pouvez
+aussi affiner les options des champs générés en leur fournissant un second
+paramètre. Nous allons ajouter une option ``max_length`` au champs ``sender``
+pour limiter sa longueur.
 
 .. code-block:: php
 
@@ -292,17 +304,18 @@ them in the second parameter. We will add a ``max_length`` option to the
             $this->add('ccmyself');
         }
     }
-    
-Generating form fields automatically helps you to increase your development
-speed and reduces code duplication. You can store information about class 
-properties once and let Symfony2 do the other work for you.
 
-Rendering Forms as HTML
------------------------
+La génération automatique des champs de formulaire vous aide à améliorer votre
+vitesse de développement et réduit les duplications de code. Vous pouvez stocker
+des informations à propos des propriétés une seule fois et laisser Symfony2 faire
+le travail à votre place.
 
-In the controller we passed the form to the template in the ``form`` variable.
-In the template we can use the ``form_field`` helper to output a raw prototype
-of the form.
+Transformation de Formulaires en HTML
+-------------------------------------
+
+Dans un contrôleur, nous avons confié le formulaire à notre template dans la
+variable ``form``. Dans le template, nous pouvons utiliser le helper
+``form_field`` pour générer un prototype du formulaire brut de décoffrage.
 
 .. code-block:: html+jinja
 
@@ -313,15 +326,16 @@ of the form.
     <form action="#" method="post">
         {{ form_field(form) }}
         
-        <input type="submit" value="Send!" />
+        <input type="submit" value="Envoyer!" />
     </form>
     {% endblock %}
     
-Customizing the HTML Output
----------------------------
+Personnalisation de la génération HTML
+--------------------------------------
 
-In most applications you will want to customize the HTML of the form. You
-can do so by using the other built-in form rendering helpers.
+Dans la plupart des cas, vous souhaiterez personnaliser le HTML de votre
+formulaire. Vous pouvez faire ça en utilisant d'autres helpers pré-intégrés
+de transformation de formulaires.
 
 .. code-block:: html+jinja
 
@@ -347,30 +361,30 @@ can do so by using the other built-in form rendering helpers.
     </form>
     {% endblock %}
     
-Symfony2 comes with the following helpers:
+Symfony2 est livré avec les helpers suivants:
 
 *``form_enctype``*
-  Outputs the ``enctype`` attribute of the form tag. Required for file uploads.
+  affiche l'attribut ``enctype`` d'une balise de formulaire. Requis pour uploader un fichier.
 
 *``form_errors``*
-  Outputs the a ``<ul>`` tag with errors of a field or a form.
+  affiche la balise ``<ul>`` avec les erreurs d'un champs ou d'un formulaire.
 
 *``form_label``*
-  Outputs the ``<label>`` tag of a field.
+  affiche la balise ``<label>`` d'un champs.
 
 *``form_field``*
-  Outputs HTML of a field or a form.
+  affiche le HTML d'un champs ou d'un formulaire.
 
 *``form_hidden``*
-  Outputs all hidden fields of a form.
+  affiche tous les champs hidden d'un formulaire.
 
-Form rendering is covered in detail in :doc:`Forms in Templates <view>`.
+La transformation d'un formulaire est couverte en détails dans :doc:`Formulaires dans les Templates <view>`.
 
-Congratulations! You just created your first fully-functional form with
-Symfony2.
+Félicitations! Vous venez juste de créer votre premier formulaire pleinement
+fonctionnel avec Symfony2.
 
-Learn more from the Cookbook
-----------------------------
+En apprendre davantage dans le Vadémécum
+----------------------------------------
 
 * :doc:`/cookbook/email`
 * :doc:`/cookbook/gmail`

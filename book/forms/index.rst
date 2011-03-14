@@ -1,5 +1,5 @@
-Symfony2 Forms
-==============
+Formulaires Symfony2
+====================
 
 .. toctree::
    :maxdepth: 2
