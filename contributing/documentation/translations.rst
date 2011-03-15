@@ -19,6 +19,7 @@ contribuer. Voici la liste des dépôts *maître* officiels:
 * *Anglais*:  http://github.com/symfony/symfony-docs
 * *Russe*:  http://github.com/avalanche123/symfony-docs-ru
 * *Roumain*: http://github.com/sebio/symfony-docs-ro
+* *Japanese*: https://github.com/symfony-japan/symfony-docs-ja
 * *Français*: https://github.com/denis-chartier/symfony-docs-fr
 
 .. note::

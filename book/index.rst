@@ -12,7 +12,7 @@ Manuel
     routing
     templating
     testing
-    validator/index
+    validation
     forms/index
     security/index
     http_cache

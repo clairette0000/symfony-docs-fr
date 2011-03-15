@@ -248,7 +248,7 @@ personne ne puisse soumettre le formulaire avec des données non conformes.
 
 Si la moindre contrainte échoue, une erreur est affichée près du champs de
 formulaire correspondant. Vous pouvez en apprendre plus à propos des contraintes
-dans :doc:`Contraintes de Validation </book/validator/constraints>`.
+dans :ref:`validation-constraints`.
 
 Création de Champs de Formulaire Automatiquement
 ------------------------------------------------

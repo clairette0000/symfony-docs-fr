@@ -1,5 +1,5 @@
-Champs pré-intégrés
-===================
+Champs de formulaires pré-intégrés
+==================================
 
 Symfony2 est livré avec les champs suivants:
 

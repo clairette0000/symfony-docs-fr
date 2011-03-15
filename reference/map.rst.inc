@@ -1,4 +1,4 @@
-* **Configuration de paquets**:
+* **Configuration de Bundles**:
 
   * :doc:`FrameworkBundle (framework) </reference/bundle_configuration/FrameworkBundle>`
   * :doc:`DoctrineBundle (doctrine) </reference/bundle_configuration/DoctrineBundle>`
@@ -9,7 +9,8 @@
   * :doc:`WebProfilerBundle (web_profiler) </reference/bundle_configuration/WebProfilerBundle>`
   * :doc:`ZendBundle (zend) </reference/bundle_configuration/ZendBundle>`
 
-* :doc:`/book/forms/fields/index`
-* :doc:`/book/validator/constraints/index`
+* :doc:`Form Field Reference</book/forms/fields/index>`
+* :doc:`/reference/constraints`
 * :doc:`/reference/dic_tags`
 * :doc:`/reference/YAML`
+

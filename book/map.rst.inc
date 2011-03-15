@@ -14,11 +14,7 @@
   * :doc:`Migrations </book/doctrine/migrations/index>` |
   * :doc:`MongoDB </book/doctrine/mongodb-odm/index>`
 
-* **Validation**:
-
-  * :doc:`Présentation </book/validator/overview>` |
-  * :doc:`Validation </book/validator/validation>` |
-  * :doc:`/book/validator/constraints`
+* :doc:`Validation </book/validation>`
 
 * **Forms**:
 
