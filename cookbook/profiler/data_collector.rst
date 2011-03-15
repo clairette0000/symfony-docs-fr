@@ -3,8 +3,8 @@
 .. index::
    single: Profiling; Profilage; Data Collector; Collecteur de données
 
-Comment créer un Collecteur de Données personnalisé
-===================================================
+Comment créer un Collecteur de Données personnalisé?
+====================================================
 
 Le :doc:`Profiler </book/internals/profiler>` de Symfony2 délègue la collection
 de données aux collecteurs de données. Symfony2 est livré avec des Bundles avec peu

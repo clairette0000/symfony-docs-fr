@@ -1,5 +1,5 @@
 Manuel
-====
+======
 
 .. toctree::
     :hidden:

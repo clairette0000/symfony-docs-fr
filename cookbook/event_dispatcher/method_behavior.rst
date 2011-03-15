@@ -3,8 +3,8 @@
 .. index::
    single: Event Dispatcher
 
-Comment personnaliser une Méthode Comportementale sans utiliser d'Héritage
-==========================================================================
+Comment personnaliser une Méthode Comportementale sans utiliser d'Héritage?
+===========================================================================
 
 Faire quelque chose avant ou après un Appel à une Méthode
 ---------------------------------------------------------

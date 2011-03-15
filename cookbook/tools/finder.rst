@@ -3,8 +3,8 @@
 .. index::
    single: Finder
 
-Comment faire pour rechercher des Fichiers
-==========================================
+Comment faire pour rechercher des Fichiers?
+===========================================
 
 Le composant :namespace:`Symfony\\Component\\Finder` vous aide à trouver des
 fichiers et des répertoires rapidement et facilement.

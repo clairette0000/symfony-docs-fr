@@ -4,8 +4,8 @@
    single: Configuration; Sémantique
    single: Bundle; Configuration Extension
 
-Comment entreprendre la Configuration Sémantique d'un Bundle
-============================================================
+Comment entreprendre la Configuration Sémantique d'un Bundle?
+=============================================================
 
 Une configuration sémantique fournit un moyen encore plus souple de fournir une
 configuration pour un Bundle avec les avantages suivants pour de simples

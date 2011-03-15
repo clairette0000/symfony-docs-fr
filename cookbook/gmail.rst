@@ -4,8 +4,8 @@
    single: E-mails; Gmail
    single: Courriels; Gmail
 
-Comment utiliser Gmail pour l'envoi d'e-mails
-=============================================
+Comment utiliser Gmail pour l'envoi d'e-mails?
+==============================================
 
 Durant la phase de développement, au lieu d'utiliser le traditionnel serveur
 SMTP pour envoyer des courriels, vous considérez peut-être que Gmail est plus

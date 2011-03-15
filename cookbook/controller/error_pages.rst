@@ -1,7 +1,7 @@
 .. codeauthor:: D. CHARTIER <denis.chartier+symfony-docs-fr@bonjour-tic.com>
 
-Comment personnaliser vos pages d'erreur
-========================================
+Comment personnaliser vos pages d'erreur?
+=========================================
 
 Quand une exception est capturée par Symfony2, celle-ci est traitée à l'intérieur
 de la classe ``Kernel`` et éventuellement renvoyée vers un contrôleur

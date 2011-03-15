@@ -3,8 +3,8 @@
 .. index::
     single: Cache; Varnish
 
-Comment utiliser Varnish pour doper la vitesse de mon site
-==========================================================
+Comment utiliser Varnish pour doper la vitesse de mon site?
+===========================================================
 
 Puisque le cache de Symfony2 utilise les en-têtes standards du cache HTTP, le
 :ref:`symfony-gateway-cache` peut facilement être remplacé par un autre proxy

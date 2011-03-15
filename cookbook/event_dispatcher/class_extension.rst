@@ -3,8 +3,8 @@
 .. index::
    single: Event Dispatcher
 
-Comment faire pour étendre une Classe sans utiliser d'Héritage
-==============================================================
+Comment faire pour étendre une Classe sans utiliser d'Héritage?
+===============================================================
 
 Pour autoriser plusieurs classes à ajouter des méthodes à une autre classe, vous
 devez définir la méthode magique ``__call()`` dans la classe que vous voulez

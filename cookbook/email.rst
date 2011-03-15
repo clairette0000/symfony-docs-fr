@@ -4,8 +4,8 @@
    single: Courriels
    single: E-mails
 
-Comment envoyer un e-mail ?
-===========================
+Comment envoyer un e-mail?
+==========================
 
 L'envoi de courriels est une tâche classique pour toute application web et peut
 être source de complications spécifiques et d'éventuels écueils.

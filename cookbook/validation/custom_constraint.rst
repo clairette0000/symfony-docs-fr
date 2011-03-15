@@ -1,8 +1,8 @@
 .. index::
    single: Validation; Constraintes personnalisées
 
-Comment puis-je personnaliser une Contrainte de Validation ?
-------------------------------------------------------------
+Comment puis-je personnaliser une Contrainte de Validation?
+-----------------------------------------------------------
 
 Vous pouvez créer une contrainte personnalisée en étendant la classe de base
 ``constraint`` :class:`Symfony\\Component\\Validator\\Constraint`. Les options

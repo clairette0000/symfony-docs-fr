@@ -28,7 +28,7 @@ Les Contraintes de Validation de Référence
    constraints/Valid
 
 Le Validator est conçu pour valider des objets selon des *contraintes*.
-Dans la vie quotidienne, une contrainte peut être: "Le gâteau ne doit pas être
+Dans la vie quotidienne, une contrainte peut être: "Le gâteau ne doit pas sortir
 carbonisé". Dans Symfony2, les contraintes sont similaires: ce sont des
 affirmations selon lesquelles une condition est vraie.
 

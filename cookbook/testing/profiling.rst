@@ -3,8 +3,8 @@
 .. index::
    single: Tests; Profilage
 
-Comment utiliser le Profiler lors d'un Test Fonctionnel
-=======================================================
+Comment utiliser le Profiler lors d'un Test Fonctionnel?
+========================================================
 
 Il est hautement recommandé qu'un test fonctionnel teste uniquement une Response.
 Mais si vous écrivez des tests fonctionnels qui surveillent vos serveurs de

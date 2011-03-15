@@ -3,8 +3,8 @@
 .. index::
    single: Tests; Authentification HTTP
 
-Comment simuler une Authentification HTTP lors d'un Test Fonctionnel
-====================================================================
+Comment simuler une Authentification HTTP lors d'un Test Fonctionnel?
+=====================================================================
 
 Si votre application nécessite une authentification HTTP, transmettez le nom
 d'utilisateur et le mot de passe comme variables de serveur via ``createClient()``::

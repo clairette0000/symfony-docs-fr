@@ -3,8 +3,8 @@
 .. index::
    pair: Autoloader; Configuration
 
-Comment autocharger ses Classes
-===============================
+Comment autocharger ses Classes?
+================================
 
 Chaque fois que vous utilisez une classe non définie, PHP utilise le mécanisme
 de chargement automatique pour déléguer le chargement d'un fichier définissant

@@ -4,8 +4,8 @@
    single: Tests
    pair: Isolation; Clients
 
-Comment tester l'Interaction de plusieurs Clients
-=================================================
+Comment tester l'Interaction de plusieurs Clients?
+==================================================
 
 Si vous devez simuler une interaction entre différents Clients (dans le cadre
 d'un chat par exemple), créez plusieurs Clients::

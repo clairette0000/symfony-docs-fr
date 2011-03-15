@@ -3,8 +3,8 @@
 .. index::
    single: Contrôleur; Services
 
-Comment définir des Contrôleurs en tant que Services
-====================================================
+Comment définir des Contrôleurs en tant que Services?
+=====================================================
 
 Dans le Manuel, vous avez appris comment un contrôleur peut être aisément utilisé
 quand il étend la classe de base
