@@ -326,8 +326,8 @@ détienne une autre propriété, ``gender`` qui peut être soit "male" soit
         {
             /**
              * @validation:Choice(
-             *     "choices" = { "male", "female" },
-             *     "message" = "Désignez votre sexe."
+             *     choices = { "male", "female" },
+             *     message = "Désignez votre sexe."
              * )
              */
             public $gender;
