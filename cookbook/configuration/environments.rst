@@ -128,26 +128,26 @@ le fichier de configuration:
 .. index::
    single: Environments; Executing different environments
 
-Executing an Application in Different Environments
---------------------------------------------------
+Exécuter une application dans des environnements différents
+-----------------------------------------------------------
 
-To execute the application in each environment, load up the application using
-either the ``app.php`` (for the ``prod`` environment) or the ``app_dev.php``
-(for the ``dev`` environment) front controller:
+Pour éxécuter une application dans un environnement, chargez l'application en 
+utilisant soit le contrôleur ``app.php`` (pour l'environnement de ``prod``), 
+soit le contrôleur ``app_dev.php`` (pour l'environnement de ``dev`` environment):
 
 .. code-block:: text
 
-    http://localhost/app.php      -> *prod* environment
-    http://localhost/app_dev.php  -> *dev* environment
+    http://localhost/app.php      -> environnement de *prod*
+    http://localhost/app_dev.php  -> environnement de *dev*
 
 .. note::
 
-   The given URLs assume that your web server is configured to use the ``web/``
-   directory of the application as its root. Read more in
+   Ces URLs supposent que votre serveur web est configuré pour utiliser le 
+   répertoire racine ``web/``. Pour en savoir plus, lisez
    :doc:`Installing Symfony2</book/installation>`.
 
-If you open up one of these files, you'll quickly see that the environment
-used by each is explicitly set:
+Si vous ouvrez l'un de ces fichiers, vous verrez très rapidement que l'environnement
+utilisé est explicitement spécifié:
 
 .. code-block:: php
    :linenos:
@@ -162,9 +162,10 @@ used by each is explicitly set:
     $kernel = new AppCache(new AppKernel('prod', false));
     $kernel->handle(Request::createFromGlobals())->send();
 
-As you can see, the ``prod`` key specifies that this environment will run
-in the ``prod`` environment. A Symfony2 application can be executed in any
-environment by using this code and changing the environment string.
+Comme vous pouvez le voir, le code ``prod`` spécifie que cet environnement
+s'éxécutera en tant qu'environnement de ``prod``. Une application Symfony2 peut
+être éxécutée dans n'importe quel environnement en utilisant ce modèle et en changeant
+le code de l'environnement.
 
 .. note::
 
