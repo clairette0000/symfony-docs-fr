@@ -1,37 +1,38 @@
 .. index::
    single: Environments;
 
-How to Master and Create new Environments?
-==========================================
+Comment maîtriser et créer de nouveaux environnements ?
+=======================================================
 
-Every application is the combination of code and a set of configuration that
-dictates how that code should function. The configuration may define the
-database being used, whether or not something should be cached, or how verbose
-logging should be. In Symfony2, the idea of "environments" is the idea that
-the same codebase can be run using multiple different configurations. For
-example, the ``dev`` environment should use configuration that makes development
-easy and friendly, while the ``prod`` environment should use a set of configuration
-optimized for speed.
+Chaque application est une combinaison de code et de tout un lot de configuration
+qui dicte le comportement que le code doit avoir. La configuration peut définir 
+le rôle de la base de données et son utilisation, ce qui doit être mis ou pas en
+cache ou encore ce qui doit être mis dans les fichiers de logs.
+Dans Symfony2, le concept d'"environnement" est qu'une même application de base
+peut être démarrée avec différentes configurations. Par exemple, l'environnement
+"dev" pourrait utiliser une configuration qui rend le développement rapide et 
+facile, tandis que l'environnement "prod" pourrait utiliser un jeu de configuration
+qui privilégie les temps de réponse.
 
 .. index::
    single: Environments; Configuration files
 
-Different Environments, Different Configuration Files
------------------------------------------------------
+Différents environnements, différents fichiers de configuration
+---------------------------------------------------------------
 
-A typical Symfony2 application begins with three environments: ``dev``,
-``prod``, and ``test``. As discussed, each "environment" simply represents
-a way to execute the same codebase with different configuration. It should
-be no surprise then that each environment loads its own individual configuration
-file. If you're using the YAML configuration format, the following files
-are used:
+Une application Symfony2 typique possède trois environnements: ``dev``,
+``prod``, and ``test``. Comme nous l'avons dit plus haut, chaque "environnement"
+représente simplement une manière d'éxécuter un même code de base, mais avec une 
+configuration différente. Ca n'est donc pas une surprise, chque environnement ne 
+charge que ses propres fichiers de configuration. Si vous utilisez le format de 
+configuration YAML, les fichiers suivants sont utilisés :
 
- * for the ``dev`` environment: ``app/config/config_dev.yml``
- * for the ``prod`` environment: ``app/config/config_prod.yml``
- * for the ``test`` environment: ``app/config/config_test.yml``
+ * pour l'environnement de ``dev`` : ``app/config/config_dev.yml``
+ * pour l'environnement de ``prod`` : ``app/config/config_prod.yml``
+ * pour l'environnement de ``test`` : ``app/config/config_test.yml``
 
-This works via a simple standard that's used by default inside the ``AppKernel``
-class:
+Cela fonctionne grâce à un simple standard utilisé par défaut dans la classe 
+``AppKernel``:
 
 .. code-block:: php
 
@@ -48,14 +49,14 @@ class:
         }
     }
 
-As you can see, when Symfony2 is loaded, it uses the given environment to
-determine which configuration file to load. This accomplishes the goal of
-multiple environments in an elegant, powerful and transparent way.
+Comme vous pouvez le voir, une fois chargé, Symfony2 utilise l'environnement afin 
+de déterminer quel fichier de configuration charger. Cela permet de définir plusieurs
+environnements de manière simple, puissante et transparente.
 
-Of course, in reality, each environment differs only somewhat from others.
-Generally, all environments will share a large base of common configuration.
-Opening the "dev" configuration file,  you can see how this is accomplished
-easily and transparently:
+Bien sûr, en réalité, chaque environnement diffère des autres sur au moins un aspect.
+Généralement, la majorité de la configuration sera commune à tous les environnements.
+Ouvrez maintenant le fichier de configuration de "dev" et voyez comme l'import se 
+fait facilement:
 
 .. configuration-block::
 
@@ -80,12 +81,15 @@ easily and transparently:
 
         // ...
 
-To share common configuration, each environment's configuration file
-simply first imports from a central configuration file (``config.yml``).
-The remainder of the file can then deviate from the default configuration
-by overriding individual parameters. For example, by default, the ``web_profiler``
-toolbar is disabled. However, in the ``dev`` environment, the toolbar is
-activated by modifying the default value in the ``dev`` configuration file:
+Pour partager une configuration commune, les fichiers de configuration de chaque 
+environnement commencent importer très simplement un fichier de configuration 
+global (``config.yml``).
+
+Dans la suite du fichier, il est possible de s'écarter de la configuration par 
+défaut en surchargeant spécifiquement chaque paramètre. Par exemple, par défaut, 
+la barre d'outil ``web_profiler`` est désactivée. Pourtant, dans l'environnement 
+de ``dev``, la barre d'outil est activée en changeant la valeur par défaut, dans 
+le fichier de configuration:
 
 .. configuration-block::
 
