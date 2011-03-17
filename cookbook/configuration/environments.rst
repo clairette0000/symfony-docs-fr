@@ -169,25 +169,25 @@ le code de l'environnement.
 
 .. note::
 
-   The ``test`` environment is used when writing functional tests and is
-   not accessible in the browser directly via a front controller. In other
-   words, unlike the other environments, there is no ``app_test.php`` front
-   controller file.
+   L'environnement de ``test`` est utilisé pour les tests fonctionnels et n'est 
+   pas accessible directement par le navigateur via un contrôleur de front. En 
+   d'autres termes, contrairement aux autres environnements, le contrôleur 
+   ``app_test.php`` n'existe pas.
 
 .. index::
    single: Configuration; Debug mode
 
 .. sidebar:: *Debug* Mode
 
-    Important, but unrelated to the topic of *environments* is the ``false``
-    key on line 8 of the front controller above. This specifies whether or
-    not the application should run in "debug mode". Regardless of the environment,
-    a Symfony2 application can be run with debug mode set to ``true`` or
-    ``false``. This affects many things in the application, such as whether
-    or not errors should be displayed or if cache files are dynamically rebuilt
-    on each request. Though not a requirement, debug mode is generally set
-    to ``true`` for the ``dev`` and ``test`` environments and ``false`` for
-    the ``prod`` environment.
+    Chose importante, mais sans rapport avec les *environnements*, la clé ``false``
+    à la ligne 8 du contrôleur ci-dessus, spécifie que l'application ne doit pas
+    être exécutée en mode "debug". Indépendamment de l'environnement, une application
+    Symfony2 peut être exécutée avec le mode debug activé ou non. Cela affecte 
+    beaucoup choses dans l'application, notamment si les erreurs doivent être ou
+    non affichées ou encore si les fichiers de cache sont regénérés à chaque requête.
+    Sans indication contraire, le mode debug est généralement à ``true`` pour 
+    les environnements de ``dev`` et de ``test``et à ``false`` pour l'environnement 
+    de ``prod``.
 
     Internally, the value of the debug mode becomes the ``kernel.debug``
     parameter used inside the :doc:`service container </book/service_container>`.
