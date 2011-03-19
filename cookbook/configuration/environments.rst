@@ -318,35 +318,35 @@ Le nouvel environnement est maintenant accessible via::
 .. index::
    single: Environments; Cache directory
 
-Environments and the Cache Directory
-------------------------------------
+Les environnements et le cache
+------------------------------
 
-Symfony2 takes advantage of caching in many ways: the application configuration,
-routing configuration, Twig templates and more are cached to PHP objects
-stored in files on the filesystem.
+Symfony2 tire profit du cache de différentes manières: la configuration de 
+l'application, la configuration du routage, les templates Twig et bien plus, sont
+convertis en objets PHP et stockés dans des fichiers cachés.
 
-By default, these cached files are largely stored in the ``app/cache`` directory.
-However, each environment caches its own set of files:
+Par défaut, ces fichiers sont majoritairement stockés dans le dossier ``app/cache``.
+Cependant, chacque environnement cache ses propres fichiers:
 
 .. code-block:: text
 
-    app/cache/dev   - cache directory for the *dev* environment
-    app/cache/prod  - cache directory for the *prod* environment
+    app/cache/dev   - dossier de cache de l'environnement de *dev*
+    app/cache/prod  - dossier de cache de l'environnement de *prod*
 
-Sometimes, when debugging, it may be helpful to inspect a cached file to
-understand how something is working. When doing so, remember to look in
-the directory of the environment you're using (most commonly ``dev`` while
-developing and debugging). While it can vary, the ``app/cache/dev`` directory
-includes the following:
+Parfois, en débuggant, il peut être utile d'inspecter un fichier caché afin de 
+comprendre le fonctionnement de l'application. Dans ce cas, souvenez vous de bien
+regarder dans le dossier de l'environnement que vous utilisez (très souvent ``dev`` 
+lors du développement et du debug). Bien que cela puisse varier, le dossier 
+``app/cache/dev`` contient les fichiers suivants:
 
-* ``appDevDebugProjectContainer.php`` - the cached "service container" that
-  represents the cached application configuration;
+* ``appDevDebugProjectContainer.php`` - le "service container" mis en cache qui représente
+   la configuration mise en cache de l'application;
 
-* ``appdevUrlGenerator.php`` - the PHP class generated from the routing
-  configuration and used when generating URLs;
+* ``appdevUrlGenerator.php`` - la classe PHP générée à partir du fichier de routage
+  et utilusé pour générer les URLs;
 
-* ``appdevUrlMatcher.php`` - the PHP class used for route matching - look
-  here to see the compiled regular expression logic used to match incoming
-  URLs to different routes;
+* ``appdevUrlMatcher.php`` - la classe PHP utilisée pour la correspondance des routes
+   C'est ici qu'il faut regarder pour voir les expressions régulières utilsées pour 
+   la correspondances entre les URLs entrantes et les différentes routes;
 
-* ``twig/`` - this directory contains all the cached Twig templates.
+* ``twig/`` - ce dossier contient tous les templates Twig mis en cache.
