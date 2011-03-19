@@ -4,16 +4,17 @@
 DBAL
 ====
 
-The `Doctrine`_ Database Abstraction Layer (DBAL) is an abstraction layer that
-sits on top of `PDO`_ and offers an intuitive and flexible API for
-communicating with the most popular relational databases that exist today!
+`Doctrine`_ Database Abstraction Layer (DBAL) est une couche d'abstraction qui
+se trouve par dessus `PDO`_ et qui fournit une API flexible et intuitive afin de 
+communiquer avec les bases de données relationnelles les plus populaires qui 
+existent aujourd'hui!
 
 .. tip::
 
-    You can read more about the Doctrine DBAL on the official `documentation`_
-    website.
+    Vous pouvez consulter la `documentation`_ officielle afin d'en savoir plus 
+    sur Doctrine DBAL.
 
-To get started you just need to enable and configure the DBAL:
+Pour commencer, vous avez juste besoin d'activer et de configurer DBAL:
 
 .. code-block:: yaml
 
@@ -26,8 +27,8 @@ To get started you just need to enable and configure the DBAL:
             user:     root
             password: null
 
-You can then access the Doctrine DBAL connection by accessing the
-``database_connection`` service:
+Vous pouvez accéder à la connexion Doctrine DBAL en accédant au service
+``database_connection``:
 
 .. code-block:: php
 
