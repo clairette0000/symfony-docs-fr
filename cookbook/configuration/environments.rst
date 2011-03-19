@@ -189,11 +189,11 @@ le code de l'environnement.
     les environnements de ``dev`` et de ``test``et à ``false`` pour l'environnement 
     de ``prod``.
 
-    Internally, the value of the debug mode becomes the ``kernel.debug``
-    parameter used inside the :doc:`service container </book/service_container>`.
-    If you look inside the application configuration file, you'll see the
-    parameter used, for example, to turn logging on or off when using the
-    Doctrine DBAL:
+    En interne, la valeur du mode debug devient le paramètre ``kernel.debug`` 
+    qui est utilisé dans le :doc:`service container </book/service_container>`.
+    Si vous jetez un oeil dans le fichier de configuration de l'application, 
+    vous verrez que le paramètre est utilisé, par exemple, pour activer ou non 
+    l'authentification Doctrine:
 
     .. configuration-block::
 
@@ -221,21 +221,22 @@ le code de l'environnement.
 .. index::
    single: Environments; Creating a new environment
 
-Creating a New Environment
---------------------------
+Créer un nouvel environnement
+-----------------------------
 
-By default, a Symfony2 application has three environments that handle most
-cases. Of course, since an environment is nothing more than a string that
-corresponds to a set of configuration, creating a new environment is quite
-easy.
+Par défaut, une application Symfony2 a 3 environnements qui permettent de gérer 
+la plupart des situations. Bien sûr, puisqu'un environnement n'est rien d'autre 
+qu'un nom de code correspondant à une configuration, créer un nouvel environnement
+est très facile.
 
-Suppose, for example, that before deployment, you need to benchmark your
-application. One way to benchmark the application is to use near-production
-settings, but with Symfony2's ``web_profiler`` enabled. This allows Symfony2
-to record information about your application while benchmarking.
+Supposez, par exemple, qu'avant le déploiement, vous avez besoin de faire un audit
+de votre application. Une manière de le faire est d'utiliser des paramètres de 
+pré-production, mais avec le ``web_profiler`` de Symfony2 activé. Cela permet à
+Symfony2 d'enregistrer des informations de votre application pendant l'audit.
 
-The best way to accomplish this is via a new environment called, for example,
-``benchmark``. Start by creating a new configuration file:
+La meilleure manière de réaliser cela est d'utiliser un nouvel environnement,
+appelé, par exemple, ``benchmark``. Commencez par créer un nouveau fichier de 
+configuration:
 
 .. configuration-block::
 
@@ -271,16 +272,16 @@ The best way to accomplish this is via a new environment called, for example,
             'profiler' => array('only-exceptions' => false),
         ));
 
-And with this simple addition, the application now supports a new environment
-called ``benchmark``.
+Et avec ces simples ajouts, l'application supporte maintenant un nouvel environnement
+appelé ``benchmark``.
 
-This new configuration file imports the configuration from the ``prod`` environment
-and modifies it. This guarantees that the new environment is identical to
-the ``prod`` environment, except for any changes explicitly made here.
+Cette nouvelle configuration importe la configuration de l'environnement de``prod``
+et la modifie. Cela garantie que le nouvel environnement est identique à l'environnement
+de ``prod``, exceptés tout changement effectué explicitement.
 
-Because you'll want this environment to be accessible via a browser, you
-should also create a front controller for it. Copy the ``web/app.php`` file
-to ``web/app_benchmark.php`` and edit the environment to be ``benchmark``:
+Parce que vous voudrez que cet environnement soit accessible depuis un navigateur,
+vous devrez créer un nouveau contrôleur frontal. Copiez le fichier ``web/app.php`` 
+vers ``web/app_benchmark.php`` et éditez l'environnement pour mettre ``benchmark``:
 
 .. code-block:: php
 
@@ -294,18 +295,19 @@ to ``web/app_benchmark.php`` and edit the environment to be ``benchmark``:
     $kernel = new AppKernel('benchmark', false);
     $kernel->handle(Request::createFromGlobals())->send();
 
-The new environment is now accessible via::
+Le nouvel environnement est maintenant accessible via::
 
     http://localhost/app_benchmark.php
 
 .. note::
 
-   Some environments, like the ``dev`` environment, are never meant to be
-   accessed on any deployed server by the general public. This is because
-   certain environments, for debugging purposes, may give too much information
-   about the application or underlying infrastructure. To be sure these environments
-   aren't accessible, the front controller is usually protected from external
-   IP addresses via the following code at the top of the controller:
+   Certains environnements, comme l'environnement de ``dev``, ne sont pas prévus
+   pour être déployés sur un serveur ni être accessibles par le public. C'est 
+   parce que certain environnements, notamment pour le debuggage, pourraient divulguer
+   trop d'informations sur l'application ou son fonctionnement interne. Pour s'assurer
+   que ces environnements ne soient pas accessible, le contrôleur est généralement
+   protégé contre les accès depuis les Ip externes, comme le montre le code en tête
+   du fichier:
    
     .. code-block:: php
 
