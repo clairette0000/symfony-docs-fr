@@ -1,8 +1,8 @@
-Database Migrations
-===================
+Migrations de base de données
+=============================
 
-Learn about Doctrine's database migration tool and start migrating your database
-schema safer and more effectively.
+Apprenez à maîtriser l'outil de migration Doctrine et migrez votre structure de 
+base de données de façon sécurisée et intuitive.
 
 .. toctree::
    :maxdepth: 2

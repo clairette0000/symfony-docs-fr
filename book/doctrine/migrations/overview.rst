@@ -4,30 +4,32 @@
 Migrations
 ==========
 
-The database migrations feature is an extension of the database abstraction
-layer and offers you the ability to programmatically deploy new versions of
-your database schema in a safe and standardized way.
+L'outil de migration de bases de données est une extention de la couche d'abstraction
+et vous offre la possibilité de programmer puis déployer de nouvelles versions 
+de votre schéma de base de données de ma manière sécurisée et standardisée.
 
 .. tip::
+   
+    Vous pouvez en savoir plus sur les migrations Doctrine en consultant la
+    `documentation`_ du projet.
 
-    You can read more about the Doctrine Database Migrations on the projects
-    `documentation`_.
-
-All of the migrations functionality is contained in a few console commands:
+Toutes les fonctionnalités liées aux migrations tiennent dans quelques commandes:
 
 .. code-block:: bash
 
     doctrine:migrations
-      :diff     Generate a migration by comparing your current database to your mapping information.
-      :execute  Execute a single migration version up or down manually.
-      :generate Generate a blank migration class.
-      :migrate  Execute a migration to a specified version or the latest available version.
-      :status   View the status of a set of migrations.
-      :version  Manually add and delete migration versions from the version table.
+      :diff     Génère une nouvelle migration en comparant votre base de données 
+actuelle et vos informations de mapping.
+      :execute  Exécute une seule migration (upgrade ou downgrade) manuellement.
+      :generate Génère une classe de migration vide.
+      :migrate  Exécute une migration vers une version spécifique ou vers la dernière version.
+      :status   Affiche le status d'un lot de migrations.
+      :version  Ajoute ou supprime manuellement des versions de migration de la 
+table des versions.
 
-Every bundle manages its own migrations so when working with the above commands
-you must specify the bundle you want to work with. For example to see the
-status of a bundle migrations you can run the ``status`` command:
+Chaque bundle gère ses propres migrations. Lorsque vous travaillez avec l'une des
+commandes ci-dessus, vous devez spécifier le bundle qui est concerné. Par exemple,
+pour voir le status des migrations d'un bundle, exécutez la commande ``status``:
 
 .. code-block:: bash
 
@@ -46,8 +48,8 @@ status of a bundle migrations you can run the ``status`` command:
         >> Available Migrations:                               0
         >> New Migrations:                                     0
 
-Now, we can start working with migrations by generating a new blank migration
-class:
+Maintenant, nous pouvons commencer à travailler avec les migrations en générant
+une nouvelle classe de migration vide:
 
 .. code-block:: bash
 
@@ -56,11 +58,11 @@ class:
 
 .. tip::
 
-    You may need to create the folder ``/path/to/project/app/DoctrineMigrations``
-    before running the ``doctrine:migrations:generate`` command.
+    Vous devrez créer le dossier ``/path/to/project/app/DoctrineMigrations``
+    avant de lancer la commande ``doctrine:migrations:generate``.
 
-Have a look at the newly generated migration class and you will see something
-like the following::
+Jetez un oeil à la classe de migration nouvellement générée et vous verrez 
+quelque chose qui ressemble à::
 
     namespace Application\Migrations;
 
@@ -80,8 +82,8 @@ like the following::
         }
     }
 
-If you were to run the ``status`` command it will show that you have one new
-migration to execute:
+Si vous lancier la commande ``status``, elle vous dira que vous avez une nouvelle
+migration à exécuter:
 
 .. code-block:: bash
 
@@ -104,8 +106,8 @@ migration to execute:
 
        >> 2010-06-21 14:06:55 (20100621140655)                not migrated
 
-Now you can add some migration code to the ``up()`` and ``down()`` methods and
-migrate:
+Maintenant, vous pouvez ajouter du code aux méthodes ``up()`` et ``down()`` et 
+lancer la migration:
 
 .. code-block:: bash
 
