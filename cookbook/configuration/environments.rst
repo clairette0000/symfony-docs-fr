@@ -1,37 +1,38 @@
 .. index::
    single: Environments;
 
-How to Master and Create new Environments?
-==========================================
+Comment maîtriser et créer de nouveaux environnements ?
+=======================================================
 
-Every application is the combination of code and a set of configuration that
-dictates how that code should function. The configuration may define the
-database being used, whether or not something should be cached, or how verbose
-logging should be. In Symfony2, the idea of "environments" is the idea that
-the same codebase can be run using multiple different configurations. For
-example, the ``dev`` environment should use configuration that makes development
-easy and friendly, while the ``prod`` environment should use a set of configuration
-optimized for speed.
+Chaque application est une combinaison de code et de tout un lot de configuration
+qui dicte le comportement que le code doit avoir. La configuration peut définir 
+le rôle de la base de données et son utilisation, ce qui doit être mis ou pas en
+cache ou encore ce qui doit être mis dans les fichiers de logs.
+Dans Symfony2, le concept d'"environnement" est qu'une même application de base
+peut être démarrée avec différentes configurations. Par exemple, l'environnement
+"dev" pourrait utiliser une configuration qui rend le développement rapide et 
+facile, tandis que l'environnement "prod" pourrait utiliser un jeu de configuration
+qui privilégie les temps de réponse.
 
 .. index::
    single: Environments; Configuration files
 
-Different Environments, Different Configuration Files
------------------------------------------------------
+Différents environnements, différents fichiers de configuration
+---------------------------------------------------------------
 
-A typical Symfony2 application begins with three environments: ``dev``,
-``prod``, and ``test``. As discussed, each "environment" simply represents
-a way to execute the same codebase with different configuration. It should
-be no surprise then that each environment loads its own individual configuration
-file. If you're using the YAML configuration format, the following files
-are used:
+Une application Symfony2 typique possède trois environnements: ``dev``,
+``prod``, and ``test``. Comme nous l'avons dit plus haut, chaque "environnement"
+représente simplement une manière d'éxécuter un même code de base, mais avec une 
+configuration différente. Ca n'est donc pas une surprise, chque environnement ne 
+charge que ses propres fichiers de configuration. Si vous utilisez le format de 
+configuration YAML, les fichiers suivants sont utilisés :
 
- * for the ``dev`` environment: ``app/config/config_dev.yml``
- * for the ``prod`` environment: ``app/config/config_prod.yml``
- * for the ``test`` environment: ``app/config/config_test.yml``
+ * pour l'environnement de ``dev`` : ``app/config/config_dev.yml``
+ * pour l'environnement de ``prod`` : ``app/config/config_prod.yml``
+ * pour l'environnement de ``test`` : ``app/config/config_test.yml``
 
-This works via a simple standard that's used by default inside the ``AppKernel``
-class:
+Cela fonctionne grâce à un simple standard utilisé par défaut dans la classe 
+``AppKernel``:
 
 .. code-block:: php
 
@@ -48,14 +49,14 @@ class:
         }
     }
 
-As you can see, when Symfony2 is loaded, it uses the given environment to
-determine which configuration file to load. This accomplishes the goal of
-multiple environments in an elegant, powerful and transparent way.
+Comme vous pouvez le voir, une fois chargé, Symfony2 utilise l'environnement afin 
+de déterminer quel fichier de configuration charger. Cela permet de définir plusieurs
+environnements de manière simple, puissante et transparente.
 
-Of course, in reality, each environment differs only somewhat from others.
-Generally, all environments will share a large base of common configuration.
-Opening the "dev" configuration file,  you can see how this is accomplished
-easily and transparently:
+Bien sûr, en réalité, chaque environnement diffère des autres sur au moins un aspect.
+Généralement, la majorité de la configuration sera commune à tous les environnements.
+Ouvrez maintenant le fichier de configuration de "dev" et voyez comme l'import se 
+fait facilement:
 
 .. configuration-block::
 
@@ -80,12 +81,15 @@ easily and transparently:
 
         // ...
 
-To share common configuration, each environment's configuration file
-simply first imports from a central configuration file (``config.yml``).
-The remainder of the file can then deviate from the default configuration
-by overriding individual parameters. For example, by default, the ``web_profiler``
-toolbar is disabled. However, in the ``dev`` environment, the toolbar is
-activated by modifying the default value in the ``dev`` configuration file:
+Pour partager une configuration commune, les fichiers de configuration de chaque 
+environnement commencent importer très simplement un fichier de configuration 
+global (``config.yml``).
+
+Dans la suite du fichier, il est possible de s'écarter de la configuration par 
+défaut en surchargeant spécifiquement chaque paramètre. Par exemple, par défaut, 
+la barre d'outil ``web_profiler`` est désactivée. Pourtant, dans l'environnement 
+de ``dev``, la barre d'outil est activée en changeant la valeur par défaut, dans 
+le fichier de configuration:
 
 .. configuration-block::
 
@@ -124,26 +128,26 @@ activated by modifying the default value in the ``dev`` configuration file:
 .. index::
    single: Environments; Executing different environments
 
-Executing an Application in Different Environments
---------------------------------------------------
+Exécuter une application dans des environnements différents
+-----------------------------------------------------------
 
-To execute the application in each environment, load up the application using
-either the ``app.php`` (for the ``prod`` environment) or the ``app_dev.php``
-(for the ``dev`` environment) front controller:
+Pour éxécuter une application dans un environnement, chargez l'application en 
+utilisant soit le contrôleur ``app.php`` (pour l'environnement de ``prod``), 
+soit le contrôleur ``app_dev.php`` (pour l'environnement de ``dev`` environment):
 
 .. code-block:: text
 
-    http://localhost/app.php      -> *prod* environment
-    http://localhost/app_dev.php  -> *dev* environment
+    http://localhost/app.php      -> environnement de *prod*
+    http://localhost/app_dev.php  -> environnement de *dev*
 
 .. note::
 
-   The given URLs assume that your web server is configured to use the ``web/``
-   directory of the application as its root. Read more in
+   Ces URLs supposent que votre serveur web est configuré pour utiliser le 
+   répertoire racine ``web/``. Pour en savoir plus, lisez
    :doc:`Installing Symfony2</book/installation>`.
 
-If you open up one of these files, you'll quickly see that the environment
-used by each is explicitly set:
+Si vous ouvrez l'un de ces fichiers, vous verrez très rapidement que l'environnement
+utilisé est explicitement spécifié:
 
 .. code-block:: php
    :linenos:
@@ -158,37 +162,38 @@ used by each is explicitly set:
     $kernel = new AppCache(new AppKernel('prod', false));
     $kernel->handle(Request::createFromGlobals())->send();
 
-As you can see, the ``prod`` key specifies that this environment will run
-in the ``prod`` environment. A Symfony2 application can be executed in any
-environment by using this code and changing the environment string.
+Comme vous pouvez le voir, le code ``prod`` spécifie que cet environnement
+s'éxécutera en tant qu'environnement de ``prod``. Une application Symfony2 peut
+être éxécutée dans n'importe quel environnement en utilisant ce modèle et en changeant
+le code de l'environnement.
 
 .. note::
 
-   The ``test`` environment is used when writing functional tests and is
-   not accessible in the browser directly via a front controller. In other
-   words, unlike the other environments, there is no ``app_test.php`` front
-   controller file.
+   L'environnement de ``test`` est utilisé pour les tests fonctionnels et n'est 
+   pas accessible directement par le navigateur via un contrôleur de front. En 
+   d'autres termes, contrairement aux autres environnements, le contrôleur 
+   ``app_test.php`` n'existe pas.
 
 .. index::
    single: Configuration; Debug mode
 
 .. sidebar:: *Debug* Mode
 
-    Important, but unrelated to the topic of *environments* is the ``false``
-    key on line 8 of the front controller above. This specifies whether or
-    not the application should run in "debug mode". Regardless of the environment,
-    a Symfony2 application can be run with debug mode set to ``true`` or
-    ``false``. This affects many things in the application, such as whether
-    or not errors should be displayed or if cache files are dynamically rebuilt
-    on each request. Though not a requirement, debug mode is generally set
-    to ``true`` for the ``dev`` and ``test`` environments and ``false`` for
-    the ``prod`` environment.
+    Chose importante, mais sans rapport avec les *environnements*, la clé ``false``
+    à la ligne 8 du contrôleur ci-dessus, spécifie que l'application ne doit pas
+    être exécutée en mode "debug". Indépendamment de l'environnement, une application
+    Symfony2 peut être exécutée avec le mode debug activé ou non. Cela affecte 
+    beaucoup choses dans l'application, notamment si les erreurs doivent être ou
+    non affichées ou encore si les fichiers de cache sont regénérés à chaque requête.
+    Sans indication contraire, le mode debug est généralement à ``true`` pour 
+    les environnements de ``dev`` et de ``test``et à ``false`` pour l'environnement 
+    de ``prod``.
 
-    Internally, the value of the debug mode becomes the ``kernel.debug``
-    parameter used inside the :doc:`service container </book/service_container>`.
-    If you look inside the application configuration file, you'll see the
-    parameter used, for example, to turn logging on or off when using the
-    Doctrine DBAL:
+    En interne, la valeur du mode debug devient le paramètre ``kernel.debug`` 
+    qui est utilisé dans le :doc:`service container </book/service_container>`.
+    Si vous jetez un oeil dans le fichier de configuration de l'application, 
+    vous verrez que le paramètre est utilisé, par exemple, pour activer ou non 
+    l'authentification Doctrine:
 
     .. configuration-block::
 
@@ -216,21 +221,22 @@ environment by using this code and changing the environment string.
 .. index::
    single: Environments; Creating a new environment
 
-Creating a New Environment
---------------------------
+Créer un nouvel environnement
+-----------------------------
 
-By default, a Symfony2 application has three environments that handle most
-cases. Of course, since an environment is nothing more than a string that
-corresponds to a set of configuration, creating a new environment is quite
-easy.
+Par défaut, une application Symfony2 a 3 environnements qui permettent de gérer 
+la plupart des situations. Bien sûr, puisqu'un environnement n'est rien d'autre 
+qu'un nom de code correspondant à une configuration, créer un nouvel environnement
+est très facile.
 
-Suppose, for example, that before deployment, you need to benchmark your
-application. One way to benchmark the application is to use near-production
-settings, but with Symfony2's ``web_profiler`` enabled. This allows Symfony2
-to record information about your application while benchmarking.
+Supposez, par exemple, qu'avant le déploiement, vous avez besoin de faire un audit
+de votre application. Une manière de le faire est d'utiliser des paramètres de 
+pré-production, mais avec le ``web_profiler`` de Symfony2 activé. Cela permet à
+Symfony2 d'enregistrer des informations de votre application pendant l'audit.
 
-The best way to accomplish this is via a new environment called, for example,
-``benchmark``. Start by creating a new configuration file:
+La meilleure manière de réaliser cela est d'utiliser un nouvel environnement,
+appelé, par exemple, ``benchmark``. Commencez par créer un nouveau fichier de 
+configuration:
 
 .. configuration-block::
 
@@ -266,16 +272,16 @@ The best way to accomplish this is via a new environment called, for example,
             'profiler' => array('only-exceptions' => false),
         ));
 
-And with this simple addition, the application now supports a new environment
-called ``benchmark``.
+Et avec ces simples ajouts, l'application supporte maintenant un nouvel environnement
+appelé ``benchmark``.
 
-This new configuration file imports the configuration from the ``prod`` environment
-and modifies it. This guarantees that the new environment is identical to
-the ``prod`` environment, except for any changes explicitly made here.
+Cette nouvelle configuration importe la configuration de l'environnement de``prod``
+et la modifie. Cela garantie que le nouvel environnement est identique à l'environnement
+de ``prod``, exceptés tout changement effectué explicitement.
 
-Because you'll want this environment to be accessible via a browser, you
-should also create a front controller for it. Copy the ``web/app.php`` file
-to ``web/app_benchmark.php`` and edit the environment to be ``benchmark``:
+Parce que vous voudrez que cet environnement soit accessible depuis un navigateur,
+vous devrez créer un nouveau contrôleur frontal. Copiez le fichier ``web/app.php`` 
+vers ``web/app_benchmark.php`` et éditez l'environnement pour mettre ``benchmark``:
 
 .. code-block:: php
 
@@ -289,18 +295,19 @@ to ``web/app_benchmark.php`` and edit the environment to be ``benchmark``:
     $kernel = new AppKernel('benchmark', false);
     $kernel->handle(Request::createFromGlobals())->send();
 
-The new environment is now accessible via::
+Le nouvel environnement est maintenant accessible via::
 
     http://localhost/app_benchmark.php
 
 .. note::
 
-   Some environments, like the ``dev`` environment, are never meant to be
-   accessed on any deployed server by the general public. This is because
-   certain environments, for debugging purposes, may give too much information
-   about the application or underlying infrastructure. To be sure these environments
-   aren't accessible, the front controller is usually protected from external
-   IP addresses via the following code at the top of the controller:
+   Certains environnements, comme l'environnement de ``dev``, ne sont pas prévus
+   pour être déployés sur un serveur ni être accessibles par le public. C'est 
+   parce que certain environnements, notamment pour le debuggage, pourraient divulguer
+   trop d'informations sur l'application ou son fonctionnement interne. Pour s'assurer
+   que ces environnements ne soient pas accessible, le contrôleur est généralement
+   protégé contre les accès depuis les Ip externes, comme le montre le code en tête
+   du fichier:
    
     .. code-block:: php
 
@@ -311,35 +318,35 @@ The new environment is now accessible via::
 .. index::
    single: Environments; Cache directory
 
-Environments and the Cache Directory
-------------------------------------
+Les environnements et le cache
+------------------------------
 
-Symfony2 takes advantage of caching in many ways: the application configuration,
-routing configuration, Twig templates and more are cached to PHP objects
-stored in files on the filesystem.
+Symfony2 tire profit du cache de différentes manières: la configuration de 
+l'application, la configuration du routage, les templates Twig et bien plus, sont
+convertis en objets PHP et stockés dans des fichiers cachés.
 
-By default, these cached files are largely stored in the ``app/cache`` directory.
-However, each environment caches its own set of files:
+Par défaut, ces fichiers sont majoritairement stockés dans le dossier ``app/cache``.
+Cependant, chacque environnement cache ses propres fichiers:
 
 .. code-block:: text
 
-    app/cache/dev   - cache directory for the *dev* environment
-    app/cache/prod  - cache directory for the *prod* environment
+    app/cache/dev   - dossier de cache de l'environnement de *dev*
+    app/cache/prod  - dossier de cache de l'environnement de *prod*
 
-Sometimes, when debugging, it may be helpful to inspect a cached file to
-understand how something is working. When doing so, remember to look in
-the directory of the environment you're using (most commonly ``dev`` while
-developing and debugging). While it can vary, the ``app/cache/dev`` directory
-includes the following:
+Parfois, en débuggant, il peut être utile d'inspecter un fichier caché afin de 
+comprendre le fonctionnement de l'application. Dans ce cas, souvenez vous de bien
+regarder dans le dossier de l'environnement que vous utilisez (très souvent ``dev`` 
+lors du développement et du debug). Bien que cela puisse varier, le dossier 
+``app/cache/dev`` contient les fichiers suivants:
 
-* ``appDevDebugProjectContainer.php`` - the cached "service container" that
-  represents the cached application configuration;
+* ``appDevDebugProjectContainer.php`` - le "service container" mis en cache qui représente
+   la configuration mise en cache de l'application;
 
-* ``appdevUrlGenerator.php`` - the PHP class generated from the routing
-  configuration and used when generating URLs;
+* ``appdevUrlGenerator.php`` - la classe PHP générée à partir du fichier de routage
+  et utilusé pour générer les URLs;
 
-* ``appdevUrlMatcher.php`` - the PHP class used for route matching - look
-  here to see the compiled regular expression logic used to match incoming
-  URLs to different routes;
+* ``appdevUrlMatcher.php`` - la classe PHP utilisée pour la correspondance des routes
+   C'est ici qu'il faut regarder pour voir les expressions régulières utilsées pour 
+   la correspondances entre les URLs entrantes et les différentes routes;
 
-* ``twig/`` - this directory contains all the cached Twig templates.
+* ``twig/`` - ce dossier contient tous les templates Twig mis en cache.

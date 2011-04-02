@@ -5,8 +5,8 @@
 Configuration
 =============
 
-One example configuration with a MySQL database could look like this following
-example:
+Un example de configuration avec une base de données MySQL pourrait ressembler
+au code suivant:
 
 .. code-block:: yaml
 
@@ -18,12 +18,12 @@ example:
             user:     root
             password: null
 
-The DoctrineBundle supports all parameters that all the default doctrine drivers
-accept, converted to the XML or YAML naming standards that Symfony enforces.
-See the Doctrine DBAL `documentation`_ for more information. Additionally
-there are some Symfony related options that you can configure. The following
-block shows all possible configuration keys without explaining their meaning
-further:
+DoctrineBundle supporte tous les paramètres ques les pilotes par défaut de Doctrine
+acceptent, convertis aux normes XML ou YAML que Symfony applique.
+Consultez la `documentation`_  de Doctrine DBAL pour plus d'informations. 
+En plus de cela, vous pouvez configurer certaines options liées à Symfony. 
+Le bloc suivant montre toutes les clés de paramètre possibles, sans expliquer pour
+l'instant leur signification:
 
 .. configuration-block::
 
@@ -72,8 +72,9 @@ further:
             />
         </doctrine:config>
 
-There are also a bunch of dependency injection container parameters
-that allow you to specify which classes are used (with their default values):
+Il existe également un certain nombre de paramètres lié à l'injecteur de dépendance
+qui vous permettent de spécifier quelles classes sont utilisées (avec leurs valeurs
+par défaut):
 
 .. code-block:: yaml
 
@@ -86,9 +87,9 @@ that allow you to specify which classes are used (with their default values):
         doctrine.dbal.events.oracle_session_init.class: Doctrine\DBAL\Event\Listeners\OracleSessionInit
         doctrine.dbal.logging: %kernel.debug%
 
-If you want to configure multiple connections you can do so by simply listing
-them under the key named ``connections``. All the parameters shown above
-can also be specified in the connections subkeys.
+Si vous voulez configurer plusieurs connexions, vous pouvez le faire très 
+simplement en les listant sous la clé de paramètre ``connections``. 
+Tous les paramètres spécifiés ci-dessus peuvent aussi être spécifiés ici.
 
 .. code-block:: yaml
 
@@ -107,10 +108,9 @@ can also be specified in the connections subkeys.
                     password:         null
                     host:             localhost
 
-If you have defined multiple connections you can use the
-``$this->get('doctrine.dbal.[connectionname]_connection)``
-as well but you must pass it an argument with the
-connection name that you want get
+Si vous avez défini plusieurs connexions, vous pouvez tout aussi bien utiliser 
+``$this->get('doctrine.dbal.[connectionname]_connection)``, mais vous devez
+passer en argument le nom de la connexion
 
 .. code-block:: php
 
